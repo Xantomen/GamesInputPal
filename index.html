@@ -30,43 +30,61 @@
   		<div id="container_middle" class="center-block yellow">
   			
   			<div id="left_text_container" class="brown">
-	    	LEFT CONTAINER
+	    		<div id="label_pair1" class="label_pair">
+	    			<div class="label_pair_texts_container">
+	    				<input name="game_title" class="h5 text-center center-block 
+	    				description_first_language_button_text" value="Springen / Auswahlhen" 
+	    				placeholder="Description in the native language" type="text">
+			  			<input name="game_title" class="h5 text-center center-block 
+			  			description_second_language_button_text" value="Fire / Use" 
+			  				placeholder="Description in English" type="text">
+	    			</div>
+	    			<div class="label_pair_anchor_container">
+	    				
+	    			</div>	
+	    		</div>
+	    		
+	    	
 	    	</div>
   			<div id="controllers_images_container" class="green">
   				<div id="controllers_image_container">
   					<img id="controllers_image" src="res/img/playstation3_controller.svg" 
   					class="svg img-responsive center-block max_height" alt="Controller IMAGE">
   				</div>
-			    <div id="number_players_container">
-			    	<div id="number_players_image_container">
-			    		<img id="players_image" src="res/img/players.png" 
-  					class="img-responsive center-block max_height" alt="Controller IMAGE">
-			    	</div>
-		    		
-		    		<div id="number_players_inputs_container">
-		    			<input id="number_players_min_text" name="number_players_min" class="h1 text-center center-block" 
-	  					value="1" placeholder="Write your Game Title here" type="text">
-	  					<div id="number_players_line_text_container">
-	  						<div id="number_players_line_text" class="h1 text-center center-block">-</div>
-						</div>
-	  					<input id="number_players_max_text" name="number_players_max" class="h1 text-center center-block" 
-	  					value="2" placeholder="Write your Game Title here" type="text">
-		    		</div>
-  					
-		    	</div>
+			    
 	    	</div>
   			
 	    	<div id="right_text_container" class="orange">
 	    	RIGHT CONTAINER
+	    	</div>
+	    	
+	    	<div id="number_players_container">
+		    	<div id="number_players_image_container">
+		    		<img id="players_image" src="res/img/players.png" 
+				class="img-responsive center-block max_height" alt="Controller IMAGE">
+		    	</div>
+	    		
+	    		<div id="number_players_inputs_container">
+	    			<input id="number_players_min_text" name="number_players_min" class="h1 text-center center-block" 
+  					value="1" placeholder="Write your Game Title here" type="text">
+  					<div id="number_players_line_text_container">
+  						<div id="number_players_line_text" class="h1 text-center center-block">-</div>
+					</div>
+  					<input id="number_players_max_text" name="number_players_max" class="h1 text-center center-block" 
+  					value="2" placeholder="Write your Game Title here" type="text">
+	    		</div>
+				
 	    	</div>
   			
   		</div>
   		<div id="container_bottom" class="center-block green">
   			
   			<input id="description_first_language_text" name="game_title" class="h3 text-center center-block" 
-  				value="Steuer mit einem Freunden das Raumschiff und rette die Weltraumhäschen!" placeholder="Write a short description in the native language" type="text">
+  				value="Steuer mit einem Freunden das Raumschiff und rette die Weltraumhäschen!" 
+  				placeholder="Write a short description in the native language" type="text">
   			<input id="description_second_language_text" name="game_title" class="h3 text-center center-block" 
-  				value="Control the spaceship with a friend and save the space bunnies!" placeholder="Write a short description in the native language" type="text">
+  				value="Control the spaceship with a friend and save the space bunnies!" 
+  				placeholder="Write a short description in English" type="text">
   		</div>
   		
   		
@@ -84,7 +102,7 @@
     	
 		  location.reload(true);
 		}
-		//setTimeout(reload_screen, 300);
+		setTimeout(reload_screen, 300);
     	
     	/*
 		 * Replace all SVG images with inline SVG

@@ -59,9 +59,63 @@ svg path:hover {
 		position:relative;
 		display:inline-block;
 		width:20%;
-		height:100%;
+		height:80%;
 		float:left;
 	}
+		.label_pair
+		{
+			position:relative;
+			width:100%;
+			height:10%;
+			background-color: blue;
+		}
+		
+			.label_pair_texts_container {
+				
+				position:absolute;
+				
+				width:90%;
+				height:100%;
+				background-color:yellow;
+			}
+			
+				.description_first_language_button_text
+				{
+					position:absolute;
+					display:block;
+							
+					top:10%;
+								
+					width:100%;
+					height:40%;
+					
+					margin:0;
+				}
+				
+				.description_second_language_button_text {
+		
+					position:absolute;
+					display:block;
+					
+					top:50%;
+					
+					width:100%;
+					height:s40%;
+					
+					margin-top:0;
+				}
+			.label_pair_anchor_container {
+				
+				position:absolute;
+				
+				left:90%;
+				
+				width:10%;
+				height:100%;
+				background-color:orange;
+			}
+				
+	
 	#controllers_images_container {
 	
 		width:60%;
@@ -74,7 +128,7 @@ svg path:hover {
 		#controllers_image_container {
 	
 			width:100%;
-			height:70%;
+			height:80%;
 			
 			background-color:green;
 			float:left;
@@ -83,8 +137,12 @@ svg path:hover {
 		
 		#number_players_container {
 	
+			position:absolute;
+			
+			top:80%;
+	
 			width:100%;
-			height:30%;
+			height:20%;
 			
 			background-color:red;
 			float:left;
@@ -173,7 +231,7 @@ svg path:hover {
 		position:relative;
 		display:inline-block;
 		width:20%;
-		height:100%;
+		height:80%;
 		
 		float:left;
 		
