@@ -1,10 +1,24 @@
 
+@media print {
+  button {
+    display: none !important;
+  }
+  input,
+  textarea {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+svg path:hover {
+    fill: red !important;
+}
+
 .max_height {
 	
 	max-height: 100%;
 }
-
-
 
 
 #container_all {
@@ -170,7 +184,34 @@
 	display:block;
 	width:100%;
 	height:15%;
+	
 }
+	#description_first_language_text {
+		
+		position:absolute;
+		display:block;
+		
+		top:20%;
+		
+		width:100%;
+		height:30%;
+		
+		margin:0;
+		
+	}
+	
+	#description_second_language_text {
+		
+		position:absolute;
+		display:block;
+		
+		top:50%;
+		
+		width:100%;
+		height:30%;
+		
+		margin-top:0;
+	}
 
 
 
