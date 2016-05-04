@@ -1,0 +1,196 @@
+
+.max_height {
+	
+	max-height: 100%;
+}
+
+
+
+
+#container_all {
+	
+	position:absolute;
+	display:block;
+	width:100%;
+	height:100%;
+	background-color:red;
+	
+	overflow: hidden;
+}
+
+#container_top {
+	position:relative;
+	display:block;
+	width:100%;
+	height:15%;
+	
+}
+
+	#game_title_text {
+		
+		width:100%;
+		height:100%;
+		margin-top:0;
+	}
+
+#container_middle {
+	position:relative;
+	display:block;
+	width:100%;
+	height:70%;
+}
+
+	#left_text_container
+	{
+		position:relative;
+		display:inline-block;
+		width:20%;
+		height:100%;
+		float:left;
+	}
+	#controllers_images_container {
+	
+		width:60%;
+		height:100%;
+		
+		background-color:pink;
+		float:left;
+		
+	}
+		#controllers_image_container {
+	
+			width:100%;
+			height:70%;
+			
+			background-color:green;
+			float:left;
+			
+		}
+		
+		#number_players_container {
+	
+			width:100%;
+			height:30%;
+			
+			background-color:red;
+			float:left;
+			
+		}
+			#number_players_image_container {
+	
+			display:inline-block;
+
+			margin-left:30%;
+
+			width:20%;
+			height:100%;
+			
+			background-color:orange;
+			float:left;
+			
+			
+			}
+			
+			#number_players_inputs_container {
+	
+			display:inline-block;
+
+			width:20%;
+			height:100%;
+			
+			background-color:yellow;
+			float:left;
+			
+			
+			}
+			
+				#number_players_min_text
+				{
+					display:inline-block;
+
+					width:35%;
+					height:100%;
+					
+					margin-top:0;
+					
+					float:left;
+				}
+				
+				#number_players_line_text_container
+				{
+					display:table;
+
+					width:30%;
+					height:100%;
+					
+					margin-top:0;
+										
+					float:left;
+					
+					background-color:brown;
+					
+				}
+					#number_players_line_text
+					{						
+						width:100%;
+						height:100%;
+												
+						display:table-cell;
+												
+						vertical-align:middle;
+						
+					}
+				
+				#number_players_max_text
+				{
+					display:inline-block;
+
+					width:35%;
+					height:100%;
+					
+					margin-top:0;
+					
+					float:left;
+				}
+			
+			
+	#right_text_container
+	{
+		position:relative;
+		display:inline-block;
+		width:20%;
+		height:100%;
+		
+		float:left;
+		
+	}
+
+#container_bottom {
+	position:relative;
+	display:block;
+	width:100%;
+	height:15%;
+}
+
+
+
+
+
+.yellow {
+	
+	background-color: yellow;
+}
+
+.green {
+	
+	background-color: green;
+}
+
+.brown {
+	
+	background-color:brown;
+}
+
+.orange {
+	background-color:orange;
+}

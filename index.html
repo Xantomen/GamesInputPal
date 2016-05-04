@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="src/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,11 +19,72 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
+  	<div id="container_all">
+  		
+  		<div id="container_top" class="center-block brown">
+  
+  				<input id="game_title_text" name="game_title" class="h1 text-center center-block" 
+  				value="Lovers in a Dangerous Spacetime" placeholder="Write your Game Title here" type="text">
+  
+  		</div>
+  		<div id="container_middle" class="center-block yellow">
+  			
+  			<div id="left_text_container" class="brown">
+	    	LEFT CONTAINER
+	    	</div>
+  			<div id="controllers_images_container" class="green">
+  				<div id="controllers_image_container">
+  					<img id="controllers_image" src="res/img/playstation3_controller.png" 
+  					class="img-responsive center-block max_height" alt="Controller IMAGE">
+  				</div>
+			    <div id="number_players_container">
+			    	<div id="number_players_image_container">
+			    		<img id="players_image" src="res/img/players.png" 
+  					class="img-responsive center-block max_height" alt="Controller IMAGE">
+			    	</div>
+		    		
+		    		<div id="number_players_inputs_container">
+		    			<input id="number_players_min_text" name="number_players_min" class="h1 text-center center-block" 
+	  					value="1" placeholder="Write your Game Title here" type="text">
+	  					<div id="number_players_line_text_container">
+	  						<div id="number_players_line_text" class="h1 text-center center-block">-</div>
+						</div>
+	  					<input id="number_players_max_text" name="number_players_max" class="h1 text-center center-block" 
+	  					value="2" placeholder="Write your Game Title here" type="text">
+		    		</div>
+  					
+		    	</div>
+	    	</div>
+  			
+	    	<div id="right_text_container" class="orange">
+	    	RIGHT CONTAINER
+	    	</div>
+  			
+  		</div>
+  		<div id="container_bottom" class="center-block green">
+  			BOTTOM CONTAINER
+  		</div>
+  		
+  		
+  	</div>
+    
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script>
+    	
+    	function reload_screen(){
+    	
+		  location.reload(true);
+		}
+		setTimeout(reload_screen, 300);
+    	
+    	//setTimeout(reload_screen, 2000);
+    	//setTimeout(window.location.reload.bind(window.location), 2000);
+    	
+    </script>
   </body>
 </html>
