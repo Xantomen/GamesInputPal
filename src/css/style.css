@@ -13,6 +13,10 @@
   	
   	overflow:hidden !important;
   }
+  .label_pair_anchor {
+  	
+  	display:none;
+  }
    
 }
 
@@ -58,7 +62,8 @@ html,body{
 
 .completed_link {
 	
-	display:none;
+	display:block;
+	opacity:0 !important;
 }
 
 .half_visible {
@@ -78,11 +83,11 @@ html,body{
 	
 	position:absolute;
 	display:block;
-	/*width:100%;
-	height:100%;*/
+	width:100%;
+	height:100%;
 	
-	height:190mm;
-    width:285mm;
+	/*height:190mm;
+    width:285mm;*/
     
     margin-left:0mm;
     
@@ -183,6 +188,11 @@ html,body{
 				border-radius:100%;
 				
 				opacity: 1 !important;
+			}
+			
+			.display {
+				
+				display:block;
 			}
 			
 			

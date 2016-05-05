@@ -40,10 +40,10 @@
 			  			description_second_language_button_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
-	    			<div label_pair_match="1" class="label_pair_anchor_right label_pair_anchor non_display">
+	    			<div label_pair_match="1" anchor_position="1" class="label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
-	    			<div label_pair_match="1" class="label_pair_anchor_bottom label_pair_anchor non_display">
+	    			<div label_pair_match="1" anchor_position="2" class="label_pair_anchor_bottom label_pair_anchor non_display">
 	    				
 	    			</div>	
 	    		</div>
@@ -56,10 +56,10 @@
 			  			description_second_language_button_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
-	    			<div label_pair_match="2" class="label_pair_anchor_right label_pair_anchor non_display">
+	    			<div label_pair_match="2" anchor_position="1" class="label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
-	    			<div label_pair_match="2" class="label_pair_anchor_bottom label_pair_anchor non_display">
+	    			<div label_pair_match="2" anchor_position="2" class="label_pair_anchor_bottom label_pair_anchor non_display">
 	    				
 	    			</div>	
 	    		</div>
@@ -72,10 +72,10 @@
 			  			description_second_language_button_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
-	    			<div label_pair_match="3" class="label_pair_anchor_right label_pair_anchor non_display">
+	    			<div label_pair_match="3" anchor_position="1" class="label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
-	    			<div label_pair_match="3" class="label_pair_anchor_bottom label_pair_anchor non_display">
+	    			<div label_pair_match="3" anchor_position="2" class="label_pair_anchor_bottom label_pair_anchor non_display">
 	    				
 	    			</div>	
 	    		</div>
@@ -88,10 +88,10 @@
 			  			description_second_language_button_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
-	    			<div label_pair_match="4" class="label_pair_anchor_right label_pair_anchor non_display">
+	    			<div label_pair_match="4" anchor_position="1" class="label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
-	    			<div label_pair_match="4" class="label_pair_anchor_bottom label_pair_anchor non_display">
+	    			<div label_pair_match="4" anchor_position="2" class="label_pair_anchor_bottom label_pair_anchor non_display">
 	    				
 	    			</div>	
 	    		</div>
@@ -104,10 +104,10 @@
 			  			description_second_language_button_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
-	    			<div label_pair_match="5" class="label_pair_anchor_right label_pair_anchor non_display">
+	    			<div label_pair_match="5" anchor_position="1" class="label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
-	    			<div label_pair_match="5" class="label_pair_anchor_bottom label_pair_anchor non_display">
+	    			<div label_pair_match="5" anchor_position="2" class="label_pair_anchor_bottom label_pair_anchor non_display">
 	    				
 	    			</div>	
 	    		</div>
@@ -120,10 +120,10 @@
 			  			description_second_language_button_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
-	    			<div label_pair_match="6" class="label_pair_anchor_right label_pair_anchor non_display">
+	    			<div label_pair_match="6" anchor_position="1" class="label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
-	    			<div label_pair_match="6" class="label_pair_anchor_bottom label_pair_anchor non_display">
+	    			<div label_pair_match="6" anchor_position="2" class="label_pair_anchor_bottom label_pair_anchor non_display">
 	    				
 	    			</div>	
 	    		</div>
@@ -186,6 +186,27 @@
 
     	var buttonActive = "none";
     	
+    	/* DrawnLine Object Architecture:
+    	 * 
+    	 * Fields that would be parsed on Json as save state for the server
+    	 * 
+    	 * "renderedLineObject":jsGraphicsObject,
+    	 * "chosenControllerId":"playstation3_controller",
+    	 * "selectedButtonId":"LeftAnalog",
+    	 * "selectedAnchorCommonId":"1" Where 1 is the shared label_pair_mark 
+    	 * "selectedAnchorPositionId":"2" Where 1 indicates right anchor, 2 indicates bottom anchor
+    	 * 
+    	 * Fields to use while operating with the app (after loading from server)
+    	 * 
+    	 * "selectedButton": selectedButtonObject,
+    	 * "selectedAnchor": selectedAnchorObject
+    	 * 
+    	 */
+    	    	
+    	var drawnLineArray = [];
+    	
+    	var blueLineCoords = [856,368,359,339];
+    	
     	$(document).ready(function(){
 		
     		function reload_screen(){
@@ -240,6 +261,8 @@
 			            					            		
 			            	});
 			            	
+			            	destroyDrawnLineObject(id);
+			            	
 			            	if($(this).attr("stroke") == "red")
 			            	{
 			            		buttonActive = "none";
@@ -259,6 +282,7 @@
 			            	}
 			            	else
 			            	{
+			            					            					            		
 			            		buttonActive = id;
 			            		
 			            		$(this).attr("stroke","red");
@@ -283,7 +307,7 @@
 			    });
 			});
 					
-			function drawLineFunction(x1,y1,x2,y2)
+			function drawLineFunction(canvas,x1,y1,x2,y2)
 			{
 				
 			  var adapted_x1 = Math.floor(x1);
@@ -291,65 +315,176 @@
 			  var adapted_y1 = Math.floor(y1);
 			  var adapted_y2 = Math.floor(y2);
 			  
-			  console.log("x1: "+adapted_x1+" y1: "+adapted_y1+" x2: "+adapted_x2+" y2: "+adapted_y2);
+			  //console.log("x1: "+adapted_x1+" y1: "+adapted_y1+" x2: "+adapted_x2+" y2: "+adapted_y2);
 			  
 			  //jg_doc.drawPolyline(new Array(50, 10, 120), new Array(10, 50, 70));
-			  jg_doc.setPrintable(true);
-			  jg_doc.setColor("#6699ff");
-			  jg_doc.setStroke(4);
-			  jg_doc.drawLine(adapted_x1, adapted_y1, adapted_x2, adapted_y2);
-			  jg_doc.paint(); // draws, in this case, directly into the document
+			  canvas.setPrintable(true);
+			  canvas.setColor("#6699ff");
+			  canvas.setStroke(20);
+			  canvas.drawLine(adapted_x1, adapted_y1, adapted_x2, adapted_y2);
+			  canvas.paint(); // draws, in this case, directly into the document
 			
 			}
-			
-			var jg_doc = new jsGraphics("container_all");
-			
 
+			
+			$( window ).resize(function() {
+			  
+			    updateDrawnLineObjects();
+			  
+			});
+			
+			function prepareContainerToPrint()
+			{
+				$("#container_all").css("height","190mm");
+			  	$("#container_all").css("width","285mm");
+			  	
+			  	updateDrawnLineObjects();
+			}
+			
+			function returnContainerToScreenValues()
+			{
+				$("#container_all").css("height","100%");
+			  	$("#container_all").css("width","100%");
+			  	
+			  	updateDrawnLineObjects();
+			}
+			
+			$( window ).keypress(function( e) {
+			  
+			  	if(e.which == 32)
+			  	{
+			  		prepareContainerToPrint();
+			  		
+			  		window.print();
+			  		
+			  		setTimeout(returnContainerToScreenValues, 10);
+
+			  	}
+
+			});
+			
+			function createNewDrawnLineObject(selectedButtonId,selectedAnchorCommonId,selectedAnchorPositionId,
+				selectedButton,selectedAnchor)
+			{
+				var jsGraphCanvas = new jsGraphics("container_all");
+								
+				var newDrawnLineObject = new Object();
+			            		
+			    newDrawnLineObject.renderedLineObject = jsGraphCanvas;
+        		newDrawnLineObject.selectedButtonId = selectedButtonId;
+        		newDrawnLineObject.selectedAnchorCommonId = selectedAnchorCommonId;
+        		newDrawnLineObject.selectedAnchorPositionId = selectedAnchorPositionId;
+        		
+        		newDrawnLineObject.selectedButton = selectedButton;
+        		newDrawnLineObject.selectedAnchor = selectedAnchor;
+        		
+        		drawnLineArray.push(newDrawnLineObject);
+			}
+			
+			function destroyDrawnLineObject(id_string)
+			{
+				var newArray = [];
+				
+				for(var i = 0; i < drawnLineArray.length; i++) {
+				    
+				
+				    if(drawnLineArray[i].selectedButtonId != id_string) {
+				        
+				        newArray.push(drawnLineArray[i]);
+				    }
+				    else
+				    {
+				    	drawnLineArray[i].renderedLineObject.clear();
+				    	
+				    	drawnLineArray[i].selectedAnchor.removeClass("completed_link");
+				    					    	
+				    	if(!$('.label_pair_anchor.completed_link[label_pair_match='
+				    	+drawnLineArray[i].selectedAnchorCommonId+']').length)
+				    	{
+				    		var label_pair_texts_container = $('.label_pair_texts_container[label_pair_match='
+				    		+drawnLineArray[i].selectedAnchorCommonId+']');
+				    		
+				    		label_pair_texts_container.addClass("non_display").addClass("half_visible");
+				    	}
+				    	
+				    }
+				}
+				
+				drawnLineArray = newArray;
+			}
+			
+			function updateDrawnLineObjects()
+			{				
+				for(var i=0;i<drawnLineArray.length;i++)
+				{
+					var selected_button_bounding_box = drawnLineArray[i].selectedButton.getBoundingClientRect();
+
+					var x_value = selected_button_bounding_box.x;
+					
+					if(x_value == null) x_value = selected_button_bounding_box.left;	
+					
+					var y_value = selected_button_bounding_box.y;
+					
+					if(y_value == null) y_value = selected_button_bounding_box.top;
+							
+					drawnLineArray[i].renderedLineObject.clear();
+								
+					var $label_pair_anchor = drawnLineArray[i].selectedAnchor;
+																					
+					drawLineFunction(drawnLineArray[i].renderedLineObject,
+						x_value + (selected_button_bounding_box.width/2), 
+						y_value + (selected_button_bounding_box.height/2),
+						$label_pair_anchor.offset().left + ($label_pair_anchor.width()/2), 
+						$label_pair_anchor.offset().top + ($label_pair_anchor.height()/2));
+				}
+			}
+			
 			//Function that occurs when linking a Button with a Laber Pair Anchor
 						
 			$('.label_pair_anchor').click(function(){
+							
+				if(buttonActive != "none" && !$(this).hasClass("completed_link"))
+				{
+					var selected_button = document.getElementById(buttonActive);
 				
-				var selected_button = document.getElementById(buttonActive);
-				
-				var selected_button_bounding_box = selected_button.getBoundingClientRect();
-				
-				//alert(selected_button.position().top + "-" + selected_button.position().left);
-
-				var $label_pair_anchor = $(this);
-
-				var label_pair_match = $(this).attr("label_pair_match");
-				
-				var label_pair_texts_container = $('.label_pair_texts_container[label_pair_match='+label_pair_match+']');
-								
-				xanto_explorer = selected_button;			
-				//alert(selected_button.width());
+					var selected_button_bounding_box = selected_button.getBoundingClientRect();
+					
+					var $label_pair_anchor = $(this);
+	
+					var label_pair_match = $label_pair_anchor.attr("label_pair_match");
+					
+					var anchor_position = $label_pair_anchor.attr("anchor_position");
+					
+					var label_pair_texts_container = $('.label_pair_texts_container[label_pair_match='+label_pair_match+']');
 											
-				drawLineFunction(selected_button_bounding_box.x + (selected_button_bounding_box.width/2), 
-				selected_button_bounding_box.y + (selected_button_bounding_box.height/2),
-				$label_pair_anchor.offset().left + ($label_pair_anchor.width()/2), 
-				$label_pair_anchor.offset().top + ($label_pair_anchor.height()/2));
-				
-				label_pair_texts_container.removeClass("non_display").removeClass("half_visible");
-				$(this).addClass("completed_link");
-				
-				buttonActive = "none";
-			            		
-			    $('path').each(function(){
-        		
-        			$(this).attr("stroke","none");
-        			$(this).attr("stroke-width","8");
-            	});
+					createNewDrawnLineObject(buttonActive,label_pair_match,anchor_position,
+						selected_button,$label_pair_anchor);
+									
+					updateDrawnLineObjects();
+						
+					label_pair_texts_container.removeClass("non_display").removeClass("half_visible");
+					$(this).addClass("completed_link");
+					
+					buttonActive = "none";
+				            		
+				    $('path').each(function(){
+	        		
+	        			$(this).attr("stroke","none");
+	        			$(this).attr("stroke-width","8");
+	            	});
+	
+	        		$(".label_pair_anchor_right").each(function(){
+	        		
+	        			$(this).addClass("non_display");
+	            	});
+	            	
+	            	$(".label_pair_anchor_bottom").each(function(){
+	            		
+	            		$(this).addClass("non_display");
+	            	});
 
-        		$(".label_pair_anchor_right").each(function(){
-        		
-        			$(this).addClass("non_display");
-            	});
-            	
-            	$(".label_pair_anchor_bottom").each(function(){
-            		
-            		$(this).addClass("non_display");
-            	});
-				
+				}
+							
 			});
 			    		
     	});
