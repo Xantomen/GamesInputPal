@@ -22,14 +22,32 @@
   <body>
   	<div id="container_all">
   		
-  		<div id="container_top" class="center-block brown">
+		
+		<div id="headers">
+			<div id="tool_name">
+  				Made with Games Input Schemer
+	  		</div>
+	  		
+	  		<div id="print_button" type="button" class="btn btn-primary">
+	  			Print Now!
+	  		</div>
+	  		
+	  		<div id="webpage_name">
+	  			<a href="http://xantomen.com/gamesinputschemer">http://xantomen.com/gamesinputschemer</a>
+	  		</div>
+			
+		</div>
+  		<div id="container_top" class="center-block">
   
   				<input id="game_title_text" name="game_title" class="h1 text-center center-block" 
   				value="" placeholder="Write your Game Title here" type="text">
   				
   				<input id="creator_name_text" name="creator_name" class="h2 text-center center-block" 
-  				value="" placeholder="Write the Creator's name here" type="text">
-  
+  				value="" placeholder="Write the Game Creator's name here" type="text">
+  				
+  				
+  				
+
   		</div>
   		<div id="container_middle" class="center-block">
   			
@@ -132,7 +150,7 @@
 	    			</div>	
 	    		</div>
 	    	</div>
-  			<div id="controllers_images_container" class="green">
+  			<div id="controllers_images_container">
   				<div id="controllers_image_container">
   					<img id="controllers_image" src="res/img/playstation3_controller.svg" 
   					class="svg img-responsive center-block max_height" alt="Controller IMAGE">
@@ -259,7 +277,7 @@
 	    	</div>
   			
   		</div>
-  		<div id="container_bottom" class="center-block green">
+  		<div id="container_bottom" class="center-block">
   			
   			<input id="description_first_language_text" name="game_title" class="h3 text-center center-block" 
   				value="" 
@@ -447,7 +465,16 @@
 			  	updateDrawnLineObjects();
 			}
 			
-			$( window ).keypress(function( e) {
+			$("#print_button").click(function(){
+				
+				prepareContainerToPrint();
+			  		
+		  		window.print();
+		  		
+		  		setTimeout(returnContainerToScreenValues, 10);
+			});
+			
+			/*$( window ).keypress(function( e) {
 			  			  
 			  	if(e.which == 13)
 			  	{
@@ -459,7 +486,7 @@
 
 			  	}
 
-			});
+			});*/
 			
 			function createNewDrawnLineObject(selectedButtonId,selectedAnchorCommonId,selectedAnchorPositionId,
 				selectedButton,selectedAnchor)

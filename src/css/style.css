@@ -17,6 +17,12 @@
   	
   	display:none;
   }
+  a[href]:after {
+    content: none !important;
+  }
+  #print_button {
+  	display: none !important;
+  }
    
 }
 
@@ -47,7 +53,7 @@ svg path:hover {
 html,body{
     background blue;
     
-    overflow:scroll;
+    overflow:hidden;
 }
 
 .max_height {
@@ -95,6 +101,54 @@ html,body{
 	
 }
 
+#headers {
+	position:relative;
+	
+	display:block;
+	
+	top:0;
+	left:0;
+	width:100%;
+	height:2%;
+		
+}
+		#tool_name {
+			
+			position:relative;
+			
+			width:45%;
+			
+			margin-left:1%;
+			
+			
+			float:left;
+			
+		}
+		
+		#print_button {
+			
+			position:relative;
+			
+			width:8%;
+			
+			float:left;
+		}
+		
+		#webpage_name {
+			
+			position:relative;
+			
+			width:45%;
+			
+			float:right;
+			
+			margin-right:1%;
+								
+			text-align:right;
+			
+			cursor: pointer;
+		}
+
 #container_top {
 	position:relative;
 	display:block;
@@ -102,7 +156,7 @@ html,body{
 	height:15%;
 	
 }
-
+	
 	#game_title_text {
 		
 		position:absolute;
@@ -277,7 +331,6 @@ html,body{
 		width:60%;
 		height:100%;
 		
-		background-color:pink;
 		float:left;
 		
 	}
@@ -286,7 +339,6 @@ html,body{
 			width:100%;
 			height:80%;
 			
-			background-color:green;
 			float:left;
 			
 		}
@@ -300,7 +352,6 @@ html,body{
 			width:100%;
 			height:20%;
 			
-			background-color:red;
 			float:left;
 			
 		}
@@ -308,12 +359,11 @@ html,body{
 	
 			display:inline-block;
 
-			margin-left:30%;
+			margin-left:41%;
 
-			width:20%;
+			width:10%;
 			height:100%;
 			
-			background-color:orange;
 			float:left;
 			
 			
@@ -323,10 +373,9 @@ html,body{
 	
 			display:inline-block;
 
-			width:20%;
+			width:10%;
 			height:100%;
 			
-			background-color:yellow;
 			float:left;
 			
 			
@@ -348,14 +397,13 @@ html,body{
 				{
 					display:table;
 
-					width:30%;
+					width:15%;
 					height:100%;
 					
 					margin-top:0;
 										
 					float:left;
 					
-					background-color:brown;
 					
 				}
 					#number_players_line_text
