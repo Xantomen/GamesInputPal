@@ -105,10 +105,26 @@ html,body{
 
 	#game_title_text {
 		
+		position:absolute;
+		
+		top:10%;
+		
 		width:100%;
-		height:100%;
+		height:40%;
 		margin-top:0;
 	}
+	
+	#creator_name_text {
+		
+		position:absolute;
+		
+		top:50%;
+		
+		width:100%;
+		height:40%;
+		margin-top:0;
+	}
+	
 
 #container_middle {
 	position:relative;
@@ -131,6 +147,7 @@ html,body{
 			width:100%;
 			height:16%;
 			
+			
 		}
 		
 			.label_pair_texts_container {
@@ -140,6 +157,21 @@ html,body{
 				width:90%;
 				height:80%;
 				
+				
+			}
+			
+			.left_position_label {
+				
+				position:absolute;
+				
+				left:0%;
+			}
+			
+			.right_position_label {
+				
+				position:absolute;
+				
+				left:10%;
 			}
 			
 				.description_first_language_button_text
@@ -168,7 +200,7 @@ html,body{
 					margin-top:0;
 				}
 				
-			.label_pair_anchor_right:hover {
+			.label_pair_anchor:hover {
 				
 				cursor: pointer;
 			    
@@ -179,8 +211,7 @@ html,body{
 				position:absolute;
 				
 				top:25%;
-				left:90%;
-				
+								
 				width:10%;
 				height:40%;
 				background-color:orange;
@@ -190,31 +221,54 @@ html,body{
 				opacity: 1 !important;
 			}
 			
+			.left_position_right_anchor {
+				
+				position:absolute;
+				
+				left:75%;
+			}
+			
+			.right_position_right_anchor {
+				
+				position:absolute;
+				
+				left:15%;
+			}
+			
 			.display {
 				
 				display:block;
 			}
 			
-			
-			.label_pair_anchor_bottom:hover {
-				
-				cursor: pointer;
-				opacity: 1 !important;
-			    background-color: red !important;
-			}
-			
+						
 			.label_pair_anchor_bottom {
 				
 				position:absolute;
 				
 				top:80%;
-				left:75%;
-				
-				width:10%;
+	
+				width:5%;
 				height:20%;
+				
 				background-color:orange;
 				
 				border-radius:100%;
+				
+				opacity: 1 !important;
+			}
+			
+			.left_position_bottom_anchor {
+				
+				position:absolute;
+				
+				left:75%;
+			}
+			
+			.right_position_bottom_anchor {
+				
+				position:absolute;
+				
+				left:15%;
 			}
 				
 	
