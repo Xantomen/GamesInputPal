@@ -182,6 +182,7 @@
     
     <script type="text/javascript">
     	
+		var xanto_explorer;
 
     	var buttonActive = "none";
     	
@@ -295,7 +296,7 @@
 			  //jg_doc.drawPolyline(new Array(50, 10, 120), new Array(10, 50, 70));
 			  jg_doc.setPrintable(true);
 			  jg_doc.setColor("#6699ff");
-			  jg_doc.setStroke(20);
+			  jg_doc.setStroke(4);
 			  jg_doc.drawLine(adapted_x1, adapted_y1, adapted_x2, adapted_y2);
 			  jg_doc.paint(); // draws, in this case, directly into the document
 			
@@ -308,16 +309,25 @@
 						
 			$('.label_pair_anchor').click(function(){
 				
-				var selected_button = $('path[id='+buttonActive+']');
+				var selected_button = document.getElementById(buttonActive);
+				
+				var selected_button_bounding_box = selected_button.getBoundingClientRect();
 				
 				//alert(selected_button.position().top + "-" + selected_button.position().left);
+
+				var $label_pair_anchor = $(this);
 
 				var label_pair_match = $(this).attr("label_pair_match");
 				
 				var label_pair_texts_container = $('.label_pair_texts_container[label_pair_match='+label_pair_match+']');
 								
-				drawLineFunction(selected_button.offset().left, selected_button.offset().top,
-				$(this).offset().left, $(this).offset().top);
+				xanto_explorer = selected_button;			
+				//alert(selected_button.width());
+											
+				drawLineFunction(selected_button_bounding_box.x + (selected_button_bounding_box.width/2), 
+				selected_button_bounding_box.y + (selected_button_bounding_box.height/2),
+				$label_pair_anchor.offset().left + ($label_pair_anchor.width()/2), 
+				$label_pair_anchor.offset().top + ($label_pair_anchor.height()/2));
 				
 				label_pair_texts_container.removeClass("non_display").removeClass("half_visible");
 				$(this).addClass("completed_link");
