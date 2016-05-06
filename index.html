@@ -27,13 +27,26 @@
 			<div id="tool_name">
   				Made with Games Input Schemer
 	  		</div>
-	  		
-	  		<div id="print_button" type="button" class="btn btn-primary">
-	  			Print Now!
-	  		</div>
-	  		
+
 	  		<div id="webpage_name">
 	  			<a href="http://xantomen.com/gamesinputschemer">http://xantomen.com/gamesinputschemer</a>
+	  		</div>
+			
+		</div>
+		<div id="buttons_bar">
+						
+			
+			<div id="choose_controller_dropdown" class="dropdown text-center">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Controller
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+			    <li class="controller_item" controller_name="xbox360_controller"><img class="image-responsive controller_thumbnail" src="res/img/xbox360_controller.png" > XBOX360</li>
+			    <li class="controller_item" controller_name="playstation3_controller"><img class="image-responsive controller_thumbnail" src="res/img/playstation3_controller.png" > PLAYSTATION3</li>
+			  </ul>
+			</div>
+
+	  		<div id="print_button" type="button" class="btn btn-primary">
+	  			Print Now!
 	  		</div>
 			
 		</div>
@@ -44,10 +57,7 @@
   				
   				<input id="creator_name_text" name="creator_name" class="h2 text-center center-block" 
   				value="" placeholder="Write the Game Creator's name and/or Twitter Handle here" type="text">
-  				
-  				
-  				
-
+  	
   		</div>
   		<div id="container_middle" class="center-block">
   			
@@ -331,97 +341,132 @@
 			}
 			//setTimeout(reload_screen, 250);
 	    	
-	    	/*
-			 * Replace all SVG images with inline SVG
-			 */
-			$('img.svg').each(function(){
-			    var $img = jQuery(this);
-			    var imgID = $img.attr('id');
-			    var imgClass = $img.attr('class');
-			    var imgURL = $img.attr('src');
+	    	prepareSvgControllerImage();
+	    	
+			//Change Controller Selection
 			
-			    $.get(imgURL, function(data) {
-			        // Get the SVG tag, ignore the rest
-			        var $svg = $(data).find('svg');
-			
-			        // Add replaced image's ID to the new SVG
-			        if(typeof imgID !== 'undefined') {
-			            $svg = $svg.attr('id', imgID);
-			        }
-			        // Add replaced image's classes to the new SVG
-			        if(typeof imgClass !== 'undefined') {
-			            $svg = $svg.attr('class', imgClass+' replaced-svg');
-			        }
-			
-			        // Remove any invalid XML tags as per http://validator.w3.org
-			        $svg = $svg.removeAttr('xmlns:a');
-			
-			        // Replace image with new SVG
-			        $img.replaceWith($svg);
-			
-			        // Add a handler
-			        $('path').each(function() {
-			        				        	
-			        	//On SVG Element Click
-			            $(this).click(function() {
-			            			
-			            	var id = $(this).attr('id');
-			            			            				            	
-			            	$('path').each(function(){
-			            		
-			            		if($(this).attr('id') != id)
-			            		{
-			            			$(this).attr("stroke","none");
-			            			$(this).attr("stroke-width","6");
-			            		}
-			            					            		
-			            	});
-			            	
-			            	destroyDrawnLineObject(id);
-			            	
-			            	if($(this).attr("stroke") == "red")
-			            	{
-			            		buttonActive = "none";
-			            		
-			            		$(this).attr("stroke","none");
-			            		$(this).attr("stroke-width","8");
-			            		
-			            		$(".label_pair_anchor_right").each(function(){
-			            		
-			            			$(this).addClass("non_display");
-				            	});
-				            	
-				            	$(".label_pair_anchor_bottom").each(function(){
-				            		
-				            		$(this).addClass("non_display");
-				            	});
-			            	}
-			            	else
-			            	{
-			            					            					            		
-			            		buttonActive = id;
-			            		
-			            		$(this).attr("stroke","red");
-			            		$(this).attr("stroke-width","8");
-			            		
-			            		$(".label_pair_anchor_right").each(function(){
-			            		
-				            		$(this).removeClass("non_display");
-				            	});
-				            	
-				            	$(".label_pair_anchor_bottom").each(function(){
-				            		
-				            		$(this).removeClass("non_display");
-				            	});
-				            	
-			            	}
-
-			            	
-			            });                       
-			        });
-	
-			    });
+			$(".controller_item").click(function(){
+				
+				var controller_name = $(this).attr("controller_name");
+				
+				resetAllObjectValues();
+				
+				replaceSvgControllerImageForSource("res/img/"+controller_name+".svg");
+				
+				prepareSvgControllerImage();
+				
 			});
+	    	
+	    	function replaceSvgControllerImageForSource(image_sourcepath)
+	    	{
+	    		
+	    		/*
+	    		 * Delete existing SVG Controller element
+	    		 */
+	    		$("#controllers_image").remove();
+	    		
+	    		var s = "<img id='controllers_image' src='"+image_sourcepath+"'";
+	    		s += "class='svg img-responsive center-block max_height' alt='Controller IMAGE'>";
+
+				$("#controllers_image_container").append(s);
+	    				
+	    	}
+	    	
+	    	function prepareSvgControllerImage()
+	    	{
+	    		
+	    		/*
+				 * Replace all SVG images with inline SVG
+				 */
+				$('#controllers_image').each(function(){
+				    var $img = jQuery(this);
+				    var imgID = $img.attr('id');
+				    var imgClass = $img.attr('class');
+				    var imgURL = $img.attr('src');
+				
+				    $.get(imgURL, function(data) {
+				        // Get the SVG tag, ignore the rest
+				        var $svg = $(data).find('svg');
+				
+				        // Add replaced image's ID to the new SVG
+				        if(typeof imgID !== 'undefined') {
+				            $svg = $svg.attr('id', imgID);
+				        }
+				        // Add replaced image's classes to the new SVG
+				        if(typeof imgClass !== 'undefined') {
+				            $svg = $svg.attr('class', imgClass+' replaced-svg');
+				        }
+				
+				        // Remove any invalid XML tags as per http://validator.w3.org
+				        $svg = $svg.removeAttr('xmlns:a');
+				
+				        // Replace image with new SVG
+				        $img.replaceWith($svg);
+				
+				        // Add a handler
+				        $('path').each(function() {
+				        				        	
+				        	//On SVG Element Click
+				            $(this).click(function() {
+				            			
+				            	var id = $(this).attr('id');
+				            			            				            	
+				            	$('path').each(function(){
+				            		
+				            		if($(this).attr('id') != id)
+				            		{
+				            			$(this).attr("stroke","none");
+				            			$(this).attr("stroke-width","6");
+				            		}
+				            					            		
+				            	});
+				            	
+				            	destroyDrawnLineObject(id);
+				            	
+				            	if($(this).attr("stroke") == "red")
+				            	{
+				            		buttonActive = "none";
+				            		
+				            		$(this).attr("stroke","none");
+				            		$(this).attr("stroke-width","8");
+				            		
+				            		$(".label_pair_anchor_right").each(function(){
+				            		
+				            			$(this).addClass("non_display");
+					            	});
+					            	
+					            	$(".label_pair_anchor_bottom").each(function(){
+					            		
+					            		$(this).addClass("non_display");
+					            	});
+				            	}
+				            	else
+				            	{
+				            					            					            		
+				            		buttonActive = id;
+				            		
+				            		$(this).attr("stroke","red");
+				            		$(this).attr("stroke-width","8");
+				            		
+				            		$(".label_pair_anchor_right").each(function(){
+				            		
+					            		$(this).removeClass("non_display");
+					            	});
+					            	
+					            	$(".label_pair_anchor_bottom").each(function(){
+					            		
+					            		$(this).removeClass("non_display");
+					            	});
+					            	
+				            	}
+	
+				            	
+				            });                       
+				        });
+		
+				    });
+				});
+	    	}
 					
 			function drawLineFunction(canvas,x1,y1,x2,y2)
 			{
@@ -504,6 +549,30 @@
         		newDrawnLineObject.selectedAnchor = selectedAnchor;
         		
         		drawnLineArray.push(newDrawnLineObject);
+			}
+			
+			function resetAllObjectValues()
+			{
+				destroyAllDrawnLineObjects();
+				
+				$('.label_pair_texts_container').addClass("non_display").addClass("half_visible");
+				$('.label_pair_anchor').attr("num_links","0");
+				$('.label_pair_anchor').removeClass("completed_link");
+			}
+			
+			function destroyAllDrawnLineObjects()
+			{
+				var newArray = [];
+				
+				for(var i = 0; i < drawnLineArray.length; i++) {
+				    
+				    	drawnLineArray[i].renderedLineObject.clear();
+				    	
+				}
+				
+				drawnLineArray = newArray;
+				
+
 			}
 			
 			function destroyDrawnLineObject(id_string)
@@ -629,6 +698,8 @@
 				}
 							
 			});
+			
+			
 			    		
     	});
     	

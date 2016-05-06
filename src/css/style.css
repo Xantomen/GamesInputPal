@@ -20,7 +20,8 @@
   a[href]:after {
     content: none !important;
   }
-  #print_button {
+  
+  #buttons_bar {
   	display: none !important;
   }
    
@@ -35,6 +36,10 @@
   }
   :-ms-input-placeholder { /* Internet Explorer 10+ */
       color: transparent;
+  }
+   
+  #headers {
+  	display:block !important;
   }
    
 }
@@ -114,10 +119,67 @@ html,body{
 	
 }
 
+#buttons_bar {
+  
+  	position:relative;
+  
+  	top:0;
+
+	width:100%;
+	height:2%;
+	
+	
+}
+
+	#choose_controller_dropdown {
+		position:relative;
+		
+		display:inline-block;
+	
+		float:left;
+		
+		margin-left:1px;
+	}
+		.controller_item:hover {
+		
+			background-color: #99bbff;	
+		}
+		
+		.controller_item {
+			
+			display: block;
+		    padding: 3px 20px;
+		    clear: both;
+		    font-weight: 400;
+		    line-height: 1.42857143;
+		    color: #333;
+		    white-space: nowrap;
+		    
+		    cursor:pointer;
+		}
+			.controller_thumbnail {
+				
+				max-width:50px;
+				max-height:50px;
+			}
+		
+	
+	#print_button {
+			
+		position:relative;
+				
+		display:inline-block;
+				
+		float:left;
+		
+		margin-left:1px;
+					
+	}
+
 #headers {
 	position:relative;
 	
-	display:block;
+	display:none;
 	
 	top:0;
 	left:0;
@@ -138,15 +200,7 @@ html,body{
 			
 		}
 		
-		#print_button {
-			
-			position:relative;
-			
-			width:8%;
-			
-			float:left;
-		}
-		
+
 		#webpage_name {
 			
 			position:relative;
