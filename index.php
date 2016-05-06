@@ -49,6 +49,15 @@
 	  		<div id="print_button" type="button" class="btn btn-primary">
 	  			Print Now!
 	  		</div>
+	  		
+  			<div id="load_button" type="button" class="btn btn-primary">
+	  			Load!
+	  		</div>
+	  		
+	  		<input id="search_text" name="search_text" class="h5 text-center" 
+  			value="" placeholder="Search by Game Title" type="text">
+  			
+	  		
 			
 		</div>
   		<div id="container_top" class="center-block">
@@ -400,7 +409,17 @@
 						
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
 			
-			loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
+			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
+			
+			$("#load_button").click(function(){
+				
+				var search_property = "gameTitle";
+				
+				var search_value = $("#search_text").val();
+				
+				loadTemplateByStringAndProperty(search_property,search_value);
+				
+			});
 			
 			function loadTemplateByStringAndProperty(property,string_value)
 			{

@@ -181,6 +181,31 @@ html,body{
 		margin-left:1px;
 					
 	}
+	
+	#load_button {
+			
+		position:relative;
+				
+		display:inline-block;
+				
+		float:left;
+		
+		margin-left:1px;
+		
+					
+	}
+	
+	#search_text {
+		
+		position:relative;
+		
+		height:200%;
+		
+		margin-top:0;
+				
+		border: 2px solid black !important;
+	
+	}
 
 #headers {
 	position:relative;
