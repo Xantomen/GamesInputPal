@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -20,42 +20,7 @@
     <script type="text/javascript" src="libs/jsgraphics/wz_jsgraphics.js"></script>
   </head>
   <body>
-  	
-  	<?php echo '<p>Hello World</p>'; ?> 
-  	<!--<?php
-		$q = intval($_GET['q']);
-		
-		$con = mysqli_connect('localhost','peter','abc123','my_db');
-		if (!$con) {
-		    die('Could not connect: ' . mysqli_error($con));
-		}
-		
-		/*mysqli_select_db($con,"ajax_demo");
-		$sql="SELECT * FROM user WHERE id = '".$q."'";
-		$result = mysqli_query($con,$sql);
-		
-		echo "<table>
-		<tr>
-		<th>Firstname</th>
-		<th>Lastname</th>
-		<th>Age</th>
-		<th>Hometown</th>
-		<th>Job</th>
-		</tr>";
-		while($row = mysqli_fetch_array($result)) {
-		    echo "<tr>";
-		    echo "<td>" . $row['FirstName'] . "</td>";
-		    echo "<td>" . $row['LastName'] . "</td>";
-		    echo "<td>" . $row['Age'] . "</td>";
-		    echo "<td>" . $row['Hometown'] . "</td>";
-		    echo "<td>" . $row['Job'] . "</td>";
-		    echo "</tr>";
-		}*/
-		echo "LALALALA";
-		//mysqli_close($con);
-		?> -->
-  	
-  	
+  		
   	<div id="container_all">
   		
 		
@@ -100,10 +65,10 @@
   			<div id="left_text_container">
 	    		<div id="label_pair" class="label_pair">
 	    			<div label_pair_match="1" class="left_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="1" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="1" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -116,10 +81,10 @@
 	    		</div>
 	    		<div id="label_pair" class="label_pair">
 	    			<div label_pair_match="2" class="left_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title_secondary" class="h5 text-center center-block 
+	    				<input label_pair_match="2" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title" class="h5 text-center center-block 
+			  			<input label_pair_match="2" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -132,10 +97,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="3" class="left_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="3" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="3" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -148,10 +113,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="4" class="left_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="4" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="4" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -164,10 +129,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="5" class="left_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="5" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="5" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -180,10 +145,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="6" class="left_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="6" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="6" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -198,7 +163,7 @@
 	    	</div>
   			<div id="controllers_images_container">
   				<div id="controllers_image_container">
-  					<img id="controllers_image" src="res/img/playstation3_controller.svg" 
+  					<img id="controllers_image" src="res/img/xbox360_controller.svg" 
   					class="svg img-responsive center-block max_height" alt="Controller IMAGE">
   				</div>
 			    
@@ -207,10 +172,10 @@
 	    	<div id="right_text_container">
 	    		<div id="label_pair" class="label_pair">
 	    			<div label_pair_match="11" class="right_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="11" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="11" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -223,10 +188,10 @@
 	    		</div>
 	    		<div id="label_pair" class="label_pair">
 	    			<div label_pair_match="12" class="right_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="12" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="12" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -239,10 +204,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="13" class="right_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="13" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="13" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -255,10 +220,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="14" class="right_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="14" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="14" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -271,10 +236,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="15" class="right_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="15" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="15" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -287,10 +252,10 @@
 	    		</div>
 	    		<div class="label_pair">
 	    			<div label_pair_match="16" class="right_position_label label_pair_texts_container non_display half_visible">
-	    				<input name="game_title" class="h5 text-center center-block 
+	    				<input label_pair_match="16" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
-			  			<input name="game_title_secondary" class="h5 text-center center-block 
+			  			<input label_pair_match="16" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
@@ -343,10 +308,10 @@
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
     
     <script type="text/javascript">
-    	
-		var xanto_explorer;
-
+    	    	 
     	var buttonActive = "none";
+    	
+    	var controllerChosen = "xbox360_controller";
     	
     	/*
     	 * Database GameTemplate Object Architecture:
@@ -407,6 +372,8 @@
 	    	
 	    	prepareSvgControllerImage();
 	    	
+	    	createAnchorsEventListener()
+	    	
 			//Change Controller Selection
 			
 			$(".controller_item").click(function(){
@@ -417,9 +384,198 @@
 				
 				replaceSvgControllerImageForSource("res/img/"+controller_name+".svg");
 				
+				controllerChosen = controller_name;
+				
 				prepareSvgControllerImage();
 				
+				$(".controller_item").each(function(){
+					
+					$(this).removeClass("selected");
+					
+				});
+				
+				$(this).addClass("selected");
+				
 			});
+						
+			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
+			
+			loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
+			
+			function loadTemplateByStringAndProperty(property,string_value)
+			{
+				  $.ajax({  
+				    type: "POST",  
+				    url: "src/php/return_template_information.php",  
+				    data: { 'string_value':string_value,'property':property},      
+				    success: function(json_data){ // <-- note the parameter here, not in your code
+				       //$('#box2').html(data);
+				       console.log(json_data);
+				       
+				       onLoadInitiateNewController(json_data);
+				       //onLoadEmbedValuesAndLines(json_data);
+				       
+				    },
+				    error: function() {
+			
+				    }
+				});
+				    	
+			}
+			
+			function onLoadInitiateNewController(json_data)
+			{
+				var parsed_data = $.parseJSON(json_data);
+		
+				//Getting the chosen controller, clearing the canvas and changing it for the new one
+				
+				var controller_name = parsed_data.controllerChosen;
+				
+				controllerChosen = controllerChosen;
+				
+				$(".controller_item").each(function(){
+					
+					$(this).removeClass("selected");
+					
+				});
+				
+				$(".controller_item[controller_name='"+controller_name+"']").addClass("selected");
+				
+				resetAllObjectValues();
+			
+				replaceSvgControllerImageForSource("res/img/"+controller_name+".svg");
+								
+				/*
+				 * Replace all SVG images with inline SVG
+				 */
+				$('#controllers_image').each(function(){
+				    var $img = jQuery(this);
+				    var imgID = $img.attr('id');
+				    var imgClass = $img.attr('class');
+				    var imgURL = $img.attr('src');
+								
+				    $.get(imgURL, function(data) {
+				    	
+				        // Get the SVG tag, ignore the rest
+				        var $svg = $(data).find('svg');
+				
+				        // Add replaced image's ID to the new SVG
+				        if(typeof imgID !== 'undefined') {
+				            $svg = $svg.attr('id', imgID);
+				        }
+				        // Add replaced image's classes to the new SVG
+				        if(typeof imgClass !== 'undefined') {
+				            $svg = $svg.attr('class', imgClass+' replaced-svg');
+				        }
+				
+				        // Remove any invalid XML tags as per http://validator.w3.org
+				        $svg = $svg.removeAttr('xmlns:a');
+				
+				        // Replace image with new SVG
+				        $img.replaceWith($svg);
+				
+				    }).done(function() {
+				    	
+					    onLoadEmbedValuesAndLines(parsed_data);
+					    
+						updateDrawnLineObjects();
+								
+						prepareSvgClickEvents();
+
+					 });
+				});
+
+			}
+			
+			function onLoadEmbedValuesAndLines(parsed_data)
+			{
+				
+				//Embedding Text Values in their appropriate places for Title, Creator
+				//Min Players, Max Players, First Description and Second Description
+				
+				$("#game_title_text").val(parsed_data.gameTitle);
+				$("#creator_name_text").val(parsed_data.gameCreator);
+				
+				$("#number_players_min_text").val(parsed_data.minGamePlayers);
+				$("#number_players_max_text").val(parsed_data.maxGamePlayers);
+				
+				$("#description_first_language_text").val(parsed_data.gameDescriptionPrimary);
+				$("#description_second_language_text").val(parsed_data.gameDescriptionSecondary);
+				
+				//Embedding Text Values for all active labels and making them visible
+				
+				var activeLabelsPrimaryArray = parsed_data.gameLabelsTextPrimary.split("*");
+				
+				for(var i=0;i < activeLabelsPrimaryArray.length; i++)
+				{
+					var dividedData = activeLabelsPrimaryArray[i].split(";");
+					
+					var label_pair_match = dividedData[0];
+					var label_text = dividedData[1];
+					
+					var $matched_label_pair = $(".label_pair_texts_container[label_pair_match="+label_pair_match+"]");
+					var $matched_label_primary = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]");
+				
+					$matched_label_pair.removeClass("non_display").removeClass("half_visible");
+					$matched_label_primary.val(label_text);
+				}
+				
+				
+				var activeLabelsSecondaryArray = parsed_data.gameLabelsTextSecondary.split("*");
+				
+				for(var i=0;i < activeLabelsSecondaryArray.length; i++)
+				{
+					var dividedData = activeLabelsSecondaryArray[i].split(";");
+					
+					var label_pair_match = dividedData[0];
+					var label_text = dividedData[1];
+					
+					var $matched_label_secondary = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]");
+				
+					$matched_label_secondary.val(label_text);
+				}
+				
+				//Making the appropriate anchors visible, then linking anchors and buttons,
+				//then giving the appropriate classes to anchors (make them visible)
+				
+				var labelLinksArray = parsed_data.gameLabelLinks.split("*");
+				
+				for(var i=0;i < labelLinksArray.length; i++)
+				{
+					var dividedData = labelLinksArray[i].split(";");
+					
+					var selectedAnchorCommonId = dividedData[0];
+					var selectedAnchorPositionId = dividedData[1];
+					var selectedButtonId = dividedData[2];
+					
+					var $matched_anchor = $(".label_pair_anchor[label_pair_match="+selectedAnchorCommonId+
+					"][anchor_position="+selectedAnchorPositionId+"]");
+										
+					console.log($matched_anchor);
+																	
+					var selected_button = document.getElementById(selectedButtonId);
+				
+					var selected_button_bounding_box = selected_button.getBoundingClientRect();
+																				
+					createNewDrawnLineObject(selectedButtonId,selectedAnchorCommonId,selectedAnchorPositionId,
+						selected_button,$matched_anchor);
+						
+									
+					var num_links = parseInt($matched_anchor.attr("num_links"));
+					$matched_anchor.attr("num_links",""+(num_links+1));
+					$matched_anchor.addClass("completed_link");
+					
+				}
+				
+				
+		    	/*
+		    	
+		    	var gameLabelLinks = String ( format: selectedAnchorCommonId;selectedAnchorPositionId;selectedButtonId* 
+		    	 							Ex: 1;2;LeftAnalog)
+		    	 
+		    	var gameColorScheme = String
+		    	var gameColorLines = String*/
+			}
 	    	
 	    	function replaceSvgControllerImageForSource(image_sourcepath)
 	    	{
@@ -467,70 +623,75 @@
 				        // Replace image with new SVG
 				        $img.replaceWith($svg);
 				
-				        // Add a handler
-				        $('path').each(function() {
-				        				        	
-				        	//On SVG Element Click
-				            $(this).click(function() {
-				            			
-				            	var id = $(this).attr('id');
-				            			            				            	
-				            	$('path').each(function(){
-				            		
-				            		if($(this).attr('id') != id)
-				            		{
-				            			$(this).attr("stroke","none");
-				            			$(this).attr("stroke-width","6");
-				            		}
-				            					            		
-				            	});
-				            	
-				            	destroyDrawnLineObject(id);
-				            	
-				            	if($(this).attr("stroke") == "red")
-				            	{
-				            		buttonActive = "none";
-				            		
-				            		$(this).attr("stroke","none");
-				            		$(this).attr("stroke-width","8");
-				            		
-				            		$(".label_pair_anchor_right").each(function(){
-				            		
-				            			$(this).addClass("non_display");
-					            	});
-					            	
-					            	$(".label_pair_anchor_bottom").each(function(){
-					            		
-					            		$(this).addClass("non_display");
-					            	});
-				            	}
-				            	else
-				            	{
-				            					            					            		
-				            		buttonActive = id;
-				            		
-				            		$(this).attr("stroke","red");
-				            		$(this).attr("stroke-width","8");
-				            		
-				            		$(".label_pair_anchor_right").each(function(){
-				            		
-					            		$(this).removeClass("non_display");
-					            	});
-					            	
-					            	$(".label_pair_anchor_bottom").each(function(){
-					            		
-					            		$(this).removeClass("non_display");
-					            	});
-					            	
-				            	}
-	
-				            	
-				            });                       
-				        });
+				        prepareSvgClickEvents();
 		
 				    });
 				});
 	    	}
+					
+			function prepareSvgClickEvents()
+			{
+				// Add a handler
+		        $('path').each(function() {
+		        				        	
+		        	//On SVG Element Click
+		            $(this).click(function() {
+		            			
+		            	var id = $(this).attr('id');
+		            			            				            	
+		            	$('path').each(function(){
+		            		
+		            		if($(this).attr('id') != id)
+		            		{
+		            			$(this).attr("stroke","none");
+		            			$(this).attr("stroke-width","6");
+		            		}
+		            					            		
+		            	});
+		            	
+		            	destroyDrawnLineObject(id);
+		            	
+		            	if($(this).attr("stroke") == "red")
+		            	{
+		            		buttonActive = "none";
+		            		
+		            		$(this).attr("stroke","none");
+		            		$(this).attr("stroke-width","8");
+		            		
+		            		$(".label_pair_anchor_right").each(function(){
+		            		
+		            			$(this).addClass("non_display");
+			            	});
+			            	
+			            	$(".label_pair_anchor_bottom").each(function(){
+			            		
+			            		$(this).addClass("non_display");
+			            	});
+		            	}
+		            	else
+		            	{
+		            					            					            		
+		            		buttonActive = id;
+		            		
+		            		$(this).attr("stroke","red");
+		            		$(this).attr("stroke-width","8");
+		            		
+		            		$(".label_pair_anchor_right").each(function(){
+		            		
+			            		$(this).removeClass("non_display");
+			            	});
+			            	
+			            	$(".label_pair_anchor_bottom").each(function(){
+			            		
+			            		$(this).removeClass("non_display");
+			            	});
+			            	
+		            	}
+
+		            	
+		            });                       
+		        });
+			}
 					
 			function drawLineFunction(canvas,x1,y1,x2,y2)
 			{
@@ -630,7 +791,7 @@
 				
 				for(var i = 0; i < drawnLineArray.length; i++) {
 				    
-				    	drawnLineArray[i].renderedLineObject.clear();
+				    drawnLineArray[i].renderedLineObject.clear();
 				    	
 				}
 				
@@ -703,6 +864,8 @@
 					drawnLineArray[i].renderedLineObject.clear();
 								
 					var $label_pair_anchor = drawnLineArray[i].selectedAnchor;
+							
+					console.log(selected_button_bounding_box);
 																					
 					drawLineFunction(drawnLineArray[i].renderedLineObject,
 						x_value + (selected_button_bounding_box.width/2), 
@@ -712,56 +875,65 @@
 				}
 			}
 			
-			//Function that occurs when linking a Button with a Laber Pair Anchor
+			function createAnchorsEventListener()
+			{
+				//Function that occurs when linking a Button with a Laber Pair Anchor
 						
-			$('.label_pair_anchor').click(function(){
+				$('.label_pair_anchor').click(function(){
 							
-				if(buttonActive != "none")
-				{
-					var selected_button = document.getElementById(buttonActive);
-				
-					var selected_button_bounding_box = selected_button.getBoundingClientRect();
-					
-					var $label_pair_anchor = $(this);
-	
-					var label_pair_match = $label_pair_anchor.attr("label_pair_match");
-					
-					var anchor_position = $label_pair_anchor.attr("anchor_position");
-					
-					var label_pair_texts_container = $('.label_pair_texts_container[label_pair_match='+label_pair_match+']');
-											
-					createNewDrawnLineObject(buttonActive,label_pair_match,anchor_position,
-						selected_button,$label_pair_anchor);
-									
-					updateDrawnLineObjects();
+					//When a successful link occurs:
 						
-					label_pair_texts_container.removeClass("non_display").removeClass("half_visible");
+					if(buttonActive != "none")
+					{
+						var selected_button = document.getElementById(buttonActive);
 					
-					var num_links = parseInt($label_pair_anchor.attr("num_links"));
-					$label_pair_anchor.attr("num_links",""+(num_links+1));
-					$label_pair_anchor.addClass("completed_link");
-					
-					buttonActive = "none";
-				            		
-				    $('path').each(function(){
-	        		
-	        			$(this).attr("stroke","none");
-	        			$(this).attr("stroke-width","8");
-	            	});
-	
-	        		$(".label_pair_anchor_right").each(function(){
-	        		
-	        			$(this).addClass("non_display");
-	            	});
-	            	
-	            	$(".label_pair_anchor_bottom").each(function(){
-	            		
-	            		$(this).addClass("non_display");
-	            	});
-
-				}
+						var selected_button_bounding_box = selected_button.getBoundingClientRect();
+						
+						var $label_pair_anchor = $(this);
+		
+						var label_pair_match = $label_pair_anchor.attr("label_pair_match");
+						
+						var anchor_position = $label_pair_anchor.attr("anchor_position");
+						
+						var label_pair_texts_container = $('.label_pair_texts_container[label_pair_match='+label_pair_match+']');
+												
+						createNewDrawnLineObject(buttonActive,label_pair_match,anchor_position,
+							selected_button,$label_pair_anchor);
+										
+						updateDrawnLineObjects();
 							
-			});
+						label_pair_texts_container.removeClass("non_display").removeClass("half_visible");
+						
+						var num_links = parseInt($label_pair_anchor.attr("num_links"));
+						$label_pair_anchor.attr("num_links",""+(num_links+1));
+						$label_pair_anchor.addClass("completed_link");
+						
+						buttonActive = "none";
+					            		
+					    $('path').each(function(){
+		        		
+		        			$(this).attr("stroke","none");
+		        			$(this).attr("stroke-width","8");
+		            	});
+		
+		        		$(".label_pair_anchor_right").each(function(){
+		        		
+		        			$(this).addClass("non_display");
+		            	});
+		            	
+		            	$(".label_pair_anchor_bottom").each(function(){
+		            		
+		            		$(this).addClass("non_display");
+		            	});
+	
+					}
+								
+				});
+			}
+			
+			
+			
+			
 			
 			
 			    		
