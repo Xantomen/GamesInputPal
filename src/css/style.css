@@ -38,10 +38,11 @@
       color: transparent;
   }
    
-  #headers {
-  	display:block !important;
-  }
-   
+   /*#game_title_text {
+   	
+   		color:red !important;	
+   }*/
+
 }
 
 /*@media print {
@@ -68,8 +69,8 @@ svg path:hover {
     cursor: pointer;
 }
 
+
 html,body{
-    background blue;
     
     overflow:hidden;
 }
@@ -169,6 +170,60 @@ html,body{
 				max-height:50px;
 			}
 		
+	#choose_color_scheme_dropdown {
+		position:relative;
+				
+		display:inline-block;
+	
+		float:left;
+		
+		margin-left:1px;
+		
+	}
+			
+		.color_scheme_row:hover {
+		
+			background-color: #99bbff;	
+		}
+		
+		.color_scheme_row {
+			
+			display: block;
+		    white-space: nowrap;
+		    height: 50px;
+    		width: auto;
+		    
+		    cursor:pointer;
+		}
+			
+			.color_scheme_display {
+				
+				display: inline-block;
+			    width: 40px;
+			    height: 40px;
+			    margin: 2px 4px;
+			    vertical-align: top;
+			}
+			.color_scheme_lines_display {
+				
+			    display: inline-block;
+			    width: 40px;
+			    height: 40px;
+			    margin: 2px 0;
+			    vertical-align: top;
+			}
+			.color_scheme_text {
+				
+			    display: inline-block;
+			    
+			    height: 40px;
+			    line-height:40px;
+			    color: #333;
+			    margin: 2px 4px;
+			    vertical-align: top;
+			   
+			}
+			
 	
 	#print_button {
 			
@@ -205,6 +260,19 @@ html,body{
 				
 		border: 2px solid black !important;
 	
+	}
+	
+	#save_button {
+			
+		position:relative;
+				
+		display:inline-block;
+				
+		float:left;
+		
+		margin-left:1px;
+		
+					
 	}
 
 #headers {

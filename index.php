@@ -37,12 +37,23 @@
 		<div id="buttons_bar">
 						
 			
-			<div id="choose_controller_dropdown" class="dropdown text-center">
+			<div id="choose_controller_dropdown" class="dropdown">
 			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Controller
 			  <span class="caret"></span></button>
 			  <ul class="dropdown-menu">
-			    <li class="controller_item" controller_name="xbox360_controller"><img class="image-responsive controller_thumbnail" src="res/img/xbox360_controller.png" > XBOX360</li>
+			    <li class="controller_item selected" controller_name="xbox360_controller"><img class="image-responsive controller_thumbnail" src="res/img/xbox360_controller.png" > XBOX360</li>
 			    <li class="controller_item" controller_name="playstation3_controller"><img class="image-responsive controller_thumbnail" src="res/img/playstation3_controller.png" > PLAYSTATION3</li>
+			  </ul>
+			</div>
+			
+			<div id="choose_color_scheme_dropdown" class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Color Scheme
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+			    <li class="color_scheme_row selected" colors="#000000;#6699ff" color_scheme="1"><div color_scheme="1" color_value = "#000000" class="color_scheme_display color_thumbnail"></div><div color_scheme="1" color_value = "#6699ff" class="color_scheme_lines_display color_thumbnail"></div><div class="color_scheme_text">Black with Blue Lines</div></li>
+			    <li class="color_scheme_row" colors="#005580;#33cc33"  color_scheme="2"><div color_scheme="2" color_value = "#005580" class="color_scheme_display color_thumbnail"></div><div color_scheme="2" color_value = "#33cc33" class="color_scheme_lines_display color_thumbnail"></div><div class="color_scheme_text">Blue with Green Lines</div></li>
+			  	<li class="color_scheme_row" colors="#cc0099;#6699ff"  color_scheme="3"><div color_scheme="3" color_value = "#cc0099" class="color_scheme_display color_thumbnail"></div><div color_scheme="3" color_value = "#6699ff" class="color_scheme_lines_display color_thumbnail"></div><div class="color_scheme_text">Purple with Blue Lines</div></li>
+
 			  </ul>
 			</div>
 
@@ -55,7 +66,11 @@
 	  		</div>
 	  		
 	  		<input id="search_text" name="search_text" class="h5 text-center" 
-  			value="" placeholder="Search by Game Title" type="text">
+  			value="Best Game Ever" placeholder="Search by Game Title" type="text">
+  			
+  			<div id="save_button" type="button" class="btn btn-primary">
+	  			Save!
+	  		</div>
   			
 	  		
 			
@@ -318,9 +333,6 @@
     
     <script type="text/javascript">
     	    	 
-    	var buttonActive = "none";
-    	
-    	var controllerChosen = "xbox360_controller";
     	
     	/*
     	 * Database GameTemplate Object Architecture:
@@ -367,6 +379,14 @@
     	 * 
     	 */
     	    	
+    	  
+    	var buttonActive = "none";
+    	
+    	var controllerChosen = "xbox360_controller";
+    	
+    	var gameColorScheme = "#000000";
+    	var gameColorLines = "#6699ff";
+    	    	
     	var drawnLineArray = [];
     	
     	var blueLineCoords = [856,368,359,339];
@@ -381,7 +401,9 @@
 	    	
 	    	prepareSvgControllerImage();
 	    	
-	    	createAnchorsEventListener()
+	    	createAnchorsEventListener();
+	    	
+	    	implementChangesInColorScheme();
 	    	
 			//Change Controller Selection
 			
@@ -406,7 +428,67 @@
 				$(this).addClass("selected");
 				
 			});
-						
+			
+			//Preparing the Default Color Scheme Thumbnails
+			
+			$(".color_thumbnail").each(function(){
+				
+				var color_value_hexadecimal = $(this).attr("color_value");
+				
+				$(this).css("background-color",color_value_hexadecimal);
+				
+			});
+		
+			
+			//Changing color of elements by Color Scheme
+			
+			$(".color_scheme_row").click(function(){
+				
+				$(".color_scheme_row").each(function(){
+					
+					$(this).removeClass("selected");
+					
+				});
+				
+				$(this).addClass("selected");
+
+				var color_scheme_id = $(this).attr("color_scheme");
+				
+				var color_value_scheme = $(".color_scheme_display[color_scheme='"+color_scheme_id+"']").attr("color_value");
+				var color_value_lines = $(".color_scheme_lines_display[color_scheme='"+color_scheme_id+"']").attr("color_value");
+			
+				gameColorScheme = color_value_scheme;
+				
+				gameColorLines = color_value_lines;
+			
+				implementChangesInColorScheme();
+			
+			});
+		
+			function implementChangesInColorScheme()
+			{
+				//Changing color of Game Title and SVG's
+				
+				$("#game_title_text").css("color",gameColorScheme);
+				
+				$("#controllers_image").css("fill",gameColorScheme);
+
+				//Changing color of the Lines
+				
+				updateDrawnLineObjects();
+				
+				//Select the appropriate cell in Color Choosing Dropdown Menu
+				
+				$(".color_scheme_row").each(function(){
+					
+					$(this).removeClass("selected");
+					
+				});
+				
+				$(".color_scheme_row[colors='"+gameColorScheme+";"+gameColorLines+"']").addClass("selected");
+				
+			}
+					
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
 			
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
@@ -450,7 +532,7 @@
 				
 				var controller_name = parsed_data.controllerChosen;
 				
-				controllerChosen = controllerChosen;
+				controllerChosen = controller_name;
 				
 				$(".controller_item").each(function(){
 					
@@ -523,77 +605,92 @@
 				
 				//Embedding Text Values for all active labels and making them visible
 				
-				var activeLabelsPrimaryArray = parsed_data.gameLabelsTextPrimary.split("*");
-				
-				for(var i=0;i < activeLabelsPrimaryArray.length; i++)
+				if(parsed_data.gameLabelsTextPrimary!="")
 				{
-					var dividedData = activeLabelsPrimaryArray[i].split(";");
-					
-					var label_pair_match = dividedData[0];
-					var label_text = dividedData[1];
-					
-					var $matched_label_pair = $(".label_pair_texts_container[label_pair_match="+label_pair_match+"]");
-					var $matched_label_primary = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]");
+					var activeLabelsPrimaryArray = parsed_data.gameLabelsTextPrimary.split("*");
 				
-					$matched_label_pair.removeClass("non_display").removeClass("half_visible");
-					$matched_label_primary.val(label_text);
-				}
-				
-				
-				var activeLabelsSecondaryArray = parsed_data.gameLabelsTextSecondary.split("*");
-				
-				for(var i=0;i < activeLabelsSecondaryArray.length; i++)
-				{
-					var dividedData = activeLabelsSecondaryArray[i].split(";");
-					
-					var label_pair_match = dividedData[0];
-					var label_text = dividedData[1];
-					
-					var $matched_label_secondary = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]");
-				
-					$matched_label_secondary.val(label_text);
-				}
-				
-				//Making the appropriate anchors visible, then linking anchors and buttons,
-				//then giving the appropriate classes to anchors (make them visible)
-				
-				var labelLinksArray = parsed_data.gameLabelLinks.split("*");
-				
-				for(var i=0;i < labelLinksArray.length; i++)
-				{
-					var dividedData = labelLinksArray[i].split(";");
-					
-					var selectedAnchorCommonId = dividedData[0];
-					var selectedAnchorPositionId = dividedData[1];
-					var selectedButtonId = dividedData[2];
-					
-					var $matched_anchor = $(".label_pair_anchor[label_pair_match="+selectedAnchorCommonId+
-					"][anchor_position="+selectedAnchorPositionId+"]");
-										
-					console.log($matched_anchor);
-																	
-					var selected_button = document.getElementById(selectedButtonId);
-				
-					var selected_button_bounding_box = selected_button.getBoundingClientRect();
-																				
-					createNewDrawnLineObject(selectedButtonId,selectedAnchorCommonId,selectedAnchorPositionId,
-						selected_button,$matched_anchor);
+					for(var i=0;i < activeLabelsPrimaryArray.length; i++)
+					{
+						var dividedData = activeLabelsPrimaryArray[i].split(";");
 						
-									
-					var num_links = parseInt($matched_anchor.attr("num_links"));
-					$matched_anchor.attr("num_links",""+(num_links+1));
-					$matched_anchor.addClass("completed_link");
+						var label_pair_match = dividedData[0];
+						var label_text = dividedData[1];
+						
+						var $matched_label_pair = $(".label_pair_texts_container[label_pair_match="+label_pair_match+"]");
+						var $matched_label_primary = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]");
 					
+						$matched_label_pair.removeClass("non_display").removeClass("half_visible");
+						$matched_label_primary.val(label_text);
+					}
 				}
 				
 				
-		    	/*
-		    	
-		    	var gameLabelLinks = String ( format: selectedAnchorCommonId;selectedAnchorPositionId;selectedButtonId* 
-		    	 							Ex: 1;2;LeftAnalog)
-		    	 
-		    	var gameColorScheme = String
-		    	var gameColorLines = String*/
+				if(parsed_data.gameLabelsTextSecondary!="")
+				{
+					var activeLabelsSecondaryArray = parsed_data.gameLabelsTextSecondary.split("*");
+					
+					for(var i=0;i < activeLabelsSecondaryArray.length; i++)
+					{
+						var dividedData = activeLabelsSecondaryArray[i].split(";");
+						
+						var label_pair_match = dividedData[0];
+						var label_text = dividedData[1];
+						
+						var $matched_label_secondary = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]");
+					
+						$matched_label_secondary.val(label_text);
+					}
+				}
+				
+				if(parsed_data.gameLabelLinks!="")
+				{
+					//Making the appropriate anchors visible, then linking anchors and buttons,
+					//then giving the appropriate classes to anchors (make them visible)
+					
+					var labelLinksArray = parsed_data.gameLabelLinks.split("*");
+					
+					for(var i=0;i < labelLinksArray.length; i++)
+					{
+						var dividedData = labelLinksArray[i].split(";");
+						
+						var selectedAnchorCommonId = dividedData[0];
+						var selectedAnchorPositionId = dividedData[1];
+						var selectedButtonId = dividedData[2];
+						
+						var $matched_anchor = $(".label_pair_anchor[label_pair_match="+selectedAnchorCommonId+
+						"][anchor_position="+selectedAnchorPositionId+"]");
+																												
+						var selected_button = document.getElementById(selectedButtonId);
+					
+						var selected_button_bounding_box = selected_button.getBoundingClientRect();
+																					
+						createNewDrawnLineObject(selectedButtonId,selectedAnchorCommonId,selectedAnchorPositionId,
+							selected_button,$matched_anchor);
+							
+										
+						var num_links = parseInt($matched_anchor.attr("num_links"));
+						$matched_anchor.attr("num_links",""+(num_links+1));
+						$matched_anchor.addClass("completed_link");
+						
+					}
+				}
+				
+				//If Color Scheme has a value (hexadecimal, hopefully)
+				if(parsed_data.gameColorScheme!="")
+				{
+					gameColorScheme = parsed_data.gameColorScheme;
+					
+				}
+				
+				//If Color Lines has a value
+				if(parsed_data.gameColorLines!="")
+				{
+					gameColorLines = parsed_data.gameColorLines;
+					
+				}
+				
+				implementChangesInColorScheme();
+				
 			}
 	    	
 	    	function replaceSvgControllerImageForSource(image_sourcepath)
@@ -610,6 +707,125 @@
 				$("#controllers_image_container").append(s);
 	    				
 	    	}
+	    		    	
+	    	//Assigning click event to Save Button
+	    	
+	    	$("#save_button").click(function(){
+	    		
+	    		onSaveTemplateToDatabase();
+	    		
+	    	});
+	    		    	
+	    	function onSaveTemplateToDatabase()
+			{
+			
+				var completed_necessary_fields = true;
+				
+				var gameTemplateObject = new Object();
+				
+				gameTemplateObject.controllerChosen = controllerChosen;
+				
+				gameTemplateObject.gameTitle = $("#game_title_text").val();
+				gameTemplateObject.gameCreator = $("#creator_name_text").val();
+				
+				if(controllerChosen.length == 0 || controllerChosen == "none" ||
+				gameTemplateObject.gameTitle == "")
+				{
+					completed_necessary_fields = false;
+				}
+				else
+				{
+					gameTemplateObject.minGamePlayers = $("#number_players_min_text").val();
+					gameTemplateObject.maxGamePlayers = $("#number_players_max_text").val();
+					
+					gameTemplateObject.gameDescriptionPrimary = $("#description_first_language_text").val();
+					gameTemplateObject.gameDescriptionSecondary = $("#description_second_language_text").val();
+					
+					
+					var gameLabelsTextPrimary = "";
+					var gameLabelsTextSecondary = "";
+					
+					var gameLabelLinks = "";
+					
+					for(var i=0; i<drawnLineArray.length;i++)
+					{
+						var label_pair_match = drawnLineArray[i].selectedAnchorCommonId;
+						
+						var $matched_label_primary_text = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]").val();
+						var $matched_label_secondary_text = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]").val();
+				
+						if($matched_label_primary_text != "")
+						{
+							if(gameLabelsTextPrimary != "") gameLabelsTextPrimary += "*";
+							
+							gameLabelsTextPrimary += label_pair_match+";"+$matched_label_primary_text;
+							
+							if($matched_label_secondary_text != "")
+							{
+								if(gameLabelsTextSecondary != "") gameLabelsTextSecondary += "*";
+								
+								gameLabelsTextSecondary += label_pair_match+";"+$matched_label_secondary_text;
+							}
+							
+							if(gameLabelLinks != "") gameLabelLinks += "*";
+							
+							gameLabelLinks += label_pair_match+";"+drawnLineArray[i].selectedAnchorPositionId+
+							";"+drawnLineArray[i].selectedButtonId;
+		    				
+						}
+						
+				
+					}
+					
+					gameTemplateObject.gameLabelsTextPrimary = gameLabelsTextPrimary;
+					gameTemplateObject.gameLabelsTextSecondary = gameLabelsTextSecondary;
+					gameTemplateObject.gameLabelLinks = gameLabelLinks;
+					
+					gameTemplateObject.gameColorScheme = gameColorScheme;
+					gameTemplateObject.gameColorLines = gameColorLines;
+	        		
+				}
+				
+				if(completed_necessary_fields)
+				{
+					console.log(gameTemplateObject);
+					
+					$.ajax({  
+					    type: "POST",  
+					    url: "src/php/save_template_information.php",  
+					    data: { 
+					    	'controllerChosen':gameTemplateObject.controllerChosen,
+					    	'gameTitle':gameTemplateObject.gameTitle,
+					    	'gameCreator':gameTemplateObject.gameCreator,
+					    	'minGamePlayers':gameTemplateObject.minGamePlayers,
+					    	'maxGamePlayers':gameTemplateObject.maxGamePlayers,
+					    	'gameDescriptionPrimary':gameTemplateObject.gameDescriptionPrimary,
+					    	'gameDescriptionSecondary':gameTemplateObject.gameDescriptionSecondary,
+					    	'gameLabelsTextPrimary':gameTemplateObject.gameLabelsTextPrimary,
+					    	'gameLabelsTextSecondary':gameTemplateObject.gameLabelsTextSecondary,
+					    	'gameLabelLinks':gameTemplateObject.gameLabelLinks,
+					    	'gameColorScheme':gameTemplateObject.gameColorScheme,
+					    	'gameColorLines':gameTemplateObject.gameColorLines
+					    	},      
+					    success: function(message){ // <-- note the parameter here, not in your code
+
+					       console.log(message);
+					       
+					       
+					    },
+					    error: function() {
+				
+							console.log("FAIL SAVE INCOMPLETE DETAILS");
+					    }
+					});
+				}
+				else
+				{
+					console.log("FAIL SAVE");
+				}
+				
+
+			}
 	    	
 	    	function prepareSvgControllerImage()
 	    	{
@@ -724,7 +940,7 @@
 			  
 			  //jg_doc.drawPolyline(new Array(50, 10, 120), new Array(10, 50, 70));
 			  canvas.setPrintable(true);
-			  canvas.setColor("#6699ff");
+			  canvas.setColor(gameColorLines);
 			  canvas.setStroke(6);
 			  canvas.drawLine(adapted_x1, adapted_y1, adapted_x2, adapted_y2);
 			  canvas.paint(); // draws, in this case, directly into the document
@@ -757,8 +973,19 @@
 			$("#print_button").click(function(){
 				
 				prepareContainerToPrint();
-			  		
+				
+				/*:after {
+    				color: #000 !important;
+    			}*/
+    			
+    			var desired_title_color = $("#game_title_text").css("color");
+    			
+				
+				$('<style id="print-style-tag" media="print">#game_title_text {color: '+desired_title_color+' !important;}</style>').appendTo('head');
+			  	
 		  		window.print();
+		  		
+		  		$('#print-style-tag').remove();
 		  		
 		  		setTimeout(returnContainerToScreenValues, 10);
 			});
@@ -767,11 +994,8 @@
 			  			  
 			  	if(e.which == 13)
 			  	{
-			  		prepareContainerToPrint();
+			  		$("#print_button").click();
 			  		
-			  		window.print();
-			  		
-			  		setTimeout(returnContainerToScreenValues, 10);
 
 			  	}
 
@@ -883,9 +1107,7 @@
 					drawnLineArray[i].renderedLineObject.clear();
 								
 					var $label_pair_anchor = drawnLineArray[i].selectedAnchor;
-							
-					console.log(selected_button_bounding_box);
-																					
+																												
 					drawLineFunction(drawnLineArray[i].renderedLineObject,
 						x_value + (selected_button_bounding_box.width/2), 
 						y_value + (selected_button_bounding_box.height/2),
