@@ -38,6 +38,10 @@
       color: transparent;
   }
    
+  #headers
+  {
+  	display:block !important;
+  }
    /*#game_title_text {
    	
    		color:red !important;	
@@ -166,6 +170,7 @@ html,body{
 		}
 			.controller_thumbnail {
 				
+				display:inline-block;
 				max-width:50px;
 				max-height:50px;
 			}
@@ -225,6 +230,73 @@ html,body{
 			}
 			
 	
+	
+	#search_dropdown {
+		position:relative;
+				
+		display:inline-block;
+	
+		float:left;
+		
+		margin-left:1px;
+		
+	}
+	
+	#search_results_dropdown {
+		position:relative;
+				
+		display:inline-block;
+	
+		float:left;
+		
+		margin-left:1px;
+		
+	}
+	
+		.search_results_row {
+			
+			display: block;
+		    white-space: nowrap;
+		    /*height: 50px;*/
+    		width: auto;
+		    
+		}
+	
+			.controller_thumbnail_search_results {
+					
+				display:inline-block;
+				max-width:50px;
+				max-height:50px;
+				padding-bottom: 12px;
+			}
+			
+			.results_information_container {
+			
+				display: inline-block;
+			    white-space: nowrap;
+			    height: 50px;
+	    		width: auto;
+		    
+			}
+			
+			.load_button {
+				
+				display:inline-block;
+				margin-bottom: 12px;
+			}
+			
+			.game_title_information.text-center {
+			    height: 15px;
+			    padding: 5px;
+			}
+			
+			.game_creator_information.text-center {
+			    padding: 5px;
+			    margin-top: 2px;
+			}
+	
+	
+	
 	#print_button {
 			
 		position:relative;
@@ -234,19 +306,6 @@ html,body{
 		float:left;
 		
 		margin-left:1px;
-					
-	}
-	
-	#load_button {
-			
-		position:relative;
-				
-		display:inline-block;
-				
-		float:left;
-		
-		margin-left:1px;
-		
 					
 	}
 	

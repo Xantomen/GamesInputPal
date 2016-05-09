@@ -56,17 +56,58 @@
 
 			  </ul>
 			</div>
+			
+			<div id="search_dropdown" class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Search Options
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+			    <li class="search_row"><input id="search_by_name_text" class="h6 text-center center-block" value="" placeholder="Search by game title" type="text"></li>
+			    <li class="search_row"><input id="search_by_creator_text" class="h6 text-center center-block" value="" placeholder="Search by game creator" type="text"></li>
+			    <li class="search_row"><input id="search_by_controller_text" class="h6 text-center center-block" value="" placeholder="Search by game controller" type="text"></li>
+			    <li class="search_row"><input id="search_by_numplayers_text" class="h6 text-center center-block" value="" placeholder="Search by num. players (n)" type="text"></li>
+			    <li class="search_row"><div id="search_button" class="btn btn-primary center-block">Go!</div></li>
+			  </ul>
+			</div>
+			
+			<div id="search_results_dropdown" class="dropdown">
+			  <button id="search_results_dropdown_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Last Search Results
+			  <span class="caret"></span></button>
+			  <ul id="search_results_list" class="dropdown-menu">
+			    <li id="search_results_none" class="h6 text-center">
+			    	---No Results. Use Search Options first.---
+			    </li>
+			  </ul>
+			</div>
+			
+			<!--<div id="search_results_dropdown" class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Last Search Results
+			  <span class="caret"></span></button>
+			  <ul id="search_results_list" class="dropdown-menu">
+			    <li class="search_results_row">
+			    	<img class="image-responsive controller_thumbnail_search_results" src="res/img/xbox360_controller.png">
+			    	<div class="results_information_container">
+			    		<div class="game_title_information text-center">
+			    			Best Game Ever
+			    		</div>
+			    		<div class="game_creator_information text-center">
+			    			Xantomen
+			    		</div>
+			    	</div>
+			    	<div search_value = "" class="load_button btn btn-primary">Load Template</div>
+			    </li>
+			  </ul>
+			</div>-->
 
 	  		<div id="print_button" type="button" class="btn btn-primary">
 	  			Print Now!
 	  		</div>
 	  		
-  			<div id="load_button" type="button" class="btn btn-primary">
+  			<!--<div id="load_button" type="button" class="btn btn-primary">
 	  			Load!
-	  		</div>
+	  		</div>-->
 	  		
-	  		<input id="search_text" name="search_text" class="h5 text-center" 
-  			value="Best Game Ever" placeholder="Search by Game Title" type="text">
+	  		<!--<input id="search_text" name="search_text" class="h5 text-center" 
+  			value="Best Game Ever" placeholder="Search by Game Title" type="text">-->
   			
   			<div id="save_button" type="button" class="btn btn-primary">
 	  			Save!
@@ -389,6 +430,8 @@
     	    	
     	var drawnLineArray = [];
     	
+    	var searchResultArray = [];
+    	
     	var blueLineCoords = [856,368,359,339];
     	
     	$(document).ready(function(){
@@ -493,22 +536,139 @@
 			
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
 			
-			$("#load_button").click(function(){
+			$("#search_button").click(function(){
 				
-				var search_property = "gameTitle";
+				var gameTitleToSearch = $("#search_by_name_text").val();
+				var gameCreatorToSearch = $("#search_by_creator_text").val();
+				var controllerChosenToSearch = $("#search_by_controller_text").val();
 				
-				var search_value = $("#search_text").val();
 				
-				loadTemplateByStringAndProperty(search_property,search_value);
+				if(controllerChosenToSearch != "") 
+				{
+					controllerChosenToSearch = controllerChosenToSearch.toLowerCase()+"_controller";
+				}
+				
+				var numPlayers = $("#search_by_numplayers_text").val();
+								
+				if(isNaN(numPlayers))
+				{
+					numPlayers = "-1";
+				}
+				
+				searchTemplatesByProperties(gameTitleToSearch,gameCreatorToSearch,
+				controllerChosenToSearch,numPlayers);
+				
+				
 				
 			});
+						
+			function searchTemplatesByProperties(gameTitleToSearch,gameCreatorToSearch,controllerChosenToSearch,numPlayers)
+			{
+				  if(gameTitleToSearch !="" || 
+				  gameCreatorToSearch != "" ||
+				  controllerChosenToSearch != "" ||
+				  numPlayers != "" )
+				  {
+
+						console.log(numPlayers + "----");
+
+					  $.ajax({  
+					    type: "POST",  
+					    url: "src/php/search_templates_by_properties.php",  
+					    data: { 'gameTitle':addSlashesToString(gameTitleToSearch),
+					    'gameCreator':addSlashesToString(gameCreatorToSearch),
+					    'controllerChosen':addSlashesToString(controllerChosenToSearch),
+					     'numPlayers':addSlashesToString(numPlayers)},    
+					    success: function(json_data){ // <-- note the parameter here, not in your code
+					       //$('#box2').html(data);
+		
+					       	onReceiveSearchResults(json_data);
+	
+					       //onLoadInitiateNewController(json_data);
+					       //onLoadEmbedValuesAndLines(json_data);
+					       
+					    },
+					    error: function() {
+				
+					    }
+					});
+				 } 	
+			}
 			
+			function onReceiveSearchResults(json_data)
+			{
+				
+				if(json_data == 0)
+				{
+					$("#search_results_none").css("display","block");
+					
+					$(".search_results_row").remove();
+				}
+				else
+				{
+					console.log(json_data);
+					var parsed_data = $.parseJSON(json_data);
+					
+					//Get the results into an array that we will use later for the visual element
+					//Object contains ID,gameTitle,gameCreator,controllerChosen
+					
+					searchResultArray = parsed_data;
+
+					console.log(searchResultArray);
+					
+					$("#search_results_none").css("display","none");
+					
+					//Destroying previous Search Result Html elements to leave place for the new Results
+					
+					$(".search_results_row").remove();
+					
+					//Adding one list element with the available data per element retrieved
+					
+					for(var i=0;i<searchResultArray.length;i++)
+					{
+						var s = '<li class="search_results_row">';
+						s += '<img class="image-responsive controller_thumbnail_search_results" ';
+						s+='src="res/img/'+searchResultArray[i].controllerChosen+'.png">';
+						s += '<div class="results_information_container">';
+						s += 	'<div class="game_title_information text-center">';
+						s += ''+searchResultArray[i].gameTitle;
+						s += '</div>';
+						s += '<div class="game_creator_information text-center">';
+						s += ''+searchResultArray[i].gameCreator;
+						s += '</div>';
+						s += '</div>';
+						s += '<div search_value = "'+searchResultArray[i].ID+'" '
+						s += 'class="load_button btn btn-primary">Load Template</div>';
+						s += '</div>';
+						
+						$("#search_results_list").append(s);
+					}
+					
+					$(".load_button").click(function(){
+					
+						var search_property = "ID";
+						
+						var search_value = $(this).attr("search_value");
+												
+						loadTemplateByStringAndProperty(search_property,search_value);
+						
+					});
+				}
+					
+				$("#search_results_dropdown_button").click();
+				
+				
+
+			}
+			
+			
+						
 			function loadTemplateByStringAndProperty(property,string_value)
 			{
 				  $.ajax({  
 				    type: "POST",  
 				    url: "src/php/return_template_information.php",  
-				    data: { 'string_value':string_value,'property':property},      
+				    data: { 'string_value':addSlashesToString(string_value),'property':addSlashesToString(property)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
 				       console.log(json_data);
@@ -794,18 +954,18 @@
 					    type: "POST",  
 					    url: "src/php/save_template_information.php",  
 					    data: { 
-					    	'controllerChosen':gameTemplateObject.controllerChosen,
-					    	'gameTitle':gameTemplateObject.gameTitle,
-					    	'gameCreator':gameTemplateObject.gameCreator,
-					    	'minGamePlayers':gameTemplateObject.minGamePlayers,
-					    	'maxGamePlayers':gameTemplateObject.maxGamePlayers,
-					    	'gameDescriptionPrimary':gameTemplateObject.gameDescriptionPrimary,
-					    	'gameDescriptionSecondary':gameTemplateObject.gameDescriptionSecondary,
-					    	'gameLabelsTextPrimary':gameTemplateObject.gameLabelsTextPrimary,
-					    	'gameLabelsTextSecondary':gameTemplateObject.gameLabelsTextSecondary,
-					    	'gameLabelLinks':gameTemplateObject.gameLabelLinks,
-					    	'gameColorScheme':gameTemplateObject.gameColorScheme,
-					    	'gameColorLines':gameTemplateObject.gameColorLines
+					    	'controllerChosen':addSlashesToString(gameTemplateObject.controllerChosen),
+					    	'gameTitle':addSlashesToString(gameTemplateObject.gameTitle),
+					    	'gameCreator':addSlashesToString(gameTemplateObject.gameCreator),
+					    	'minGamePlayers':addSlashesToString(gameTemplateObject.minGamePlayers),
+					    	'maxGamePlayers':addSlashesToString(gameTemplateObject.maxGamePlayers),
+					    	'gameDescriptionPrimary':addSlashesToString(gameTemplateObject.gameDescriptionPrimary),
+					    	'gameDescriptionSecondary':addSlashesToString(gameTemplateObject.gameDescriptionSecondary),
+					    	'gameLabelsTextPrimary':addSlashesToString(gameTemplateObject.gameLabelsTextPrimary),
+					    	'gameLabelsTextSecondary':addSlashesToString(gameTemplateObject.gameLabelsTextSecondary),
+					    	'gameLabelLinks':addSlashesToString(gameTemplateObject.gameLabelLinks),
+					    	'gameColorScheme':addSlashesToString(gameTemplateObject.gameColorScheme),
+					    	'gameColorLines':addSlashesToString(gameTemplateObject.gameColorLines)
 					    	},      
 					    success: function(message){ // <-- note the parameter here, not in your code
 
@@ -981,11 +1141,11 @@
     			var desired_title_color = $("#game_title_text").css("color");
     			
 				
-				$('<style id="print-style-tag" media="print">#game_title_text {color: '+desired_title_color+' !important;}</style>').appendTo('head');
+				//$('<style id="print-style-tag" media="print">#game_title_text {color: '+desired_title_color+' !important;}</style>').appendTo('head');
 			  	
 		  		window.print();
 		  		
-		  		$('#print-style-tag').remove();
+		  		//$('#print-style-tag').remove();
 		  		
 		  		setTimeout(returnContainerToScreenValues, 10);
 			});
@@ -1173,7 +1333,10 @@
 			}
 			
 			
-			
+			function addSlashesToString(temp_string)
+			{
+				return temp_string.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+			}
 			
 			
 			

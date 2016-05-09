@@ -15,31 +15,31 @@
 	&& isset($_POST['gameColorLines']))
 	{
 		$gameTitle = $_POST['gameTitle'];
-		$gameTitle = mysql_real_escape_string($gameTitle);
+		//$gameTitle = mysql_real_escape_string($gameTitle);
 		$gameCreator = $_POST['gameCreator'];
-		$gameCreator = mysql_real_escape_string($gameCreator);
+		//$gameCreator = mysql_real_escape_string($gameCreator);
 		$controllerChosen = $_POST['controllerChosen']; 
-		$controllerChosen = mysql_real_escape_string($controllerChosen);
+		//$controllerChosen = mysql_real_escape_string($controllerChosen);
 		$minGamePlayers = $_POST['minGamePlayers'];
-		$minGamePlayers = mysql_real_escape_string($minGamePlayers);
+		//$minGamePlayers = mysql_real_escape_string($minGamePlayers);
 		$maxGamePlayers = $_POST['maxGamePlayers'];
-		$maxGamePlayers = mysql_real_escape_string($maxGamePlayers);
+		//$maxGamePlayers = mysql_real_escape_string($maxGamePlayers);
 		$gameDescriptionPrimary = $_POST['gameDescriptionPrimary'];
-		$gameDescriptionPrimary = mysql_real_escape_string($gameDescriptionPrimary);
+		//$gameDescriptionPrimary = mysql_real_escape_string($gameDescriptionPrimary);
 		$gameDescriptionSecondary = $_POST['gameDescriptionSecondary'];
-		$gameDescriptionSecondary = mysql_real_escape_string($gameDescriptionSecondary);
+		//$gameDescriptionSecondary = mysql_real_escape_string($gameDescriptionSecondary);
 		$gameLabelsTextPrimary = $_POST['gameLabelsTextPrimary'];
-		$gameLabelsTextPrimary = mysql_real_escape_string($gameLabelsTextPrimary);
+		//$gameLabelsTextPrimary = mysql_real_escape_string($gameLabelsTextPrimary);
 		$gameLabelsTextSecondary = $_POST['gameLabelsTextSecondary'];
-		$gameLabelsTextSecondary = mysql_real_escape_string($gameLabelsTextSecondary);
+		//$gameLabelsTextSecondary = mysql_real_escape_string($gameLabelsTextSecondary);
 		$gameLabelLinks = $_POST['gameLabelLinks'];
-		$gameLabelLinks = mysql_real_escape_string($gameLabelLinks);
+		//$gameLabelLinks = mysql_real_escape_string($gameLabelLinks);
 		$gameColorScheme = $_POST['gameColorScheme'];
-		$gameColorScheme = mysql_real_escape_string($gameColorScheme);
+		//$gameColorScheme = mysql_real_escape_string($gameColorScheme);
 		$gameColorLines = $_POST['gameColorLines'];
-		$gameColorLines = mysql_real_escape_string($gameColorLines);
+		//$gameColorLines = mysql_real_escape_string($gameColorLines);
 						
-		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		$con = mysqli_connect('localhost','xantomen_user','testscheme','xantomen_gamesinputschemer');
 		if (!$con) {
 		    die('Could not connect: ' . mysqli_error($con));
 		}
