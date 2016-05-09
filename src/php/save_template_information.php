@@ -39,7 +39,7 @@
 		$gameColorLines = $_POST['gameColorLines'];
 		//$gameColorLines = mysql_real_escape_string($gameColorLines);
 						
-		$con = mysqli_connect('localhost','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
 		if (!$con) {
 		    die('Could not connect: ' . mysqli_error($con));
 		}

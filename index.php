@@ -440,7 +440,7 @@
     	
 			  location.reload(true);
 			}
-			//setTimeout(reload_screen, 250);
+			//setTimeout(reload_screen, 3000);
 	    	
 	    	prepareSvgControllerImage();
 	    	
@@ -569,8 +569,6 @@
 				  controllerChosenToSearch != "" ||
 				  numPlayers != "" )
 				  {
-
-						console.log(numPlayers + "----");
 
 					  $.ajax({  
 					    type: "POST",  
@@ -750,7 +748,7 @@
 			
 			function onLoadEmbedValuesAndLines(parsed_data)
 			{
-				
+								
 				//Embedding Text Values in their appropriate places for Title, Creator
 				//Min Players, Max Players, First Description and Second Description
 				
@@ -762,6 +760,16 @@
 				
 				$("#description_first_language_text").val(parsed_data.gameDescriptionPrimary);
 				$("#description_second_language_text").val(parsed_data.gameDescriptionSecondary);
+				
+				
+				//Erasing previous information from all label text fields
+				
+				$(".description_first_language_button_text").each(function(){
+					$(this).val("");
+				});
+				$(".description_second_language_button_text").each(function(){
+					$(this).val("");
+				});
 				
 				//Embedding Text Values for all active labels and making them visible
 				
