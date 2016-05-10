@@ -476,6 +476,7 @@
     	 * 
     	 */
     	    	
+    	var originalUrl = window.location.href;
     	  
     	var buttonActive = "none";
     	
@@ -498,6 +499,76 @@
 			}
 			//setTimeout(reload_screen, 3000);
 	    	
+	    	checkUrlAndRequestTemplateIfValid();
+	    	
+	    	function checkUrlAndRequestTemplateIfValid()
+	    	{
+	    		var href_split = window.location.href.split("#");
+	    		
+	    		var templateReference = ""; 
+	    		
+	    		if(href_split.length > 1)
+	    		{
+	    			originalUrl = href_split[0];
+	    			
+	    			templateReference = href_split[1];
+	    			
+	    			var reference_split = templateReference.split("+");
+	    			
+	    			var gameTitle = "";
+	    			var controllerChosen = "";
+	    			
+	    			if(reference_split.length > 1)
+	    			{
+	    				gameTitle = reference_split[0];
+	    				controllerChosen = reference_split[1];
+	    				
+	    				requestTemplateByTitleAndController(gameTitle,controllerChosen);
+	    			}
+	    		}
+	    		
+	    	}
+	    	
+	    	function requestTemplateByTitleAndController(gameTitle,controllerChosen)
+			{
+					$("#alert_modal_header").text("");
+					$("#alert_modal_text").text("Requesting Template...");
+					$("#alert_messages_modal").modal("show");
+				
+				
+				  $.ajax({  
+				    type: "POST",  
+				    url: "src/php/request_template_information_urlreference.php",  
+				    data: { 'gameTitle':addSlashesToString(gameTitle),'controllerChosen':addSlashesToString(controllerChosen)},      
+				    success: function(json_data){ // <-- note the parameter here, not in your code
+				       //$('#box2').html(data);
+				       
+						console.log(json_data);
+				       
+				       if(json_data.indexOf("TEMPLATE NOT FOUND") == -1)
+						{
+				       		onLoadInitiateNewController(json_data);
+				       		
+				       		$("#alert_messages_modal").modal("hide");
+						}
+						else
+						{
+							var gameTitleFixed = gameTitle.split("%20").join(" ");
+							
+							$("#alert_modal_header").text("ERROR");
+							$("#alert_modal_text").html("Template with Game Title "+gameTitleFixed+" and Controller "+controllerChosen+" doesn't seem to exist.<br /> Please write a different Game Title or Controller or search the desired template with Search Options.");
+						}
+				       
+				    },
+				    error: function() {
+				    	
+						
+				       $("#alert_messages_modal").modal("hide");
+				    }
+				});
+				    	
+			}
+	    	 	
 	    	prepareSvgControllerImage();
 	    	
 	    	createAnchorsEventListener();
@@ -761,9 +832,17 @@
 				       //$('#box2').html(data);
 				       
 				       $("#alert_messages_modal").modal("hide");
+				       
 				       console.log(json_data);
 				       
-				       onLoadInitiateNewController(json_data);
+				       if(json_data.indexOf("TEMPLATE NOT FOUND") == -1)
+						{
+				       
+							onLoadInitiateNewController(json_data);
+							
+							
+						}
+				    
 				       //onLoadEmbedValuesAndLines(json_data);
 				       
 				    },
@@ -778,6 +857,7 @@
 			
 			function onLoadInitiateNewController(json_data)
 			{
+
 				var parsed_data = $.parseJSON(json_data);
 		
 				//Getting the chosen controller, clearing the canvas and changing it for the new one
@@ -842,6 +922,15 @@
 			
 			function onLoadEmbedValuesAndLines(parsed_data)
 			{
+								
+				//Changing the URL to the appropriate one given the loaded object
+				
+				var transformedSpacesTitle = parsed_data.gameTitle.split(" ").join("%20");
+	       		var transformedController = parsed_data.controllerChosen.replace("_controller","");
+	       	
+	       		var newUrl = originalUrl+"\n"+"#"+transformedSpacesTitle+"+"+transformedController;
+	       	
+				window.location.href = newUrl;
 								
 				//Embedding Text Values in their appropriate places for Title, Creator
 				//Min Players, Max Players, First Description and Second Description
@@ -1108,11 +1197,17 @@
 					       }
 					       else
 					       {
-					       		//console.log(message);
+					       		var transformedSpacesTitle = gameTemplateObject.gameTitle.split(" ").join("%20");
+					       		var transformedController = gameTemplateObject.controllerChosen.replace("_controller","");
+					       	
+					       		var newUrl = originalUrl+"\n"+"#"+transformedSpacesTitle+"+"+transformedController;
+					       	
 					       		$("#alert_modal_header").text("SAVED!");
-								$("#alert_modal_text").html("gameTemplateObject.gameTitle"+" ");
+								$("#alert_modal_text").html("The permanent link for this Template is: <br /><br />"+newUrl);
+								
+								window.location.href = newUrl;
 					       
-					       		$("#alert_messages_modal").modal("hide");
+					       		//$("#alert_messages_modal").modal("hide");
 					       		
 					       		$("#author_name").val("Mapped by "+gameTemplateObject.templateAuthorName);
 					       		
