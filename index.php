@@ -1195,6 +1195,11 @@
 						       	$("#alert_modal_header").text("ERROR");
 								$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> There might already be a Template with the same Game Title and Controller Chosen in the database. <br /><br /> Please choose a different Game Title or Controller");
 					       }
+					       else if(message.indexOf("TEMPLATE ALREADY EXISTS") > -1)
+					       {
+					       		$("#alert_modal_header").text("ERROR");
+								$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> There is a Template with the same Game Title and Controller Chosen in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       }
 					       else
 					       {
 					       		var transformedSpacesTitle = gameTemplateObject.gameTitle.split(" ").join("%20");
