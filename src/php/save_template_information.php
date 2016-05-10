@@ -15,36 +15,39 @@
 	&& isset($_POST['gameColorScheme'])
 	&& isset($_POST['gameColorLines']))
 	{
-		$gameTitle = $_POST['gameTitle'];
-		//$gameTitle = mysql_real_escape_string($gameTitle);
-		$gameCreator = $_POST['gameCreator'];
-		//$gameCreator = mysql_real_escape_string($gameCreator);
-		$controllerChosen = $_POST['controllerChosen']; 
-		//$controllerChosen = mysql_real_escape_string($controllerChosen);
-		$templateAuthorName = $_POST['templateAuthorName']; 
-		$minGamePlayers = $_POST['minGamePlayers'];
-		//$minGamePlayers = mysql_real_escape_string($minGamePlayers);
-		$maxGamePlayers = $_POST['maxGamePlayers'];
-		//$maxGamePlayers = mysql_real_escape_string($maxGamePlayers);
-		$gameDescriptionPrimary = $_POST['gameDescriptionPrimary'];
-		//$gameDescriptionPrimary = mysql_real_escape_string($gameDescriptionPrimary);
-		$gameDescriptionSecondary = $_POST['gameDescriptionSecondary'];
-		//$gameDescriptionSecondary = mysql_real_escape_string($gameDescriptionSecondary);
-		$gameLabelsTextPrimary = $_POST['gameLabelsTextPrimary'];
-		//$gameLabelsTextPrimary = mysql_real_escape_string($gameLabelsTextPrimary);
-		$gameLabelsTextSecondary = $_POST['gameLabelsTextSecondary'];
-		//$gameLabelsTextSecondary = mysql_real_escape_string($gameLabelsTextSecondary);
-		$gameLabelLinks = $_POST['gameLabelLinks'];
-		//$gameLabelLinks = mysql_real_escape_string($gameLabelLinks);
-		$gameColorScheme = $_POST['gameColorScheme'];
-		//$gameColorScheme = mysql_real_escape_string($gameColorScheme);
-		$gameColorLines = $_POST['gameColorLines'];
-		//$gameColorLines = mysql_real_escape_string($gameColorLines);
-						
-		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		
+		$con = mysqli_connect('localhost','xantomen_user','testscheme','xantomen_gamesinputschemer');
 		if (!$con) {
 		    die('Could not connect: ' . mysqli_error($con));
 		}
+		
+		$gameTitle = $_POST['gameTitle'];
+		
+		$gameCreator = $_POST['gameCreator'];
+		$gameCreator = mysqli_real_escape_string($con,$gameCreator);
+		$controllerChosen = $_POST['controllerChosen']; 
+		$controllerChosen = mysqli_real_escape_string($con,$controllerChosen);
+		$templateAuthorName = $_POST['templateAuthorName'];
+		$templateAuthorName = mysqli_real_escape_string($con,$templateAuthorName);
+		$minGamePlayers = $_POST['minGamePlayers'];
+		$minGamePlayers = mysqli_real_escape_string($con,$minGamePlayers);
+		$maxGamePlayers = $_POST['maxGamePlayers'];
+		$maxGamePlayers = mysqli_real_escape_string($con,$maxGamePlayers);
+		$gameDescriptionPrimary = $_POST['gameDescriptionPrimary'];
+		$gameDescriptionPrimary = mysqli_real_escape_string($con,$gameDescriptionPrimary);
+		$gameDescriptionSecondary = $_POST['gameDescriptionSecondary'];
+		$gameDescriptionSecondary = mysqli_real_escape_string($con,$gameDescriptionSecondary);
+		$gameLabelsTextPrimary = $_POST['gameLabelsTextPrimary'];
+		$gameLabelsTextPrimary = mysqli_real_escape_string($con,$gameLabelsTextPrimary);
+		$gameLabelsTextSecondary = $_POST['gameLabelsTextSecondary'];
+		$gameLabelsTextSecondary = mysqli_real_escape_string($con,$gameLabelsTextSecondary);
+		$gameLabelLinks = $_POST['gameLabelLinks'];
+		$gameLabelLinks = mysqli_real_escape_string($con,$gameLabelLinks);
+		$gameColorScheme = $_POST['gameColorScheme'];
+		$gameColorScheme = mysqli_real_escape_string($con,$gameColorScheme);
+		$gameColorLines = $_POST['gameColorLines'];
+		$gameColorLines = mysqli_real_escape_string($con,$gameColorLines);
+						
 		
 		mysqli_select_db($con,"xantomen_gamesinputschemer");
 		

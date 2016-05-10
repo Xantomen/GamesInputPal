@@ -8,14 +8,22 @@
 	isset($_POST['minGamePlayers']) ||
 	isset($_POST['maxGamePlayers']))
 	{
+		//'192.254.183.35'
+		$con = mysqli_connect('localhost','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		if (!$con) {
+		    die('Could not connect: ' . mysqli_error($con));
+		}
+		
 		$gameTitle = $_POST['gameTitle'];
-		//$gameTitle = mysql_real_escape_string($gameTitle);
+		$gameTitle = mysqli_real_escape_string($con,$gameTitle);
 		$gameCreator = $_POST['gameCreator'];
-		//$gameCreator = mysql_real_escape_string($gameCreator);
+		$gameCreator = mysqli_real_escape_string($con,$gameCreator);
 		$controllerChosen = $_POST['controllerChosen']; 
-		//$controllerChosen = mysql_real_escape_string($controllerChosen);
+		$controllerChosen = mysqli_real_escape_string($con,$controllerChosen);
 		$templateAuthorName = $_POST['templateAuthorName']; 
+		$templateAuthorName = mysqli_real_escape_string($con,$templateAuthorName);
 		$numPlayers = $_POST['numPlayers'];
+		$numPlayers = mysqli_real_escape_string($con,$numPlayers);
 		$numPlayers = (int)$numPlayers;
 	
 		$propertiesToSearchFor = "";
@@ -61,12 +69,7 @@
 				
 		if($propertiesToSearchFor != "")
 		{
-			//'192.254.183.35'
-			$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
-			if (!$con) {
-			    die('Could not connect: ' . mysqli_error($con));
-			}
-
+			
 			mysqli_select_db($con,"xantomen_gamesinputschemer");
 			
 			

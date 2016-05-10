@@ -1620,13 +1620,18 @@
 				});
 			}
 			
+			////General utility functions
 			
 			function addSlashesToString(temp_string)
 			{
 				return temp_string.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
 			}
 			
-			
+			function decodeHtml(html) {
+			    var txt = document.createElement("textarea");
+			    txt.innerHTML = html;
+			    return txt.value;
+			}
 			
 			    		
     	});

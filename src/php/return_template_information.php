@@ -3,16 +3,16 @@
 
 	if (isset($_POST['property']) && isset($_POST['string_value']))
 	{
-		$property = $_POST['property'];
-		//$property = mysql_real_escape_string($property);
-	  	$string_value = $_POST['string_value'];
-		//$string_value = mysql_real_escape_string($string_value);
-				
-		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		$con = mysqli_connect('localhost','xantomen_user','testscheme','xantomen_gamesinputschemer');
 		if (!$con) {
 		    die('Could not connect: ' . mysqli_error($con));
 		}
 		
+		$property = $_POST['property'];
+		$property = mysqli_real_escape_string($con,$property);
+	  	$string_value = $_POST['string_value'];
+		$string_value = mysqli_real_escape_string($con,$string_value);
+
 		mysqli_select_db($con,"xantomen_gamesinputschemer");
 		
 		$sql="SELECT * FROM `GameTemplate` WHERE ".$property." = '".$string_value."'";
