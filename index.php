@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Games Input Schemer</title>
+    <title>Games Input Pal</title>
 
     <!-- Bootstrap -->
     <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,12 +26,15 @@
 		
 		<div id="headers">
 			<div id="tool_name">
-  				Made with Games Input Schemer
+  				Using Games Input Pal
 	  		</div>
-
+	  		<div id="call_to_action">
+  				Make yours!:
+	  		</div>
 	  		<div id="webpage_name">
 	  			<a href="http://xantomen.com/gamesinputschemer">http://xantomen.com/gamesinputschemer</a>
 	  		</div>
+	  		<div id="author_name" author_name="">Mapped by</div>
 			
 		</div>
 		<div id="buttons_bar">
@@ -61,10 +64,11 @@
 			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Search Options
 			  <span class="caret"></span></button>
 			  <ul class="dropdown-menu">
-			    <li class="search_row"><input id="search_by_name_text" class="h6 text-center center-block" value="" placeholder="Search by game title" type="text"></li>
-			    <li class="search_row"><input id="search_by_creator_text" class="h6 text-center center-block" value="" placeholder="Search by game creator" type="text"></li>
-			    <li class="search_row"><input id="search_by_controller_text" class="h6 text-center center-block" value="" placeholder="Search by game controller" type="text"></li>
-			    <li class="search_row"><input id="search_by_numplayers_text" class="h6 text-center center-block" value="" placeholder="Search by num. players (n)" type="text"></li>
+			    <li class="search_row"><input id="search_by_name_text" class="search_row_text h6 text-center center-block" value="" placeholder="Search by game title" type="text"></li>
+			    <li class="search_row"><input id="search_by_creator_text" class="search_row_text  h6 text-center center-block" value="" placeholder="Search by game creator" type="text"></li>
+			    <li class="search_row"><input id="search_by_controller_text" class="search_row_text  h6 text-center center-block" value="" placeholder="Search by game controller" type="text"></li>
+			    <li class="search_row"><input id="search_by_author_text" class="search_row_text  h6 text-center center-block" value="" placeholder="Search by template author" type="text"></li>
+			    <li class="search_row"><input id="search_by_numplayers_text" class="search_row_text  h6 text-center center-block" value="" placeholder="Search by num. players (n)" type="text"></li>
 			    <li class="search_row"><div id="search_button" class="btn btn-primary center-block">Go!</div></li>
 			  </ul>
 			</div>
@@ -79,28 +83,18 @@
 			  </ul>
 			</div>
 			
-			<!--<div id="search_results_dropdown" class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Last Search Results
+			<div id="print_dropdown" class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Print Options
 			  <span class="caret"></span></button>
-			  <ul id="search_results_list" class="dropdown-menu">
-			    <li class="search_results_row">
-			    	<img class="image-responsive controller_thumbnail_search_results" src="res/img/xbox360_controller.png">
-			    	<div class="results_information_container">
-			    		<div class="game_title_information text-center">
-			    			Best Game Ever
-			    		</div>
-			    		<div class="game_creator_information text-center">
-			    			Xantomen
-			    		</div>
-			    	</div>
-			    	<div search_value = "" class="load_button btn btn-primary">Load Template</div>
+			  <ul class="dropdown-menu">
+			    <li class="print_row">
+			    	<input id="author_checkbox" class="template_author_text h6 text-center center-block" value="" type="checkbox" checked>
+			    	<label id="author_checkbox_label" for="author_checkbox"> Include Template Author Name? (If available) </label>
 			    </li>
+			   	<li class="print_row"><div id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
 			  </ul>
-			</div>-->
+			</div>
 
-	  		<div id="print_button" type="button" class="btn btn-primary">
-	  			Print Now!
-	  		</div>
 	  		
   			<!--<div id="load_button" type="button" class="btn btn-primary">
 	  			Load!
@@ -109,9 +103,49 @@
 	  		<!--<input id="search_text" name="search_text" class="h5 text-center" 
   			value="Best Game Ever" placeholder="Search by Game Title" type="text">-->
   			
-  			<div id="save_button" type="button" class="btn btn-primary">
-	  			Save!
-	  		</div>
+  			<div id="save_dropdown" class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Save Options
+			  <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+			    <li class="save_row"><input id="template_author_text" class="template_author_text h6 text-center center-block" value="" placeholder="Your name/nickname (Optional)" type="text"></li>
+			   	<li class="save_row"><div id="save_button" class="btn btn-primary center-block">Save!</div></li>
+			  </ul>
+			</div>
+  				  		
+	  		<div id="about_dropdown" class="dropdown">
+			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">About
+			  <span class="caret"></span></button>
+			  <ul id="about_list" class="dropdown-menu">
+			  	<li id="about_row" class="h6 text-center">
+			    	Built by:
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Xantomen Nemot
+			    </li>
+			  	<li id="about_row" class="h6 text-center">
+			    	Using the Template Design by:
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Lorenzo Pilia
+			    </li>
+			  	<li id="about_row" class="h6 text-center">
+			    	SVG Graphics Credits:
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Xbox360 Controller by Mark Davis ; The Noun Project
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Playstation3 by Regan Warner ; The Noun Project
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	JS Graphics Library by:
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Walter Zorn
+			    </li>
+			    			    
+			  </ul>
+			</div>
   			
 	  		
 			
@@ -363,6 +397,25 @@
   				placeholder="Write a short description of the gameplay in English" type="text">
   		</div>
   		
+  		<div id="alert_messages_modal" class="modal fade in" role="dialog">
+		  <div id="alert_messages_modal_dialog" class="modal-dialog">
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 id="alert_modal_header" class="modal-title">Modal Header</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p id="alert_modal_text">Some text in the modal.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+  		
   		
   	</div>
     
@@ -384,6 +437,9 @@
     	 * gameTitle = String 
     	 * gameCreator = String
     	 * controllerChosen = String
+    	 * 
+    	 * templateAuthorName = String
+    	 * 
     	 * minGamePlayers = String
     	 * maxGamePlayers = String
     	 * 
@@ -433,7 +489,7 @@
     	var searchResultArray = [];
     	
     	var blueLineCoords = [856,368,359,339];
-    	
+    	    	
     	$(document).ready(function(){
 		
     		function reload_screen(){
@@ -447,6 +503,11 @@
 	    	createAnchorsEventListener();
 	    	
 	    	implementChangesInColorScheme();
+	    	
+	    	
+	    	//Focus on Game Title text input from the beginning
+	    	
+	    	$("#game_title_text").focus();
 	    	
 			//Change Controller Selection
 			
@@ -536,12 +597,21 @@
 			
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
 			
+			/*$("#search_dropdown").click(function(){
+				
+				$("#search_by_name_text").focus();
+			});*/
+			
+			$('#search_dropdown').on('shown.bs.dropdown', function () {
+			    $("#search_by_name_text").focus();
+			});
+			
 			$("#search_button").click(function(){
 				
 				var gameTitleToSearch = $("#search_by_name_text").val();
 				var gameCreatorToSearch = $("#search_by_creator_text").val();
 				var controllerChosenToSearch = $("#search_by_controller_text").val();
-				
+				var templateAuthorName = $("#search_by_author_text").val();
 				
 				if(controllerChosenToSearch != "") 
 				{
@@ -556,19 +626,25 @@
 				}
 				
 				searchTemplatesByProperties(gameTitleToSearch,gameCreatorToSearch,
-				controllerChosenToSearch,numPlayers);
+				controllerChosenToSearch,templateAuthorName,numPlayers);
 				
 				
 				
 			});
 						
-			function searchTemplatesByProperties(gameTitleToSearch,gameCreatorToSearch,controllerChosenToSearch,numPlayers)
+			function searchTemplatesByProperties(gameTitleToSearch,gameCreatorToSearch,controllerChosenToSearch,templateAuthorName,numPlayers)
 			{
 				  if(gameTitleToSearch !="" || 
-				  gameCreatorToSearch != "" ||
+				  gameCreatorToSearch != "" || 
 				  controllerChosenToSearch != "" ||
+				  templateAuthorName != "" ||
 				  numPlayers != "" )
 				  {
+
+					  $("#alert_modal_header").text("");
+					  $("#alert_modal_text").text("Searching Results...");
+					  $("#alert_messages_modal").modal("show");
+					  
 
 					  $.ajax({  
 					    type: "POST",  
@@ -576,11 +652,14 @@
 					    data: { 'gameTitle':addSlashesToString(gameTitleToSearch),
 					    'gameCreator':addSlashesToString(gameCreatorToSearch),
 					    'controllerChosen':addSlashesToString(controllerChosenToSearch),
+					    'templateAuthorName':addSlashesToString(templateAuthorName),
 					     'numPlayers':addSlashesToString(numPlayers)},    
 					    success: function(json_data){ // <-- note the parameter here, not in your code
 					       //$('#box2').html(data);
 		
 					       	onReceiveSearchResults(json_data);
+					       	
+							$("#alert_messages_modal").modal("hide");
 	
 					       //onLoadInitiateNewController(json_data);
 					       //onLoadEmbedValuesAndLines(json_data);
@@ -590,7 +669,13 @@
 				
 					    }
 					});
-				 } 	
+				 } 
+				 else
+				 {
+				 	$("#alert_modal_header").text("ERROR");
+					$("#alert_modal_text").text("You must fill at least one Search Field in order to execute this operation.");
+					$("#alert_messages_modal").modal("show");
+				 }
 			}
 			
 			function onReceiveSearchResults(json_data)
@@ -601,6 +686,7 @@
 					$("#search_results_none").css("display","block");
 					
 					$(".search_results_row").remove();
+					
 				}
 				else
 				{
@@ -663,12 +749,18 @@
 						
 			function loadTemplateByStringAndProperty(property,string_value)
 			{
+					$("#alert_modal_header").text("");
+					$("#alert_modal_text").text("Loading Template...");
+					$("#alert_messages_modal").modal("show");
+				
 				  $.ajax({  
 				    type: "POST",  
 				    url: "src/php/return_template_information.php",  
 				    data: { 'string_value':addSlashesToString(string_value),'property':addSlashesToString(property)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
+				       
+				       $("#alert_messages_modal").modal("hide");
 				       console.log(json_data);
 				       
 				       onLoadInitiateNewController(json_data);
@@ -676,7 +768,9 @@
 				       
 				    },
 				    error: function() {
-			
+				    	
+						
+				       $("#alert_messages_modal").modal("hide");
 				    }
 				});
 				    	
@@ -754,6 +848,20 @@
 				
 				$("#game_title_text").val(parsed_data.gameTitle);
 				$("#creator_name_text").val(parsed_data.gameCreator);
+				
+				$("#author_name").val("Mapped by "+parsed_data.templateAuthorName);
+				if(parsed_data.templateAuthorName!="") 
+				{
+					$("#author_name").addClass("author_name_available");
+					$("#author_name").attr("author_name",parsed_data.templateAuthorName);
+					
+				}
+				else
+				{
+					$("#author_name").removeClass("author_name_available");
+					$("#author_name").attr("author_name","");
+				}
+				
 				
 				$("#number_players_min_text").val(parsed_data.minGamePlayers);
 				$("#number_players_max_text").val(parsed_data.maxGamePlayers);
@@ -875,6 +983,12 @@
 				$("#controllers_image_container").append(s);
 	    				
 	    	}
+	    	
+	    	//Focus on author text when opening Save Dropdown
+	    	
+	    	$('#save_dropdown').on('shown.bs.dropdown', function () {
+			    $("#template_author_text").focus();
+			});
 	    		    	
 	    	//Assigning click event to Save Button
 	    	
@@ -896,13 +1010,18 @@
 				gameTemplateObject.gameTitle = $("#game_title_text").val();
 				gameTemplateObject.gameCreator = $("#creator_name_text").val();
 				
+
 				if(controllerChosen.length == 0 || controllerChosen == "none" ||
 				gameTemplateObject.gameTitle == "")
-				{
+				{					
 					completed_necessary_fields = false;
 				}
 				else
 				{
+					
+					gameTemplateObject.templateAuthorName = $("#template_author_text").val();
+					
+					
 					gameTemplateObject.minGamePlayers = $("#number_players_min_text").val();
 					gameTemplateObject.maxGamePlayers = $("#number_players_max_text").val();
 					
@@ -958,6 +1077,10 @@
 				{
 					console.log(gameTemplateObject);
 					
+					$("#alert_modal_header").text("");
+					$("#alert_modal_text").text("Saving Template for "+gameTemplateObject.gameTitle+"...");
+					$("#alert_messages_modal").modal("show");
+						
 					$.ajax({  
 					    type: "POST",  
 					    url: "src/php/save_template_information.php",  
@@ -965,6 +1088,7 @@
 					    	'controllerChosen':addSlashesToString(gameTemplateObject.controllerChosen),
 					    	'gameTitle':addSlashesToString(gameTemplateObject.gameTitle),
 					    	'gameCreator':addSlashesToString(gameTemplateObject.gameCreator),
+					    	'templateAuthorName':addSlashesToString(gameTemplateObject.templateAuthorName),
 					    	'minGamePlayers':addSlashesToString(gameTemplateObject.minGamePlayers),
 					    	'maxGamePlayers':addSlashesToString(gameTemplateObject.maxGamePlayers),
 					    	'gameDescriptionPrimary':addSlashesToString(gameTemplateObject.gameDescriptionPrimary),
@@ -977,18 +1101,49 @@
 					    	},      
 					    success: function(message){ // <-- note the parameter here, not in your code
 
-					       console.log(message);
+					       if(message.indexOf("Error") > -1)
+					       {
+						       	$("#alert_modal_header").text("ERROR");
+								$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> There might already be a Template with the same Game Title and Controller Chosen in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       }
+					       else
+					       {
+					       		//console.log(message);
+					       		$("#alert_modal_header").text("SAVED!");
+								$("#alert_modal_text").html("gameTemplateObject.gameTitle"+" ");
 					       
+					       		$("#alert_messages_modal").modal("hide");
+					       		
+					       		$("#author_name").val("Mapped by "+gameTemplateObject.templateAuthorName);
+					       		
+					       		if(gameTemplateObject.templateAuthorName!="") 
+								{
+									$("#author_name").addClass("author_name_available");
+									$("#author_name").attr("author_name",gameTemplateObject.templateAuthorName);
+									alert($("#author_name").attr());
+								}
+								else
+								{
+									$("#author_name").removeClass("author_name_available");
+									$("#author_name").attr("author_name","");
+								}
+					       }
 					       
 					    },
 					    error: function() {
 				
+							$("#alert_modal_header").text("ERROR");
+							$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> Templates must have at least a Game Title and Controller chosen to be Saved.");
 							console.log("FAIL SAVE INCOMPLETE DETAILS");
 					    }
 					});
 				}
 				else
 				{
+					$("#alert_modal_header").text("ERROR");
+					$("#alert_modal_text").text("Templates must have at least a Game Title and Controller chosen to be Saved.");
+					$("#alert_messages_modal").modal("show");
+					
 					console.log("FAIL SAVE");
 				}
 				
@@ -1036,63 +1191,70 @@
 			{
 				// Add a handler
 		        $('path').each(function() {
-		        				        	
-		        	//On SVG Element Click
-		            $(this).click(function() {
-		            			
-		            	var id = $(this).attr('id');
-		            			            				            	
-		            	$('path').each(function(){
-		            		
-		            		if($(this).attr('id') != id)
-		            		{
-		            			$(this).attr("stroke","none");
-		            			$(this).attr("stroke-width","6");
-		            		}
-		            					            		
-		            	});
-		            	
-		            	destroyDrawnLineObject(id);
-		            	
-		            	if($(this).attr("stroke") == "red")
-		            	{
-		            		buttonActive = "none";
-		            		
-		            		$(this).attr("stroke","none");
-		            		$(this).attr("stroke-width","8");
-		            		
-		            		$(".label_pair_anchor_right").each(function(){
-		            		
-		            			$(this).addClass("non_display");
-			            	});
-			            	
-			            	$(".label_pair_anchor_bottom").each(function(){
+		        				
+		            var id = $(this).attr('id');
+		            
+		            //If Path doesn't include NoClick in the ID, it should be Selectable
+		            if(!(id.indexOf("NoClick") > -1))
+		            {
+		            	$(this).attr("class","Selectable");
+		            			            	
+		            	//On SVG Element Click
+			            $(this).click(function() {
+			            				            				            	
+			            	$('path.Selectable').each(function(){
 			            		
-			            		$(this).addClass("non_display");
-			            	});
-		            	}
-		            	else
-		            	{
-		            					            					            		
-		            		buttonActive = id;
-		            		
-		            		$(this).attr("stroke","red");
-		            		$(this).attr("stroke-width","8");
-		            		
-		            		$(".label_pair_anchor_right").each(function(){
-		            		
-			            		$(this).removeClass("non_display");
+			            		if($(this).attr('id') != id)
+			            		{
+			            			$(this).attr("stroke","none");
+			            			$(this).attr("stroke-width","6");
+			            		}
+			            					            		
 			            	});
 			            	
-			            	$(".label_pair_anchor_bottom").each(function(){
+			            	destroyDrawnLineObject(id);
+			            	
+			            	if($(this).attr("stroke") == "red")
+			            	{
+			            		buttonActive = "none";
 			            		
-			            		$(this).removeClass("non_display");
-			            	});
+			            		$(this).attr("stroke","none");
+			            		$(this).attr("stroke-width","8");
+			            		
+			            		$(".label_pair_anchor_right").each(function(){
+			            		
+			            			$(this).addClass("non_display");
+				            	});
+				            	
+				            	$(".label_pair_anchor_bottom").each(function(){
+				            		
+				            		$(this).addClass("non_display");
+				            	});
+			            	}
+			            	else
+			            	{
+			            					            					            		
+			            		buttonActive = id;
+			            		
+			            		$(this).attr("stroke","red");
+			            		$(this).attr("stroke-width","8");
+			            		
+			            		$(".label_pair_anchor_right").each(function(){
+			            		
+				            		$(this).removeClass("non_display");
+				            	});
+				            	
+				            	$(".label_pair_anchor_bottom").each(function(){
+				            		
+				            		$(this).removeClass("non_display");
+				            	});
+				            	
+			            	}
+	
 			            	
-		            	}
-
-		            	
-		            });                       
+			            });      
+		            }			        	
+		        	                 
 		        });
 			}
 					
@@ -1128,6 +1290,20 @@
 			  	$("#container_all").css("width","285mm");
 			  	
 			  	updateDrawnLineObjects();
+			  				  		
+    			var desired_title_color = $("#game_title_text").css("color");
+    			$('<style id="print-style-tag" media="print">#game_title_text {color: '+desired_title_color+' !important;}</style>').appendTo('head');
+    			
+    			if($("#author_checkbox").is(':checked') && !($("#author_name").attr("author_name") == ""))
+    			{
+    				$("#author_name").attr("display","block");
+    				$("#author_name").text("Mapped by "+$("#author_name").attr("author_name"));
+    			} 
+				else
+				{
+					$("#author_name").text(""); 
+				} 
+				
 			}
 			
 			function returnContainerToScreenValues()
@@ -1136,7 +1312,16 @@
 			  	$("#container_all").css("width","100%");
 			  	
 			  	updateDrawnLineObjects();
+			  	
+			  	$("#print-style-tag").remove();
 			}
+			
+			
+	    	//Focus on author text when opening Print Dropdown
+	    	
+	    	/*$('#print_dropdown').on('shown.bs.dropdown', function () {
+			    $("#print_text").focus();
+			});*/
 			
 			$("#print_button").click(function(){
 				
@@ -1146,11 +1331,6 @@
     				color: #000 !important;
     			}*/
     			
-    			var desired_title_color = $("#game_title_text").css("color");
-    			
-				
-				//$('<style id="print-style-tag" media="print">#game_title_text {color: '+desired_title_color+' !important;}</style>').appendTo('head');
-			  	
 		  		window.print();
 		  		
 		  		//$('#print-style-tag').remove();
@@ -1319,7 +1499,7 @@
 						
 						buttonActive = "none";
 					            		
-					    $('path').each(function(){
+					    $('path.Selectable').each(function(){
 		        		
 		        			$(this).attr("stroke","none");
 		        			$(this).attr("stroke-width","8");

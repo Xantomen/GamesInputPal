@@ -4,6 +4,7 @@
 	if (isset($_POST['controllerChosen']) 
 	&& isset($_POST['gameTitle'])
 	&& isset($_POST['gameCreator'])
+	&& isset($_POST['templateAuthorName'])
 	&& isset($_POST['minGamePlayers'])
 	&& isset($_POST['maxGamePlayers'])
 	&& isset($_POST['gameDescriptionPrimary'])
@@ -20,6 +21,7 @@
 		//$gameCreator = mysql_real_escape_string($gameCreator);
 		$controllerChosen = $_POST['controllerChosen']; 
 		//$controllerChosen = mysql_real_escape_string($controllerChosen);
+		$templateAuthorName = $_POST['templateAuthorName']; 
 		$minGamePlayers = $_POST['minGamePlayers'];
 		//$minGamePlayers = mysql_real_escape_string($minGamePlayers);
 		$maxGamePlayers = $_POST['maxGamePlayers'];
@@ -53,33 +55,33 @@
 		'$gameDescriptionPrimary','$gameDescriptionSecondary','$gameLabelsTextPrimary','$gameLabelsTextSecondary',
 		'$gameLabelLinks','$gameColorScheme','$gameColorLines')";*/
 		
-		$sql="INSERT INTO `GameTemplate`(`gameTitle`, `gameCreator`, `controllerChosen`, `minGamePlayers`, 
+		$sql="INSERT INTO `GameTemplate`(`gameTitle`, `gameCreator`, `controllerChosen`, `templateAuthorName`,`minGamePlayers`, 
 		`maxGamePlayers`, `gameDescriptionPrimary`, `gameDescriptionSecondary`, `gameLabelsTextPrimary`, 
 		`gameLabelsTextSecondary`, `gameLabelLinks`, `gameColorScheme`, `gameColorLines`) 
 		VALUES ('value01','value02','value03','value04','value05',
 		'value06','value07','value08','value09',
-		'value10','value11','value12')";
+		'value10','value11','value12','value13')";
 		
 		$sql = str_replace("value01",$gameTitle,$sql);
 		$sql = str_replace("value02",$gameCreator,$sql);
 		$sql = str_replace("value03",$controllerChosen,$sql);
-		$sql = str_replace("value04",$minGamePlayers,$sql);
-		$sql = str_replace("value05",$maxGamePlayers,$sql);
-		$sql = str_replace("value06",$gameDescriptionPrimary,$sql);
-		$sql = str_replace("value07",$gameDescriptionSecondary,$sql);
-		$sql = str_replace("value08",$gameLabelsTextPrimary,$sql);
-		$sql = str_replace("value09",$gameLabelsTextSecondary,$sql);
-		$sql = str_replace("value10",$gameLabelLinks,$sql);
-		$sql = str_replace("value11",$gameColorScheme,$sql);
-		$sql = str_replace("value12",$gameColorLines,$sql);
+		$sql = str_replace("value04",$templateAuthorName,$sql);
+		$sql = str_replace("value05",$minGamePlayers,$sql);
+		$sql = str_replace("value06",$maxGamePlayers,$sql);
+		$sql = str_replace("value07",$gameDescriptionPrimary,$sql);
+		$sql = str_replace("value08",$gameDescriptionSecondary,$sql);
+		$sql = str_replace("value09",$gameLabelsTextPrimary,$sql);
+		$sql = str_replace("value10",$gameLabelsTextSecondary,$sql);
+		$sql = str_replace("value11",$gameLabelLinks,$sql);
+		$sql = str_replace("value12",$gameColorScheme,$sql);
+		$sql = str_replace("value13",$gameColorLines,$sql);
 		
 		$result = mysqli_query($con,$sql);
 		
 		if(!$result)
 	    {
 	        die('Error : ' . mysql_error());
-			
-			echo json_encode("ERROR IN SAVING TO DATABASE"); 
+
 	    }
 		else {
 			echo json_encode($result); 

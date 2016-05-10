@@ -4,6 +4,7 @@
 	if (isset($_POST['gameTitle']) || 
 	isset($_POST['gameCreator']) ||
 	isset($_POST['controllerChosen']) ||
+	isset($_POST['templateAuthorName']) ||
 	isset($_POST['minGamePlayers']) ||
 	isset($_POST['maxGamePlayers']))
 	{
@@ -13,6 +14,7 @@
 		//$gameCreator = mysql_real_escape_string($gameCreator);
 		$controllerChosen = $_POST['controllerChosen']; 
 		//$controllerChosen = mysql_real_escape_string($controllerChosen);
+		$templateAuthorName = $_POST['templateAuthorName']; 
 		$numPlayers = $_POST['numPlayers'];
 		$numPlayers = (int)$numPlayers;
 	
@@ -38,6 +40,14 @@
 		if($controllerChosen != "")
 		{
 			$propertiesToSearchFor = $propertiesToSearchFor."`controllerChosen`='".$controllerChosen."'";
+		}
+		if($propertiesToSearchFor != "" && $templateAuthorName != "")
+		{
+			$propertiesToSearchFor = $propertiesToSearchFor." AND ";
+		}
+		if($templateAuthorName != "")
+		{
+			$propertiesToSearchFor = $propertiesToSearchFor."`templateAuthorName`='".$templateAuthorName."'";
 		}
 		if($propertiesToSearchFor != "" && $numPlayers != "" && $numPlayers != -1)
 		{

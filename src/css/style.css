@@ -40,7 +40,7 @@
    
   #headers
   {
-  	display:block !important;
+  	display:block !important; 
   }
    /*#game_title_text {
    	
@@ -66,13 +66,17 @@ input,
     box-shadow: none !important;
     outline: none !important;
   }
+ 
+input:focus { 
+    background-color: #ffff80;
+}
+  
 
-svg path:hover {
+svg path.Selectable:hover {
     fill: red !important;
     
     cursor: pointer;
 }
-
 
 html,body{
     
@@ -107,6 +111,12 @@ html,body{
 	
 }
 
+.dropdown-menu {
+	
+	overflow-y: auto !important;
+    max-height: 300px !important;
+}
+
 
 #container_all {
 	
@@ -123,6 +133,7 @@ html,body{
     overflow:hidden;
 	
 }
+
 
 #buttons_bar {
   
@@ -285,20 +296,86 @@ html,body{
 				margin-bottom: 12px;
 			}
 			
-			.game_title_information.text-center {
+			.game_title_information {
 			    height: 15px;
 			    padding: 5px;
 			}
 			
-			.game_creator_information.text-center {
+			.game_creator_information {
 			    padding: 5px;
 			    margin-top: 2px;
 			}
 	
 	
 	
-	#print_button {
+	#print_dropdown {
+		position:relative;
+				
+		display:inline-block;
+	
+		float:left;
+		
+		margin-left:1px;
+		
+	}
+	
+		.print_row {
 			
+			display: block;
+		    white-space: nowrap;
+		    /*height: 50px;*/
+    		width: auto;
+    		
+ 
+		}
+		
+		#author_checkbox {
+			
+			display:inline-block;
+			width:30px;
+			height:20px;
+			margin-left:5px;
+			
+		}
+		
+		#author_checkbox_label {
+			
+			display:inline-block;
+		
+			margin-right:5px;
+		}
+		
+		
+	
+	
+	
+	
+
+	#save_dropdown {
+		position:relative;
+				
+		display:inline-block;
+	
+		float:left;
+		
+		margin-left:1px;
+		
+	}
+	
+		.save_row {
+			
+			display: block;
+		    white-space: nowrap;
+		    /*height: 50px;*/
+    		width: auto;
+		    
+		}
+		
+	
+	
+	
+	#about_dropdown {
+		
 		position:relative;
 				
 		display:inline-block;
@@ -306,32 +383,9 @@ html,body{
 		float:left;
 		
 		margin-left:1px;
-					
-	}
-	
-	#search_text {
 		
-		position:relative;
+		white-space:nowrap;
 		
-		height:200%;
-		
-		margin-top:0;
-				
-		border: 2px solid black !important;
-	
-	}
-	
-	#save_button {
-			
-		position:relative;
-				
-		display:inline-block;
-				
-		float:left;
-		
-		margin-left:1px;
-		
-					
 	}
 
 #headers {
@@ -345,6 +399,8 @@ html,body{
 	height:2%;
 		
 }
+		
+		
 		#tool_name {
 			
 			position:relative;
@@ -358,7 +414,20 @@ html,body{
 			
 		}
 		
-
+		#call_to_action {
+			
+			position:relative;
+			
+			width:45%;
+			
+			float:right;
+			
+			margin-right:1%;
+								
+			text-align:right;
+			
+			cursor: pointer;
+		}
 		#webpage_name {
 			
 			position:relative;
@@ -372,6 +441,17 @@ html,body{
 			text-align:right;
 			
 			cursor: pointer;
+		}
+		#author_name {
+			
+			position:relative;
+			
+			width:45%;
+			
+			margin-left:1%;
+			
+			float:left;
+			
 		}
 
 #container_top {
@@ -711,9 +791,6 @@ html,body{
 		
 		margin-top:0;
 	}
-
-
-
 
 
 .yellow {
