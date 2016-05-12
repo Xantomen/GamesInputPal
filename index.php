@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Games Input Pal</title>
@@ -41,8 +44,8 @@
 						
 			
 			<div id="choose_controller_dropdown" class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Controller
-			  <span class="caret"></span></button>
+			  <button title="Choose Controller" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="controller_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="controller_item selected" controller_name="xbox360_controller"><img class="image-responsive controller_thumbnail" src="res/img/xbox360_controller.png" > XBOX360</li>
 			    <li class="controller_item" controller_name="playstation3_controller"><img class="image-responsive controller_thumbnail" src="res/img/playstation3_controller.png" > PLAYSTATION3</li>
@@ -50,8 +53,8 @@
 			</div>
 			
 			<div id="choose_color_scheme_dropdown" class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Color Scheme
-			  <span class="caret"></span></button>
+			  <button title="Choose Color Scheme" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="color_button_image_container"><span color_scheme="1" color_value = "#000000" id="color_button_image1" class="color_thumbnail"></span><span color_scheme="1" color_value = "#6699ff" id="color_button_image2" class="color_thumbnail"></span></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="color_scheme_row selected" colors="#000000;#6699ff" color_scheme="1"><div color_scheme="1" color_value = "#000000" class="color_scheme_display color_thumbnail"></div><div color_scheme="1" color_value = "#6699ff" class="color_scheme_lines_display color_thumbnail"></div><div class="color_scheme_text">Black with Blue Lines</div></li>
 			    <li class="color_scheme_row" colors="#005580;#33cc33"  color_scheme="2"><div color_scheme="2" color_value = "#005580" class="color_scheme_display color_thumbnail"></div><div color_scheme="2" color_value = "#33cc33" class="color_scheme_lines_display color_thumbnail"></div><div class="color_scheme_text">Blue with Green Lines</div></li>
@@ -60,9 +63,21 @@
 			  </ul>
 			</div>
 			
+			<div id="choose_multiplayer_type_dropdown" class="dropdown">
+			  <button title="Choose Playstyle" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="multiplayer_button_image"></div><span class="caret button_arrow"></span></button>
+			  <ul class="dropdown-menu">
+			    <li class="playstyle_item_row" playstyle="singleplayer" multiplayer_type=""><img class="image-responsive multiplayer_thumbnail" src="res/img/singleplayer.svg" > SINGLEPLAYER</li>
+			    <li class="playstyle_item_row selected" playstyle="multiplayer" multiplayer_type=""><img class="image-responsive multiplayer_thumbnail" src="res/img/multiplayer.svg" > MULTIPLAYER</li>
+			    <li class="playstyle_item_row" playstyle="multiplayer" multiplayer_type="coop"><img class="image-responsive multiplayer_thumbnail" src="res/img/multiplayer_coop.svg" > COOP</li>
+			    <li class="playstyle_item_row" playstyle="multiplayer" multiplayer_type="versus"><img class="image-responsive multiplayer_thumbnail" src="res/img/multiplayer_versus.svg" > VERSUS</li>
+			  </ul>
+			</div>
+			
+			
 			<div id="search_dropdown" class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Search Options
-			  <span class="caret"></span></button>
+			  <button title="Search Options" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="search_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="search_row"><input id="search_by_name_text" class="search_row_text h6 text-center center-block" value="" placeholder="Search by game title" type="text"></li>
 			    <li class="search_row"><input id="search_by_creator_text" class="search_row_text  h6 text-center center-block" value="" placeholder="Search by game creator" type="text"></li>
@@ -74,8 +89,8 @@
 			</div>
 			
 			<div id="search_results_dropdown" class="dropdown">
-			  <button id="search_results_dropdown_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Last Search Results
-			  <span class="caret"></span></button>
+			  <button title="Last Search Results" id="search_results_dropdown_button" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="search_results_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul id="search_results_list" class="dropdown-menu">
 			    <li id="search_results_none" class="h6 text-center">
 			    	---No Results. Use Search Options first.---
@@ -84,8 +99,8 @@
 			</div>
 			
 			<div id="print_dropdown" class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Print Options
-			  <span class="caret"></span></button>
+			  <button title="Print Options" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="print_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="print_row">
 			    	<input id="author_checkbox" class="template_author_text h6 text-center center-block" value="" type="checkbox" checked>
@@ -104,8 +119,8 @@
   			value="Best Game Ever" placeholder="Search by Game Title" type="text">-->
   			
   			<div id="save_dropdown" class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Save Options
-			  <span class="caret"></span></button>
+			  <button title="Save Options" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="save_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="save_row"><input id="template_author_text" class="template_author_text h6 text-center center-block" value="" placeholder="Your name/nickname (Optional)" type="text"></li>
 			   	<li class="save_row"><div id="save_button" class="btn btn-primary center-block">Save!</div></li>
@@ -113,14 +128,14 @@
 			</div>
   				  		
 	  		<div id="about_dropdown" class="dropdown">
-			  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">About
-			  <span class="caret"></span></button>
+			  <button title="About" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <div id="about_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul id="about_list" class="dropdown-menu">
 			  	<li id="about_row" class="h6 text-center">
 			    	Built by:
 			    </li>
 			    <li id="about_row" class="h6 text-center">
-			    	Xantomen Nemot
+			    	men Nemot
 			    </li>
 			  	<li id="about_row" class="h6 text-center">
 			    	Using the Template Design by:
@@ -370,18 +385,18 @@
 	    	
 	    	<div id="number_players_container">
 		    	<div id="number_players_image_container">
-		    		<img id="players_image" src="res/img/players.png" 
-				class="img-responsive center-block max_height" alt="Controller IMAGE">
+		    		<img id="players_image" src="res/img/multiplayer.svg"
+				class="img-responsive max_height" alt="Controller IMAGE">
 		    	</div>
 	    		
 	    		<div id="number_players_inputs_container">
 	    			<input id="number_players_min_text" name="number_players_min" class="h1 text-center center-block" 
-  					value="1" placeholder="Write your Game Title here" type="text">
+  					value="" placeholder="Min" type="number" onkeypress="this.style.width = ((this.value.length + 1) * 10) + 40 + 'px';">
   					<div id="number_players_line_text_container">
   						<div id="number_players_line_text" class="h1 text-center center-block">-</div>
 					</div>
   					<input id="number_players_max_text" name="number_players_max" class="h1 text-center center-block" 
-  					value="2" placeholder="Write your Game Title here" type="text">
+  					value="" placeholder="Max" type="number" onkeypress="this.style.width = ((this.value.length + 1) * 10) + 40 + 'px';">
 	    		</div>
 				
 	    	</div>
@@ -497,7 +512,7 @@
     	
 			  location.reload(true);
 			}
-			//setTimeout(reload_screen, 3000);
+			setTimeout(reload_screen, 200050);
 	    	
 	    	checkUrlAndRequestTemplateIfValid();
 	    	
@@ -602,6 +617,8 @@
 				
 				$(this).addClass("selected");
 				
+				$("#controller_button_image").css("background-image","url('res/img/"+controller_name+".svg')");
+				
 			});
 			
 			//Preparing the Default Color Scheme Thumbnails
@@ -632,6 +649,11 @@
 				var color_value_scheme = $(".color_scheme_display[color_scheme='"+color_scheme_id+"']").attr("color_value");
 				var color_value_lines = $(".color_scheme_lines_display[color_scheme='"+color_scheme_id+"']").attr("color_value");
 			
+				$("#color_button_image1").attr("color_value",color_value_scheme);
+				$("#color_button_image1").css("background-color",color_value_scheme);
+				$("#color_button_image2").attr("color_value",color_value_lines);
+				$("#color_button_image2").css("background-color",color_value_lines);
+				
 				gameColorScheme = color_value_scheme;
 				
 				gameColorLines = color_value_lines;
@@ -642,6 +664,7 @@
 		
 			function implementChangesInColorScheme()
 			{
+				
 				//Changing color of Game Title and SVG's
 				
 				$("#game_title_text").css("color",gameColorScheme);
@@ -663,6 +686,157 @@
 				$(".color_scheme_row[colors='"+gameColorScheme+";"+gameColorLines+"']").addClass("selected");
 				
 			}
+			
+			//Making the Playstyle Dropdown a Multichoice mechanism
+			
+			$(".playstyle_item_row").unbind();
+			
+			$(".playstyle_item_row").click(function(e){
+				
+				e.stopPropagation();
+				
+				$(this).toggleClass("selected");
+				
+				var playstyle_state = "";
+								
+				$(".playstyle_item_row").each(function(){
+					
+					if($(this).hasClass("selected"))
+					{
+						var playstyle = $(this).attr("playstyle");
+						
+						if(playstyle == "singleplayer")
+						{
+							playstyle_state += playstyle;
+						}
+						
+						if(playstyle == "multiplayer")
+						{
+							if(playstyle_state.indexOf(playstyle) == -1)
+							{
+								if(playstyle_state.length != 0)
+								{
+									playstyle_state += "_";
+								}
+								playstyle_state += playstyle;
+							}
+							
+							var multiplayer_type = $(this).attr("multiplayer_type");
+							
+							if(multiplayer_type != "")
+							{
+								playstyle_state += "_";
+								playstyle_state += multiplayer_type;
+							}
+							
+						}
+					}
+				});
+				
+				console.log(playstyle_state);
+				
+				switch(playstyle_state)
+				{
+					case "singleplayer":
+						
+						$("#number_players_min_text").val("1");
+						$("#number_players_max_text").val("");
+						
+						$("#number_players_min_text").prop('readonly', true);
+						$("#number_players_line_text_container").css("display","none");
+						$("#number_players_max_text").css("display","none");
+						
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "multiplayer":
+										
+						$("#number_players_min_text").prop('readonly', false);
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "singleplayer_multiplayer":
+										
+						$("#number_players_min_text").prop('readonly', false);
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "singleplayer_multiplayer_versus":
+										
+						$("#number_players_min_text").css("display","inline-block");
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "singleplayer_multiplayer_coop":
+										
+						$("#number_players_min_text").css("display","inline-block");
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "singleplayer_multiplayer_coop_versus":
+										
+						$("#number_players_min_text").css("display","inline-block");
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "multiplayer_coop":
+										
+						$("#number_players_min_text").css("display","inline-block");
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "multiplayer_versus":
+										
+						$("#number_players_min_text").css("display","inline-block");
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					case "multiplayer_coop_versus":
+										
+						$("#number_players_min_text").css("display","inline-block");
+						$("#number_players_line_text_container").css("display","table");
+						$("#number_players_max_text").css("display","inline-block");
+						
+						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
+						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+					
+						break;
+					default:
+						break;
+				}
+				
+
+			});
 					
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
 			
@@ -676,6 +850,17 @@
 			$('#search_dropdown').on('shown.bs.dropdown', function () {
 			    $("#search_by_name_text").focus();
 			});
+			
+			//Resizing Search Row Text input text fields to never exceed the size of the panel
+			//(and actually resize the panel itself)
+			$('.search_row_text').keypress(function(){
+				
+				var desired_width = ((($(this).val().length) + 1) * 7) + 6;
+				
+				this.style.width = desired_width + 'px';
+			});
+			    
+			
 			
 			$("#search_button").click(function(){
 				
@@ -1078,7 +1263,16 @@
 	    	$('#save_dropdown').on('shown.bs.dropdown', function () {
 			    $("#template_author_text").focus();
 			});
-	    		    	
+	    		    
+	    	//Resizing Save Row Text input text field to never exceed the size of the panel
+			//(and actually resize the panel itself)
+			$('#template_author_text').keypress(function(){
+				
+				var desired_width = ((($(this).val().length) + 1) * 7) + 6;
+				
+				this.style.width = desired_width + 'px';
+			}); 
+	    		   	
 	    	//Assigning click event to Save Button
 	    	
 	    	$("#save_button").click(function(){
@@ -1282,6 +1476,9 @@
 				        $img.replaceWith($svg);
 				
 				        prepareSvgClickEvents();
+				        
+				        
+						implementChangesInColorScheme();
 		
 				    });
 				});

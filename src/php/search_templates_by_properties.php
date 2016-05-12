@@ -9,10 +9,13 @@
 	isset($_POST['maxGamePlayers']))
 	{
 		//'192.254.183.35'
-		$con = mysqli_connect('localhost','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
 		if (!$con) {
 		    die('Could not connect: ' . mysqli_error($con));
 		}
+		
+		//Fixes encoding issue that was happening only in the Hostgator server but not in localhost
+		mysqli_set_charset($con,"utf8");
 		
 		$gameTitle = $_POST['gameTitle'];
 		$gameTitle = mysqli_real_escape_string($con,$gameTitle);
