@@ -13,7 +13,8 @@
 	&& isset($_POST['gameLabelsTextSecondary'])
 	&& isset($_POST['gameLabelLinks'])
 	&& isset($_POST['gameColorScheme'])
-	&& isset($_POST['gameColorLines']))
+	&& isset($_POST['gameColorLines'])
+	&& isset($_POST['playstyleMode']))
 	{
 		
 		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
@@ -50,6 +51,8 @@
 		$gameColorScheme = mysqli_real_escape_string($con,$gameColorScheme);
 		$gameColorLines = $_POST['gameColorLines'];
 		$gameColorLines = mysqli_real_escape_string($con,$gameColorLines);
+		$playstyleMode = $_POST['playstyleMode'];
+		$playstyleMode = mysqli_real_escape_string($con,$playstyleMode);
 						
 		
 		mysqli_select_db($con,"xantomen_gamesinputschemer");
@@ -71,10 +74,10 @@
 			
 			$sql="INSERT INTO `GameTemplate`(`gameTitle`, `gameCreator`, `controllerChosen`, `templateAuthorName`,`minGamePlayers`, 
 			`maxGamePlayers`, `gameDescriptionPrimary`, `gameDescriptionSecondary`, `gameLabelsTextPrimary`, 
-			`gameLabelsTextSecondary`, `gameLabelLinks`, `gameColorScheme`, `gameColorLines`) 
+			`gameLabelsTextSecondary`, `gameLabelLinks`, `gameColorScheme`, `gameColorLines`,`playstyleMode`) 
 			VALUES ('value01','value02','value03','value04','value05',
 			'value06','value07','value08','value09',
-			'value10','value11','value12','value13')";
+			'value10','value11','value12','value13','value14')";
 			
 			$sql = str_replace("value01",$gameTitle,$sql);
 			$sql = str_replace("value02",$gameCreator,$sql);
@@ -89,6 +92,7 @@
 			$sql = str_replace("value11",$gameLabelLinks,$sql);
 			$sql = str_replace("value12",$gameColorScheme,$sql);
 			$sql = str_replace("value13",$gameColorLines,$sql);
+			$sql = str_replace("value14",$playstyleMode,$sql);
 			
 			//Adding this replace to prevent fringe cases html code injection
 			//It won't matter as long as I keep using .val() to get values.

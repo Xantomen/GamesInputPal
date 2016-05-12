@@ -135,7 +135,10 @@
 			    	Built by:
 			    </li>
 			    <li id="about_row" class="h6 text-center">
-			    	men Nemot
+			    	Xantomen Nemot
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	@xantomen
 			    </li>
 			  	<li id="about_row" class="h6 text-center">
 			    	Using the Template Design by:
@@ -147,10 +150,19 @@
 			    	SVG Graphics Credits:
 			    </li>
 			    <li id="about_row" class="h6 text-center">
-			    	Xbox360 Controller by Mark Davis ; The Noun Project
+			    	Xbox360 Icon by Mark Davis ; The Noun Project
 			    </li>
 			    <li id="about_row" class="h6 text-center">
-			    	Playstation3 by Regan Warner ; The Noun Project
+			    	Playstation3 Icon by Regan Warner ; The Noun Project
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Save Icon by Matt Wilson ; The Noun Project
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Print Icon by Musaplated ; The Noun Project
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Info Icon by Alex Auda Samora ; The Noun Project
 			    </li>
 			    <li id="about_row" class="h6 text-center">
 			    	JS Graphics Library by:
@@ -472,6 +484,8 @@
     	 * gameColorScheme = String
     	 * gameColorLines = String
     	 * 
+    	 * playstyleMode = String
+    	 * 
     	 */
     	
     	/* DrawnLine Object Architecture:
@@ -504,6 +518,8 @@
     	
     	var searchResultArray = [];
     	
+    	var playstyleMode = "multiplayer";
+    	
     	var blueLineCoords = [856,368,359,339];
     	    	
     	$(document).ready(function(){
@@ -512,7 +528,7 @@
     	
 			  location.reload(true);
 			}
-			setTimeout(reload_screen, 200050);
+			//setTimeout(reload_screen, 250);
 	    	
 	    	checkUrlAndRequestTemplateIfValid();
 	    	
@@ -583,6 +599,8 @@
 				});
 				    	
 			}
+	    	 	
+	    	//Initiating SVG's, anchor events and colors
 	    	 	
 	    	prepareSvgControllerImage();
 	    	
@@ -733,13 +751,25 @@
 					}
 				});
 				
-				console.log(playstyle_state);
+				playstyleMode = playstyle_state;
+							
+				
+				presentPlaystyleModeSelection(playstyle_state);
+				
+
+			});
+						
+			function presentPlaystyleModeSelection(playstyle_state)
+			{
+				
+				$(".playstyle_item_row").removeClass("selected");
 				
 				switch(playstyle_state)
 				{
 					case "singleplayer":
 						
 						$("#number_players_min_text").val("1");
+						$("#number_players_min_text").keypress();
 						$("#number_players_max_text").val("");
 						
 						$("#number_players_min_text").prop('readonly', true);
@@ -749,6 +779,8 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='singleplayer'][multiplayer_type='']").addClass("selected");
 					
 						break;
 					case "multiplayer":
@@ -759,6 +791,8 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
 					
 						break;
 					case "singleplayer_multiplayer":
@@ -769,6 +803,9 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='singleplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
 					
 						break;
 					case "singleplayer_multiplayer_versus":
@@ -779,6 +816,10 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='singleplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='versus']").addClass("selected");
 					
 						break;
 					case "singleplayer_multiplayer_coop":
@@ -789,6 +830,10 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='singleplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='coop']").addClass("selected");
 					
 						break;
 					case "singleplayer_multiplayer_coop_versus":
@@ -799,6 +844,11 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='singleplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='versus']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='coop']").addClass("selected");
 					
 						break;
 					case "multiplayer_coop":
@@ -809,6 +859,9 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='coop']").addClass("selected");
 					
 						break;
 					case "multiplayer_versus":
@@ -819,6 +872,9 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='versus']").addClass("selected");
 					
 						break;
 					case "multiplayer_coop_versus":
@@ -829,15 +885,17 @@
 						
 						$("#multiplayer_button_image").css("background-image","url('res/img/"+playstyle_state+".svg')");
 						$("#players_image").attr("src","res/img/"+playstyle_state+".svg");
+						
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='versus']").addClass("selected");
+						$(".playstyle_item_row[playstyle='multiplayer'][multiplayer_type='coop']").addClass("selected");
 					
 						break;
 					default:
 						break;
 				}
+			}
 				
-
-			});
-					
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
 			
 			//loadTemplateByStringAndProperty("gameTitle","Best Game Ever");
@@ -1239,7 +1297,19 @@
 					
 				}
 				
+				//If Playstyle Mode has a value
+				if(parsed_data.playstyleMode!="")
+				{
+					playstyleMode = parsed_data.playstyleMode;
+					
+				}
+				
 				implementChangesInColorScheme();
+				
+				presentPlaystyleModeSelection(playstyleMode);
+				
+				$("#number_players_min_text").keypress();
+				$("#number_players_max_text").keypress();
 				
 			}
 	    	
@@ -1353,6 +1423,8 @@
 					
 					gameTemplateObject.gameColorScheme = gameColorScheme;
 					gameTemplateObject.gameColorLines = gameColorLines;
+					
+					gameTemplateObject.playstyleMode = playstyleMode;
 	        		
 				}
 				
@@ -1380,7 +1452,8 @@
 					    	'gameLabelsTextSecondary':addSlashesToString(gameTemplateObject.gameLabelsTextSecondary),
 					    	'gameLabelLinks':addSlashesToString(gameTemplateObject.gameLabelLinks),
 					    	'gameColorScheme':addSlashesToString(gameTemplateObject.gameColorScheme),
-					    	'gameColorLines':addSlashesToString(gameTemplateObject.gameColorLines)
+					    	'gameColorLines':addSlashesToString(gameTemplateObject.gameColorLines),
+					    	'playstyleMode':addSlashesToString(gameTemplateObject.playstyleMode)
 					    	},      
 					    success: function(message){ // <-- note the parameter here, not in your code
 
