@@ -65,3 +65,39 @@ function regformhash(username, email, password, conf_password) {
 
     return password;
 }
+
+function regformhashnousername(email, password, conf_password) {
+    // Check each field has a value
+    if (email == '' || password == '' || conf_password == '') {
+        alert('You must provide all the requested details. (Email, Password, Confirm Password) Please try again');
+        return false;
+    }
+        
+    // Check that the password is sufficiently long (min 6 chars)
+    // The check is duplicated below, but this is included to give more
+    // specific guidance to the user
+    if (password.length < 6) {
+        alert('Passwords must be at least 6 characters long.  Please try again');
+        //form.password.focus();
+        return false;
+    }
+    
+    // At least one number, one lowercase and one uppercase letter 
+    // At least six characters 
+    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/; 
+    if (!re.test(password)) {
+        alert('Passwords must contain at least one number, one lowercase and one uppercase letter.  Please try again');
+        return false;
+    }
+    
+    // Check password and conf_passwordirmation are the same
+    if (password != conf_password) {
+        alert('Your password and conf_passwordirmation do not match. Please try again');
+        //form.password.focus();
+        return false;
+    }
+        
+    password = hex_sha512(password);
+
+    return password;
+}

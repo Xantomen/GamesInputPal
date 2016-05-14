@@ -47,19 +47,16 @@ if (isset($_POST['email'], $_POST['password'], $_POST['username'] , $_POST['hash
 			$mail->Body = '
 			<br /> 
 			Thanks for signing up!<br />
-			This is a resending of the verification email, you can login with the following username after you have activated your account by pressing the url below.
+			This is a resending of the verification email, you can login after you have activated your account by pressing the url below.
 			<br /><br /> 
-			------------------------<br />
-			Username: '.$username.' <br />
-			------------------------<br />
-			<br />
+			
 			Please click this link to activate your account:<br />
 			http://www.xantomen.com/gamesinputschemer/index.php#action=verify&email='.$email.'&hash='.$hash.'<br /><br />';
 			
 			
 			
 			$mail->AltBody = 'Thanks for signing up! 
-			Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
+			Your account has been created, you can login after you have activated your account by pressing the url below.
 			 ';
 		    
 			if (!$mail->send()) {
@@ -91,13 +88,9 @@ if (isset($_POST['email'], $_POST['password'], $_POST['username'] , $_POST['hash
 		$mail->Body = '
 		<br /> 
 		Thanks for signing up!<br />
-		Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
+		Your account has been created, you can login after you have activated your account by pressing the url below.
 		<br /><br /> 
-		------------------------<br />
-		Username: '.$username.' <br />
-		Password: '.$password.' <br />
-		------------------------<br />
-		<br />
+		
 		Please click this link to activate your account:<br />
 		http://www.xantomen.com/gamesinputschemer/index.php#action=verify&email='.$email.'&hash='.$hash.'<br /><br />';
 		

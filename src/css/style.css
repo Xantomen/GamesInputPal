@@ -640,6 +640,8 @@ input[type=number]::-webkit-outer-spin-button {
 		white-space:nowrap;
 		
 	}
+		
+	
 	
 		#account_button_image {
 			
@@ -657,6 +659,15 @@ input[type=number]::-webkit-outer-spin-button {
 		    width: 32px;
 		    height: 20px;
 		}
+		
+			.account_row {
+			
+				display: block;
+			    white-space: nowrap;
+			    /*height: 50px;*/
+	    		max-width: 100% !important;
+			    
+			}
 		
 			.account_row_text {
 			

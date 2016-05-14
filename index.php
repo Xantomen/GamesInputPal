@@ -197,22 +197,27 @@ if (login_check($mysqli) == true) {
 					echo '<div id="account_button_image" class="opened"></div><span class="caret button_arrow"></span></button>';
 				}
 				echo '<ul class="dropdown-menu">';
+				echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="xantomen@gmail.com" placeholder="Write your Email here" type="text"/></li>';
+				echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="Testing2" placeholder="Write your Password" type="password"/></li>';
+					
 				if ($logged == 'in') {
 		            echo '<li class="account_row"><div id="logout_button" class="btn btn-primary center-block">Logout!</div></li>';
 		        }
 				else {
 					
-					echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="xantomen@gmail.com" placeholder="Write your Email here" type="text"/></li>';
-					echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="Testing1" placeholder="Write your Password" type="password"/></li>';
-					
 					echo '<li class="account_row"><div id="login_button" class="btn btn-primary center-block">Login!</div></li>';
 					
-					echo '<li class="account_row"><input id="username" class="account_row_text h6 text-center center-block" value="Xantomen" placeholder="Write your Username" type="text"/></li>';
-					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="Testing1" placeholder="Write your Password Again (Confirmation)" type="password"/></li>';
-					
-					echo '<li class="account_row"><div id="register_button" class="btn btn-primary center-block">Register!</div></li>';
-					echo '<li class="account_row"><div id="resend_verification_button" class="btn btn-primary center-block">Resend Verification Email!</div></li>';
+					echo '<li class="account_row"><input id="username" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Username" type="text"/></li>';
 				}
+				
+				
+					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="Testing2" placeholder="Write your Password Again (Confirmation)" type="password"/></li>';
+				if ($logged == 'out') {
+		           	echo '<li class="account_row"><div id="register_button" class="btn btn-primary center-block">Register!</div></li>';
+					echo '<li class="account_row"><div id="resend_verification_button" class="btn btn-primary center-block">Resend Verification!</div></li>';
+				}
+								
+				echo '<li class="account_row"><div id="reset_password_button" class="btn btn-primary center-block">Reset Password!</div></li>';
 				echo '</ul>';
 				echo '</div>';	
 	        ?> 
@@ -568,11 +573,12 @@ if (login_check($mysqli) == true) {
     	$(document).ready(function(){
 		
 			function restart_url() {
-				window.location.href.split("#")[0];
+				window.location.hash = window.location.hash.split("#")[0];
 			}
 		
     		function reload_screen(){
     	
+    		  //restart_url();
 			  location.reload(true);
 			}
 			//setTimeout(reload_screen, 250);
@@ -640,6 +646,41 @@ if (login_check($mysqli) == true) {
 			    	
 			    		
 			    		break;
+
+	    			case "confirm_reset_password":
+	    			
+	    				$("#alert_modal_header").text("");
+						$("#alert_modal_text").text("Verifying Reset Password Change...");
+						$("#alert_messages_modal").modal("show");
+	    			
+	    				var email = getURLParameter("email");
+	    				var hash = getURLParameter("hash");
+	    				    			
+	    				if(email && hash)
+	    				{
+			    			$.ajax({  
+							    type: "POST",  
+							    url: "includes/reset_password.php",
+							    data: { 'email':email,
+							    'hash':hash },
+							    success: function(data){ 
+							       
+									$("#alert_modal_header").text("PASSWORD CHANGED VERIFIED!");
+									$("#alert_modal_text").html("We have changed your Password!. Please Log In and enjoy all the advanced features, like Overwriting Templates and Print with/without Author's Name");
+									restart_url();
+							    },
+							    error: function(data) {
+									
+									$("#alert_modal_header").text("VERIFICATION ERROR!");
+									$("#alert_modal_text").html(data);
+
+							    }
+							});
+							
+	    				}
+
+			    		
+			    		break;
 	    			
 	    			default:
 	    			break;
@@ -682,7 +723,6 @@ if (login_check($mysqli) == true) {
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
 				       
-						console.log(json_data);
 				       
 				       if(json_data.indexOf("TEMPLATE NOT FOUND") == -1)
 						{
@@ -713,6 +753,13 @@ if (login_check($mysqli) == true) {
 			 * 
 			 * 
 			 */
+			
+			//Focus on Email text input from the beginning when clicking on Account Options Dropdown
+	    	
+	    	$('#account_dropdown').on('shown.bs.dropdown', function () {
+			    $("#email").focus();
+			});
+	    	
 			
 			prepareAuthListeners();
 			
@@ -931,6 +978,56 @@ if (login_check($mysqli) == true) {
 					    }
 					});
 
+	        		
+	        	});
+	        	$("#reset_password_button").click(function(){
+	        		  		
+	        		var email = $("#email").val();
+	        		
+	        		var original_password = $("#password").val();
+	        		
+	        		var password = regformhashnousername(email,original_password,$("#conf_password").val());
+	        		
+	        		console.log(password);
+	        		
+	        		if(password != false)
+	        		{
+	        			$("#alert_modal_header").text("");
+						$("#alert_modal_text").text("Attempting to Send a Reset Password Email...");
+						$("#alert_messages_modal").modal("show");
+	        			
+	        			$.ajax({  
+						    type: "POST",  
+						    url: "includes/reset_password_confirmation_email.php",  
+						    data: { 'email':email,
+						    'password':password},    
+						    success: function(data){ 
+						       	       
+						       if(data.indexOf("SENT RESEND CONFIRMATION EMAIL!")>-1 && data.indexOf("RESET PASSWORD SUCCESS!")>-1 )
+						       {
+
+									$("#alert_modal_header").text("SUCCESFULLY SENT!");
+									$("#alert_modal_text").html("Your password will reset as soon as you click the link that has been sent to your email.");
+
+						       		//location.reload();
+						       }						       
+						       else
+						       {
+						       		$("#alert_modal_header").text("RESET PASSWORD EMAIL FAILED!");
+									$("#alert_modal_text").html("We couldn't send a confirmation email to your address. Please make sure both your email, password and repeat password fields are filled and try again.");
+						       }
+								//$("#alert_messages_modal").modal("hide");
+								//location.reload();
+								
+						    },
+						    error: function() {
+						    	
+								$("#alert_modal_header").text("RESET PASSWORD EMAIL FAILED!");
+									$("#alert_modal_text").html("We couldn't send a confirmation email to your address. Please make sure both your email, password and repeat password fields are filled and try again.");
+						    }
+						});
+	        		}
+	        		
 	        		
 	        	});
 			}
