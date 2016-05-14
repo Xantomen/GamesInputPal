@@ -1,9 +1,11 @@
 
 <?php 
 
+	include_once '../../includes/psl-config.php';
+
 	if (isset($_POST['property']) && isset($_POST['string_value']))
 	{
-		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		$con = mysqli_connect(HOST,USER,PASSWORD,DATABASE);
 		if (!$con) {
 		    die('Could not connect: ' . mysqli_error($con));
 		}

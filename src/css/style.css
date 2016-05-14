@@ -141,6 +141,12 @@ input[type=number]::-webkit-outer-spin-button {
 	
 }
 
+#alert_modal_text {
+	
+    word-wrap: break-word !important;
+
+}
+
 
 #buttons_bar {
   
@@ -620,6 +626,51 @@ input[type=number]::-webkit-outer-spin-button {
 		    width: 32px;
 		    height: 20px;
 		}
+		
+	#account_dropdown {
+		
+		position:relative;
+				
+		display:inline-block;
+				
+		float:left;
+		
+		margin-left:1px;
+		
+		white-space:nowrap;
+		
+	}
+	
+		#account_button_image {
+			
+		    
+		    background-position: center center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+		    position: relative;
+		    top: 1px;
+		    display: inline-block;
+		    font-style: normal;
+		    font-weight: 400;
+		    line-height: 1;
+		    -webkit-font-smoothing: antialiased;
+		    width: 32px;
+		    height: 20px;
+		}
+		
+			.account_row_text {
+			
+				min-width:175px;
+			}
+		
+			 .opened {
+			 	
+			 		background-image: url("../../res/img/opened_lock.svg");
+			 }
+			 .closed {
+			 	
+			 		background-image: url("../../res/img/closed_lock.svg");
+			 }
 
 #headers {
 	position:relative;

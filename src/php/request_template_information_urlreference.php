@@ -1,9 +1,11 @@
 
 <?php 
 
+	include_once '../../includes/psl-config.php';
+
 	if (isset($_POST['gameTitle']) && isset($_POST['controllerChosen']))
 	{
-		$con = mysqli_connect('192.254.183.35','xantomen_user','testscheme','xantomen_gamesinputschemer');
+		$con = mysqli_connect(HOST,USER,PASSWORD,DATABASE);
 		if (!$con) {
 		    die('Could not connect: ' . mysqli_error($con));
 		}
@@ -14,8 +16,10 @@
 		$gameTitle = $_POST['gameTitle'];
 		$gameTitle = mysqli_real_escape_string($con,$gameTitle);
 		$gameTitle = str_replace("%20"," ",$gameTitle);
+		$gameTitle = str_replace("%3C","<",$gameTitle);
+		$gameTitle = str_replace("%3E",">",$gameTitle);
 		//$property = mysql_real_escape_string($property);
-	  	$controllerChosen = $_POST['controllerChosen']."_controller";
+	  	$controllerChosen = $_POST['controllerChosen'];
 		$controllerChosen = mysqli_real_escape_string($con,$controllerChosen);
 		//$string_value = mysql_real_escape_string($string_value);
 

@@ -1,3 +1,16 @@
+<?php
+
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
+
+if (login_check($mysqli) == true) {
+    $logged = 'in';
+} else {
+    $logged = 'out';
+}
+?>
 
 <html lang="en">
   <head>
@@ -104,7 +117,7 @@
 			  <ul class="dropdown-menu">
 			    <li class="print_row">
 			    	<input id="author_checkbox" class="template_author_text h6 text-center center-block" value="" type="checkbox" checked>
-			    	<label id="author_checkbox_label" for="author_checkbox"> Include Template Author Name? (If available) </label>
+			    	<label id="author_checkbox_label" for="author_checkbox"> Include Template Author Name? (If available, has to be a saved template) </label>
 			    </li>
 			   	<li class="print_row"><div id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
 			  </ul>
@@ -173,9 +186,37 @@
 			    			    
 			  </ul>
 			</div>
-  			
-	  		
+			<?php
 			
+				echo '<div id="account_dropdown" class="dropdown">';
+				echo '<button title="Account Options" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">';
+				if ($logged == 'in') {
+		            echo '<div id="account_button_image" class="closed"></div><span class="caret button_arrow"></span></button>';
+		        }
+				else {
+					echo '<div id="account_button_image" class="opened"></div><span class="caret button_arrow"></span></button>';
+				}
+				echo '<ul class="dropdown-menu">';
+				if ($logged == 'in') {
+		            echo '<li class="account_row"><div id="logout_button" class="btn btn-primary center-block">Logout!</div></li>';
+		        }
+				else {
+					
+					echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="xantomen@gmail.com" placeholder="Write your Email here" type="text"/></li>';
+					echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="Testing1" placeholder="Write your Password" type="password"/></li>';
+					
+					echo '<li class="account_row"><div id="login_button" class="btn btn-primary center-block">Login!</div></li>';
+					
+					echo '<li class="account_row"><input id="username" class="account_row_text h6 text-center center-block" value="Xantomen" placeholder="Write your Username" type="text"/></li>';
+					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="Testing1" placeholder="Write your Password Again (Confirmation)" type="password"/></li>';
+					
+					echo '<li class="account_row"><div id="register_button" class="btn btn-primary center-block">Register!</div></li>';
+					echo '<li class="account_row"><div id="resend_verification_button" class="btn btn-primary center-block">Resend Verification Email!</div></li>';
+				}
+				echo '</ul>';
+				echo '</div>';	
+	        ?> 
+
 		</div>
   		<div id="container_top" class="center-block">
   
@@ -451,6 +492,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/JavaScript" src="src/js/sha512.js"></script> 
+    <script type="text/JavaScript" src="src/js/ajax_helpers.js"></script> 
     
     <script type="text/javascript">
     	    	 
@@ -505,7 +548,7 @@
     	 * 
     	 */
     	    	
-    	var originalUrl = window.location.href;
+    	var originalUrl = window.location.href.split("#")[0];
     	  
     	var buttonActive = "none";
     	
@@ -524,48 +567,113 @@
     	    	
     	$(document).ready(function(){
 		
+			function restart_url() {
+				window.location.href.split("#")[0];
+			}
+		
     		function reload_screen(){
     	
 			  location.reload(true);
 			}
 			//setTimeout(reload_screen, 250);
 	    	
-	    	checkUrlAndRequestTemplateIfValid();
+	    	/*
+	    	 * URL Actions Block
+	    	 * 
+	    	 * 
+	    	 */
 	    	
-	    	function checkUrlAndRequestTemplateIfValid()
+	    	checkUrlForActions();
+	    	
+	    	function checkUrlForActions()
 	    	{
-	    		var href_split = window.location.href.split("#");
+	    		var action = getURLParameter("action");
 	    		
-	    		var templateReference = ""; 
-	    		
-	    		if(href_split.length > 1)
+	    		switch(action)
 	    		{
-	    			originalUrl = href_split[0];
+	    			case "verify":
 	    			
-	    			templateReference = href_split[1];
+	    				$("#alert_modal_header").text("");
+						$("#alert_modal_text").text("Verifying Account...");
+						$("#alert_messages_modal").modal("show");
 	    			
-	    			var reference_split = templateReference.split("+");
+	    				var email = getURLParameter("email");
+	    				var hash = getURLParameter("hash");
+	    				    			
+	    				if(email && hash)
+	    				{
+			    			$.ajax({  
+							    type: "POST",  
+							    url: "includes/verify_user_email.php", 
+							    data: { 'email':email,
+							    'hash':hash },
+							    success: function(data){ 
+							       
+									$("#alert_modal_header").text("ACCOUNT VERIFIED!");
+									$("#alert_modal_text").html("We have verified your Account!. Please Log In and enjoy all the advanced features, like Overwriting Templates and Print with/without Author's Name");
+									restart_url();
+							    },
+							    error: function(data) {
+									
+									$("#alert_modal_header").text("VERIFICATION ERROR!");
+									$("#alert_modal_text").html(data);
+
+							    }
+							});
+							
+	    				}
+
+	    			break;
+	    			case "request_template":
 	    			
-	    			var gameTitle = "";
-	    			var controllerChosen = "";
-	    			
-	    			if(reference_split.length > 1)
-	    			{
-	    				gameTitle = reference_split[0];
-	    				controllerChosen = reference_split[1];
+	    				var gameTitle = getURLParameter("gameTitle");
+	    				var controllerChosen = getURLParameter("controllerChosen");
 	    				
-	    				requestTemplateByTitleAndController(gameTitle,controllerChosen);
-	    			}
+	    				console.log(gameTitle);
+	    				console.log(controllerChosen);
+	    				    		
+	    				if(gameTitle && controllerChosen)
+	    				{
+	    					requestTemplateByTitleAndController(gameTitle,controllerChosen);	
+	    				}
+	    				    		
+			    	
+			    		
+			    		break;
+	    			
+	    			default:
+	    			break;
 	    		}
 	    		
+	    		
 	    	}
+	    	
+	    	
+	    	function getURLParameter(sParam)
+			{
+				if(window.location.href.indexOf("#")>-1)
+				{
+					var sPageURL = window.location.href.split("#")[1];
+			    
+			    
+			    	var sURLVariables = sPageURL.split('&');
+				    for (var i = 0; i < sURLVariables.length; i++) 
+				    {
+				        var sParameterName = sURLVariables[i].split('=');
+				        if (sParameterName[0] == sParam) 
+				        {
+				            return sParameterName[1];
+				        }
+				    }
+				}
+			
+			}
 	    	
 	    	function requestTemplateByTitleAndController(gameTitle,controllerChosen)
 			{
 					$("#alert_modal_header").text("");
 					$("#alert_modal_text").text("Requesting Template...");
 					$("#alert_messages_modal").modal("show");
-				
 				
 				  $.ajax({  
 				    type: "POST",  
@@ -599,7 +707,242 @@
 				});
 				    	
 			}
-	    	 	
+			
+			/*
+			 * Auth Block
+			 * 
+			 * 
+			 */
+			
+			prepareAuthListeners();
+			
+			function prepareAuthListeners()
+			{
+				$("#login_button").click(function(){
+	        		
+	        		$("#alert_modal_header").text("");
+					$("#alert_modal_text").text("Logging in...");
+					$("#alert_messages_modal").modal("show");
+	        		
+	        		var email = $("#email").val();
+	        		var password = formhash($("#password").val());
+	
+	        		$.ajax({  
+					    type: "POST",  
+					    url: "includes/process_login.php",  
+					    data: { 'email':email,
+					    'password':password},    
+					    success: function(data){
+					       
+					       if(data == "SUCCESFULLY LOGGED IN!")
+					       {
+
+					       		$("#alert_modal_header").text("SUCCESFULLY LOGGED IN!");
+								$("#alert_modal_text").html("Now you can enjoy all the features.");
+						
+					       		location.reload();
+					       }
+					       else if(data == "LOGIN FAILED!")
+					       {
+					       		$("#alert_modal_header").text("ERROR LOGGING IN");
+								$("#alert_modal_text").html("Login Failed. Invalid email or password, or the account doesn't exist or has not been activated.");
+						
+					       }
+					       else if(data == "INCORRECT INPUT!")
+					       {
+					       		$("#alert_modal_header").text("ERROR LOGGING IN");
+					       		$("#alert_modal_text").html("A valid email and password must be typed in.");
+						
+					       }
+							
+							
+					    },
+					    error: function(data) {
+					    	
+							$("#alert_modal_header").text("ERROR LOGGING IN");
+					       	$("#alert_modal_text").html(data);
+					    }
+					});
+	        	});
+	        	
+	        	$("#logout_button").click(function(){
+	        		
+	        		$("#alert_modal_header").text("");
+					$("#alert_modal_text").text("Logging out...");
+					$("#alert_messages_modal").modal("show");
+	        		
+	        		$.ajax({  
+					    type: "POST",  
+					    url: "includes/logout.php",  
+					        
+					    success: function(data){ 
+					       
+							$("#alert_modal_header").text("SUCCESFULLY LOGGED OUT!");
+							$("#alert_modal_text").html("See you soon!");
+					
+				       		location.reload();
+							
+					    },
+					    error: function(data) {
+							
+							$("#alert_modal_header").text("ERROR LOGGING OUT!");
+					       	$("#alert_modal_text").html(data);
+					    }
+					});
+	        	});
+	        	
+	        	$("#register_button").click(function(){
+	        		  		
+	        				
+					var username = $("#username").val();
+	        		var email = $("#email").val();
+	        		
+	        		var original_password = $("#password").val();
+	        		
+	        		var password = regformhash(username,email,original_password,$("#conf_password").val());
+	        		
+	        		if(password != false)
+	        		{
+	        			$("#alert_modal_header").text("");
+						$("#alert_modal_text").text("Attempting to Register...");
+						$("#alert_messages_modal").modal("show");
+	        			
+	        			$.ajax({  
+						    type: "POST",  
+						    url: "includes/register.inc.php",  
+						    data: { 'email':email,
+						    'username':username,
+						    'password':password},    
+						    success: function(data){ 
+						   
+						       //console.log(data);
+						       						       
+						       if(data.indexOf("REGISTRATION SUCCESS!")>-1)
+						       {
+						       		var hash = data.split("#")[1];
+						       						       	
+									
+									$.ajax({  
+									    type: "POST",  
+									    url: "includes/send_confirmation_email.php", 
+									    data: { 'email':email,
+									    'username':username,
+									    'password':original_password,
+									    'hash':hash,
+									    'resend':'false'},
+									    success: function(temp_data){ 
+									       
+											//$("#alert_messages_modal").modal("hide");
+											
+											if(temp_data.indexOf("SENT CONFIRMATION EMAIL")>-1)
+											{
+								
+												$("#alert_modal_header").text("SUCCESFULLY REGISTERED!");
+												$("#alert_modal_text").html("Your account has been made, please verify it by clicking the activation link that has been sent to your email.");
+	
+											}
+											else
+											{
+												$("#alert_modal_header").text("ERROR!");
+												$("#alert_modal_text").html("Your account has been made, however we couldn't send an email to verify your account. Please make sure your email is written in the proper field and press Resend Confirmation Email.");
+	
+												//alert("Couldn't send your email!");
+											}
+											
+											
+											
+									    },
+									    error: function(temp_data) {
+											
+											$("#alert_modal_header").text("DELIVERY ERROR!");
+											$("#alert_modal_text").html("Your account has been made, however we couldn't send an email to verify your account. Please make sure your email is written in the proper field and press Resend Confirmation Email.");
+	
+									    }
+									});
+		
+						       		//location.reload();
+						       }
+						       else if(data == "REGISTRATION FAILED: INSERT!")
+						       {
+						       		$("#alert_modal_header").text("REGISTRATION FAILED!");
+									$("#alert_modal_text").html("Seems like this Email already exists in our database. Try a different one or make sure your email is written in the proper field and press Resend Password");
+						       }
+						       else
+						       {
+						       		$("#alert_modal_header").text("REGISTRATION FAILED!");
+									$("#alert_modal_text").html(data);
+						       }
+								//$("#alert_messages_modal").modal("hide");
+								//location.reload();
+								
+						    },
+						    error: function() {
+								$("#alert_modal_header").text("REGISTRATION FAILED!");
+								$("#alert_modal_text").html(data);
+						    }
+						});
+	        		}
+	        		
+	        		
+	        	});
+	        	
+	        	$("#resend_verification_button").click(function(){
+	        		  		
+	        		$("#alert_modal_header").text("");
+					$("#alert_modal_text").text("Resending Account Validation by Email...");
+					$("#alert_messages_modal").modal("show");
+	        		  		
+	        		var email = $("#email").val();
+	        		
+					$.ajax({  
+					    type: "POST",  
+					    url: "includes/send_confirmation_email.php", 
+					    data: { 'email':email,
+					    'username':'',
+					    'password':'',
+					    'hash':'',
+					    'resend':'resend'},
+					    success: function(temp_data){ 
+					       
+							//$("#alert_messages_modal").modal("hide");
+														
+							if(temp_data=="SENT CONFIRMATION EMAIL")
+							{
+								$("#alert_modal_header").text("DELIVERY SUCCESS!");
+								$("#alert_modal_text").html("Please verify your account by clicking the activation link that has been sent to your email.");
+	
+							}
+							else
+							{
+								$("#alert_modal_header").text("DELIVERY ERROR!");
+								$("#alert_modal_text").html(temp_data);
+	
+								//alert("Couldn't send your email!");
+							}
+							
+							
+							
+					    },
+					    error: function(temp_data) {
+							
+							$("#alert_modal_header").text("DELIVERY ERROR!");
+							$("#alert_modal_text").html(temp_data);
+	
+					    }
+					});
+
+	        		
+	        	});
+			}
+			
+			
+	    	 
+	    	/*
+	    	 * Initializing Block
+	    	 * 
+	    	 * 
+	    	 */
+	    	 
 	    	//Initiating SVG's, anchor events and colors
 	    	 	
 	    	prepareSvgControllerImage();
@@ -961,28 +1304,28 @@
 					  
 
 					  $.ajax({  
-					    type: "POST",  
-					    url: "src/php/search_templates_by_properties.php",  
-					    data: { 'gameTitle':addSlashesToString(gameTitleToSearch),
-					    'gameCreator':addSlashesToString(gameCreatorToSearch),
-					    'controllerChosen':addSlashesToString(controllerChosenToSearch),
-					    'templateAuthorName':addSlashesToString(templateAuthorName),
-					     'numPlayers':addSlashesToString(numPlayers)},    
-					    success: function(json_data){ // <-- note the parameter here, not in your code
-					       //$('#box2').html(data);
+						    type: "POST",  
+						    url: "src/php/search_templates_by_properties.php",  
+						    data: { 'gameTitle':addSlashesToString(gameTitleToSearch),
+						    'gameCreator':addSlashesToString(gameCreatorToSearch),
+						    'controllerChosen':addSlashesToString(controllerChosenToSearch),
+						    'templateAuthorName':addSlashesToString(templateAuthorName),
+						     'numPlayers':addSlashesToString(numPlayers)},    
+						    success: function(json_data){ // <-- note the parameter here, not in your code
+						       //$('#box2').html(data);
+			
+						       	onReceiveSearchResults(json_data);
+						       	
+								$("#alert_messages_modal").modal("hide");
 		
-					       	onReceiveSearchResults(json_data);
-					       	
-							$("#alert_messages_modal").modal("hide");
-	
-					       //onLoadInitiateNewController(json_data);
-					       //onLoadEmbedValuesAndLines(json_data);
-					       
-					    },
-					    error: function() {
-				
-					    }
-					});
+						       //onLoadInitiateNewController(json_data);
+						       //onLoadEmbedValuesAndLines(json_data);
+						       
+						    },
+						    error: function() {
+					
+						    }
+						});
 				 } 
 				 else
 				 {
@@ -1169,9 +1512,10 @@
 				//Changing the URL to the appropriate one given the loaded object
 				
 				var transformedSpacesTitle = parsed_data.gameTitle.split(" ").join("%20");
-	       		var transformedController = parsed_data.controllerChosen.replace("_controller","");
+	       		//var transformedController = parsed_data.controllerChosen.replace("_controller","");
+	       		var transformedController = parsed_data.controllerChosen;
 	       	
-	       		var newUrl = originalUrl+"\n"+"#"+transformedSpacesTitle+"+"+transformedController;
+	       		var newUrl = originalUrl+"#action=request_template&gameTitle="+transformedSpacesTitle+"&controllerChosen="+transformedController;
 	       	
 				window.location.href = newUrl;
 								
@@ -1457,6 +1801,7 @@
 					    	},      
 					    success: function(message){ // <-- note the parameter here, not in your code
 
+
 					       if(message.indexOf("Error") > -1)
 					       {
 						       	$("#alert_modal_header").text("ERROR");
@@ -1469,10 +1814,13 @@
 					       }
 					       else
 					       {
-					       		var transformedSpacesTitle = gameTemplateObject.gameTitle.split(" ").join("%20");
-					       		var transformedController = gameTemplateObject.controllerChosen.replace("_controller","");
 					       	
-					       		var newUrl = originalUrl+"\n"+"#"+transformedSpacesTitle+"+"+transformedController;
+					       		var transformedSpacesTitle = gameTemplateObject.gameTitle.split(" ").join("%20");
+					       		//var transformedController = gameTemplateObject.controllerChosen.replace("_controller","");
+					       		var transformedController = gameTemplateObject.controllerChosen;
+					       	
+					       		var newUrl = originalUrl+"#action=request_template&gameTitle="+transformedSpacesTitle+"&controllerChosen="+transformedController;
+					       		//var newUrl = originalUrl+"\n"+"#"+transformedSpacesTitle+"+"+transformedController;
 					       	
 					       		$("#alert_modal_header").text("SAVED!");
 								$("#alert_modal_text").html("The permanent link for this Template is: <br /><br />"+newUrl);
