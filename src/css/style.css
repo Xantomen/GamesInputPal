@@ -864,13 +864,38 @@ input[type=number]::-webkit-outer-spin-button {
 					
 					text-align:left;
 				}
+			
+			.label_pair_anchor_box {
 				
-			.label_pair_anchor:hover {
+				position:absolute;
+												
+				width:80%;
+				height:80%;
+				background-color:rgba(200,200,200,0.3);
+								
+				opacity: 1 !important;
+				
+				border: 2px orange solid;
+			}
+				
+			.label_pair_anchor_box:hover {
 				
 				cursor: pointer;
 			    
 			    border: 2px red solid;
 			}
+			
+			.left_position_right_anchor_box {
+						
+				left:15%;
+
+			}
+			
+			.right_position_left_anchor_box {
+						
+
+			}
+			
 			.label_pair_anchor_right {
 				
 				position:absolute;
@@ -879,9 +904,9 @@ input[type=number]::-webkit-outer-spin-button {
 								
 				width:4%;
 				height:30%;
-				background-color:orange;
+				/*background-color:orange;
 				
-				border-radius:100%;
+				border-radius:100%;*/
 				
 				opacity: 1 !important;
 				

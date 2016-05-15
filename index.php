@@ -197,8 +197,8 @@ if (login_check($mysqli) == true) {
 					echo '<div id="account_button_image" class="opened"></div><span class="caret button_arrow"></span></button>';
 				}
 				echo '<ul class="dropdown-menu">';
-				echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="xantomen@gmail.com" placeholder="Write your Email here" type="text"/></li>';
-				echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="Testing2" placeholder="Write your Password" type="password"/></li>';
+				echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Email here" type="text"/></li>';
+				echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password" type="password"/></li>';
 					
 				if ($logged == 'in') {
 		            echo '<li class="account_row"><div id="logout_button" class="btn btn-primary center-block">Logout!</div></li>';
@@ -211,7 +211,7 @@ if (login_check($mysqli) == true) {
 				}
 				
 				
-					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="Testing2" placeholder="Write your Password Again (Confirmation)" type="password"/></li>';
+					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password Again (Confirmation)" type="password"/></li>';
 				if ($logged == 'out') {
 		           	echo '<li class="account_row"><div id="register_button" class="btn btn-primary center-block">Register!</div></li>';
 					echo '<li class="account_row"><div id="resend_verification_button" class="btn btn-primary center-block">Resend Verification!</div></li>';
@@ -244,6 +244,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="1" num_links="0" class="label_pair_anchor_box left_position_right_anchor_box non_display"></div>
 	    			<div label_pair_match="1" anchor_position="1" num_links="0" class="left_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -260,6 +261,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="2" num_links="0" class="label_pair_anchor_box left_position_right_anchor_box non_display"></div>
 	    			<div label_pair_match="2" anchor_position="1" num_links="0" class="left_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -276,6 +278,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="3" num_links="0" class="label_pair_anchor_box left_position_right_anchor_box non_display"></div>
 	    			<div label_pair_match="3" anchor_position="1" num_links="0" class="left_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -292,6 +295,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="4" num_links="0" class="label_pair_anchor_box left_position_right_anchor_box non_display"></div>
 	    			<div label_pair_match="4" anchor_position="1" num_links="0" class="left_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -308,6 +312,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text left_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="5" num_links="0" class="label_pair_anchor_box left_position_right_anchor_box non_display"></div>
 	    			<div label_pair_match="5" anchor_position="1" num_links="0" class="left_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -325,6 +330,7 @@ if (login_check($mysqli) == true) {
 			  				placeholder="Description in English" type="text">
 	    			</div>
 	    				    			
+	    			<div label_pair_match="6" num_links="0" class="label_pair_anchor_box left_position_right_anchor_box non_display"></div>
 	    			<div label_pair_match="6" anchor_position="1" num_links="0" class="left_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -351,6 +357,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="11" num_links="0" class="label_pair_anchor_box right_position_left_anchor_box non_display"></div>
 	    			<div label_pair_match="11" anchor_position="1" num_links="0" class="right_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -367,6 +374,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="12" num_links="0" class="label_pair_anchor_box right_position_left_anchor_box non_display"></div>
 	    			<div label_pair_match="12" anchor_position="1" num_links="0" class="right_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -383,6 +391,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="13" num_links="0" class="label_pair_anchor_box right_position_left_anchor_box non_display"></div>
 	    			<div label_pair_match="13" anchor_position="1" num_links="0" class="right_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -399,6 +408,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="14" num_links="0" class="label_pair_anchor_box right_position_left_anchor_box non_display"></div>
 	    			<div label_pair_match="14" anchor_position="1" num_links="0" class="right_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -415,6 +425,7 @@ if (login_check($mysqli) == true) {
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
 	    			</div>
+	    			<div label_pair_match="15" num_links="0" class="label_pair_anchor_box right_position_left_anchor_box non_display"></div>
 	    			<div label_pair_match="15" anchor_position="1" num_links="0" class="right_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -430,8 +441,8 @@ if (login_check($mysqli) == true) {
 			  			<input label_pair_match="16" name="second_description" class="h5 text-center center-block 
 			  			description_second_language_button_text right_position_text" value="" 
 			  				placeholder="Description in English" type="text">
-	    			</div>
-	    				    			
+	    			</div>   			
+	    			<div label_pair_match="16" num_links="0" class="label_pair_anchor_box right_position_left_anchor_box non_display"></div>	    			
 	    			<div label_pair_match="16" anchor_position="1" num_links="0" class="right_position_right_anchor label_pair_anchor_right label_pair_anchor non_display">
 	    				
 	    			</div>	
@@ -2036,7 +2047,12 @@ if (login_check($mysqli) == true) {
 			            		$(this).attr("stroke","none");
 			            		$(this).attr("stroke-width","8");
 			            		
-			            		$(".label_pair_anchor_right").each(function(){
+			            		$(".label_pair_anchor_box").each(function(){
+			            		
+			            			$(this).addClass("non_display");
+				            	});
+			            		
+			            		/*$(".label_pair_anchor_right").each(function(){
 			            		
 			            			$(this).addClass("non_display");
 				            	});
@@ -2044,7 +2060,7 @@ if (login_check($mysqli) == true) {
 				            	$(".label_pair_anchor_bottom").each(function(){
 				            		
 				            		$(this).addClass("non_display");
-				            	});
+				            	});*/
 			            	}
 			            	else
 			            	{
@@ -2054,7 +2070,12 @@ if (login_check($mysqli) == true) {
 			            		$(this).attr("stroke","red");
 			            		$(this).attr("stroke-width","8");
 			            		
-			            		$(".label_pair_anchor_right").each(function(){
+			            		$(".label_pair_anchor_box").each(function(){
+				            		
+				            		$(this).removeClass("non_display");
+				            	});
+			            		
+			            		/*$(".label_pair_anchor_right").each(function(){
 			            		
 				            		$(this).removeClass("non_display");
 				            	});
@@ -2062,7 +2083,7 @@ if (login_check($mysqli) == true) {
 				            	$(".label_pair_anchor_bottom").each(function(){
 				            		
 				            		$(this).removeClass("non_display");
-				            	});
+				            	});*/
 				            	
 			            	}
 	
@@ -2283,7 +2304,7 @@ if (login_check($mysqli) == true) {
 			{
 				//Function that occurs when linking a Button with a Laber Pair Anchor
 						
-				$('.label_pair_anchor').click(function(){
+				$('.label_pair_anchor_box').click(function(){
 							
 					//When a successful link occurs:
 						
@@ -2293,25 +2314,28 @@ if (login_check($mysqli) == true) {
 					
 						var selected_button_bounding_box = selected_button.getBoundingClientRect();
 						
-						var $label_pair_anchor = $(this);
-		
-						var label_pair_match = $label_pair_anchor.attr("label_pair_match");
+						var $label_pair_anchor_box = $(this);
+						
+						var label_pair_match = $label_pair_anchor_box.attr("label_pair_match");
+						
+						var $label_pair_anchor = $('.label_pair_anchor[label_pair_match='+label_pair_match+']');
 						
 						var anchor_position = $label_pair_anchor.attr("anchor_position");
 						
 						var label_pair_texts_container = $('.label_pair_texts_container[label_pair_match='+label_pair_match+']');
+							
+						label_pair_texts_container.removeClass("non_display").removeClass("half_visible");
+							
+						var num_links = parseInt($label_pair_anchor.attr("num_links"));
+						$label_pair_anchor.attr("num_links",""+(num_links+1));
+						$label_pair_anchor.addClass("completed_link");
+						$label_pair_anchor_box.attr("num_links",""+(num_links+1));
 												
 						createNewDrawnLineObject(buttonActive,label_pair_match,anchor_position,
 							selected_button,$label_pair_anchor);
 										
 						updateDrawnLineObjects();
 							
-						label_pair_texts_container.removeClass("non_display").removeClass("half_visible");
-						
-						var num_links = parseInt($label_pair_anchor.attr("num_links"));
-						$label_pair_anchor.attr("num_links",""+(num_links+1));
-						$label_pair_anchor.addClass("completed_link");
-						
 						buttonActive = "none";
 					            		
 					    $('path.Selectable').each(function(){
@@ -2320,7 +2344,12 @@ if (login_check($mysqli) == true) {
 		        			$(this).attr("stroke-width","8");
 		            	});
 		
-		        		$(".label_pair_anchor_right").each(function(){
+						$(".label_pair_anchor_box").each(function(){
+		        		
+		        			$(this).addClass("non_display");
+		            	});
+		
+		        		/*$(".label_pair_anchor_right").each(function(){
 		        		
 		        			$(this).addClass("non_display");
 		            	});
@@ -2328,7 +2357,7 @@ if (login_check($mysqli) == true) {
 		            	$(".label_pair_anchor_bottom").each(function(){
 		            		
 		            		$(this).addClass("non_display");
-		            	});
+		            	});*/
 	
 					}
 								
