@@ -1,7 +1,7 @@
 <?php
 
-include_once 'includes/db_connect.php';
-include_once 'includes/functions.php';
+include_once '../../gamesinputpal/includes/db_connect.php';
+include_once '../../gamesinputpal/includes/functions.php';
 
 sec_session_start();
 
@@ -22,6 +22,7 @@ if (login_check($mysqli) == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Games Input Pal</title>
+    <link rel="icon" href="res/img/playstation3_controller_pink.png">
 
     <!-- Bootstrap -->
     <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -635,7 +636,7 @@ if (login_check($mysqli) == true) {
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: "includes/verify_user_email.php", 
+							    url: "../../gamesinputpal/includes/verify_user_email.php", 
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -685,7 +686,7 @@ if (login_check($mysqli) == true) {
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: "includes/reset_password.php",
+							    url: "../../gamesinputpal/includes/reset_password.php",
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -800,7 +801,7 @@ if (login_check($mysqli) == true) {
 	
 	        		$.ajax({  
 					    type: "POST",  
-					    url: "includes/process_login.php",  
+					    url: "../../gamesinputpal/includes/process_login.php",  
 					    data: { 'email':email,
 					    'password':password},    
 					    success: function(data){
@@ -852,7 +853,7 @@ if (login_check($mysqli) == true) {
 	        		
 	        		$.ajax({  
 					    type: "POST",  
-					    url: "includes/logout.php",  
+					    url: "../../gamesinputpal/includes/logout.php",  
 					        
 					    success: function(data){ 
 					       
@@ -888,7 +889,7 @@ if (login_check($mysqli) == true) {
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: "includes/register.inc.php",  
+						    url: "../../gamesinputpal/includes/register.inc.php",  
 						    data: { 'email':email,
 						    'username':username,
 						    'password':password},    
@@ -903,7 +904,7 @@ if (login_check($mysqli) == true) {
 									
 									$.ajax({  
 									    type: "POST",  
-									    url: "includes/send_confirmation_email.php", 
+									    url: "../../gamesinputpal/includes/send_confirmation_email.php", 
 									    data: { 'email':email,
 									    'username':username,
 									    'password':original_password,
@@ -975,7 +976,7 @@ if (login_check($mysqli) == true) {
 	        		
 					$.ajax({  
 					    type: "POST",  
-					    url: "includes/send_confirmation_email.php", 
+					    url: "../../gamesinputpal/includes/send_confirmation_email.php", 
 					    data: { 'email':email,
 					    'username':'',
 					    'password':'',
@@ -1030,7 +1031,7 @@ if (login_check($mysqli) == true) {
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: "includes/reset_password_confirmation_email.php",  
+						    url: "../../gamesinputpal/includes/reset_password_confirmation_email.php",  
 						    data: { 'email':email,
 						    'password':password},    
 						    success: function(data){ 

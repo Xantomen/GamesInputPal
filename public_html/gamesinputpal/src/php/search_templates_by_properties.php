@@ -1,7 +1,8 @@
 
 <?php 
 
-	include_once '../../includes/psl-config.php';
+	include_once '../../../../gamesinputpal/includes/db_connect.php';
+	include_once '../../../../gamesinputpal/includes/functions.php';
 
 	if (isset($_POST['gameTitle']) || 
 	isset($_POST['gameCreator']) ||
@@ -10,25 +11,20 @@
 	isset($_POST['minGamePlayers']) ||
 	isset($_POST['maxGamePlayers']))
 	{
-
-		$con = mysqli_connect(HOST,USER,PASSWORD,DATABASE);
-		if (!$con) {
-		    die('Could not connect: ' . mysqli_error($con));
-		}
-		
+						
 		//Fixes encoding issue that was happening only in the Hostgator server but not in localhost
-		mysqli_set_charset($con,"utf8");
+		mysqli_set_charset($mysqli,"utf8");
 		
 		$gameTitle = $_POST['gameTitle'];
-		$gameTitle = mysqli_real_escape_string($con,$gameTitle);
+		$gameTitle = mysqli_real_escape_string($mysqli,$gameTitle);
 		$gameCreator = $_POST['gameCreator'];
-		$gameCreator = mysqli_real_escape_string($con,$gameCreator);
+		$gameCreator = mysqli_real_escape_string($mysqli,$gameCreator);
 		$controllerChosen = $_POST['controllerChosen']; 
-		$controllerChosen = mysqli_real_escape_string($con,$controllerChosen);
+		$controllerChosen = mysqli_real_escape_string($mysqli,$controllerChosen);
 		$templateAuthorName = $_POST['templateAuthorName']; 
-		$templateAuthorName = mysqli_real_escape_string($con,$templateAuthorName);
+		$templateAuthorName = mysqli_real_escape_string($mysqli,$templateAuthorName);
 		$numPlayers = $_POST['numPlayers'];
-		$numPlayers = mysqli_real_escape_string($con,$numPlayers);
+		$numPlayers = mysqli_real_escape_string($mysqli,$numPlayers);
 		$numPlayers = (int)$numPlayers;
 	
 		$propertiesToSearchFor = "";
@@ -75,14 +71,13 @@
 		if($propertiesToSearchFor != "")
 		{
 			
-			mysqli_select_db($con,"xantomen_gamesinputschemer");
 			
 			
 			$sql="SELECT `ID`,`gameTitle`,`gameCreator`,`controllerChosen` FROM `GameTemplate` 
 			WHERE ".$propertiesToSearchFor;
 			
 
-			$result = mysqli_query($con,$sql);
+			$result = mysqli_query($mysqli,$sql);
 			
 			$num_rows = mysqli_num_rows($result);
 			
@@ -105,7 +100,7 @@
 			
 			mysqli_free_result($result);
 			  
-			mysqli_close($con);
+			mysqli_close($mysqli);
 		}
 		
 		  

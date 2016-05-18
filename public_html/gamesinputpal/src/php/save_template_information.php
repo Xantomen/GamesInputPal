@@ -1,8 +1,8 @@
 
 <?php 
 
-	include_once '../../includes/db_connect.php';
-	include_once '../../includes/functions.php';
+	include_once '../../../../gamesinputpal/includes/db_connect.php';
+	include_once '../../../../gamesinputpal/includes/functions.php';
 	
 	sec_session_start();
 
@@ -21,13 +21,7 @@
 	&& isset($_POST['gameColorLines'])
 	&& isset($_POST['playstyleMode']))
 	{
-		
-		
-		/*$con = mysqli_connect(HOST,USER,PASSWORD,DATABASE);
-		if (!$con) {
-		    die('Could not connect: ' . mysqli_error($con));
-		}*/
-		
+				
 		//Fixes encoding issue that was happening only in the Hostgator server but not in localhost
 		mysqli_set_charset($mysqli,"utf8");
 		
