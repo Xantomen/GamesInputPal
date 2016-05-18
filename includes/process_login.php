@@ -28,6 +28,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     
     if (login($email, $password, $mysqli) == true) {
         // Login success 
+        
         echo "SUCCESFULLY LOGGED IN!";
         exit();
     } else {

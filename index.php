@@ -135,8 +135,13 @@ if (login_check($mysqli) == true) {
 			  <button title="Save Options" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			  <div id="save_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
-			    <li class="save_row"><input id="template_author_text" class="template_author_text h6 text-center center-block" value="" placeholder="Your name/nickname (Optional)" type="text"></li>
+			    <li class="save_row"><input id="template_author_text" class="template_author_text h6 text-center center-block non_display" value="" placeholder="Your name/nickname (Optional)" type="text"></li>
 			   	<li class="save_row"><div id="save_button" class="btn btn-primary center-block">Save!</div></li>
+			  	<?php
+					if ($logged == 'in') {
+			            echo '<li class="save_row"><div id="update_button" class="btn btn-primary center-block">Overwrite Template!</div></li>';
+			        }
+		        ?> 
 			  </ul>
 			</div>
   				  		
@@ -196,14 +201,18 @@ if (login_check($mysqli) == true) {
 				else {
 					echo '<div id="account_button_image" class="opened"></div><span class="caret button_arrow"></span></button>';
 				}
+				
 				echo '<ul class="dropdown-menu">';
-				echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Email here" type="text"/></li>';
-				echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password" type="password"/></li>';
-					
+				
 				if ($logged == 'in') {
 		            echo '<li class="account_row"><div id="logout_button" class="btn btn-primary center-block">Logout!</div></li>';
 		        }
-				else {
+				
+				echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Email here" type="text"/></li>';
+				echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password" type="password"/></li>';
+					
+				
+				if($logged != 'in') {
 					
 					echo '<li class="account_row"><div id="login_button" class="btn btn-primary center-block">Login!</div></li>';
 					
@@ -570,6 +579,9 @@ if (login_check($mysqli) == true) {
     	
     	var controllerChosen = "xbox360_controller";
     	
+    	var previousControllerChosen = "xbox360_controller";
+    	var previousGameTitle = "";
+    	
     	var gameColorScheme = "#000000";
     	var gameColorLines = "#6699ff";
     	    	
@@ -580,6 +592,8 @@ if (login_check($mysqli) == true) {
     	var playstyleMode = "multiplayer";
     	
     	var blueLineCoords = [856,368,359,339];
+    	
+    	var needsReboot = false;
     	    	
     	$(document).ready(function(){
 		
@@ -734,7 +748,6 @@ if (login_check($mysqli) == true) {
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
 				       
-				       
 				       if(json_data.indexOf("TEMPLATE NOT FOUND") == -1)
 						{
 				       		onLoadInitiateNewController(json_data);
@@ -792,13 +805,21 @@ if (login_check($mysqli) == true) {
 					    'password':password},    
 					    success: function(data){
 					       
-					       if(data == "SUCCESFULLY LOGGED IN!")
+					       if(data.indexOf("SUCCESFULLY LOGGED IN!")>-1)
 					       {
 
 					       		$("#alert_modal_header").text("SUCCESFULLY LOGGED IN!");
 								$("#alert_modal_text").html("Now you can enjoy all the features.");
 						
-					       		location.reload();
+								needsRebootForLogin = true;
+																
+								if($("#game_title_text").val()!="")
+								{
+									onSaveTemplateToDatabase();
+									//$("#game_title_text").val("UnknownGameTitle"+Math.random().toString(36));
+								}
+								else location.reload();
+								
 					       }
 					       else if(data == "LOGIN FAILED!")
 					       {
@@ -1622,13 +1643,16 @@ if (login_check($mysqli) == true) {
 				var transformedSpacesTitle = parsed_data.gameTitle.split(" ").join("%20");
 	       		//var transformedController = parsed_data.controllerChosen.replace("_controller","");
 	       		var transformedController = parsed_data.controllerChosen;
+	       		previousControllerChosen = transformedController;
 	       	
-	       		var newUrl = originalUrl+"#action=request_template&gameTitle="+transformedSpacesTitle+"&controllerChosen="+transformedController;
+	       		var newUrl = "#action=request_template&gameTitle="+transformedSpacesTitle+"&controllerChosen="+transformedController;
 	       	
-				window.location.href = newUrl;
+				window.location.hash = newUrl;
 								
 				//Embedding Text Values in their appropriate places for Title, Creator
 				//Min Players, Max Players, First Description and Second Description
+				
+				previousGameTitle = parsed_data.gameTitle;
 				
 				$("#game_title_text").val(parsed_data.gameTitle);
 				$("#creator_name_text").val(parsed_data.gameCreator);
@@ -1802,6 +1826,7 @@ if (login_check($mysqli) == true) {
 	    		onSaveTemplateToDatabase();
 	    		
 	    	});
+	
 	    		    	
 	    	function onSaveTemplateToDatabase()
 			{
@@ -1909,31 +1934,49 @@ if (login_check($mysqli) == true) {
 					    	},      
 					    success: function(message){ // <-- note the parameter here, not in your code
 
-
 					       if(message.indexOf("Error") > -1)
 					       {
 						       	$("#alert_modal_header").text("ERROR");
 								$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> There might already be a Template with the same Game Title and Controller Chosen in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       
+					       		if(needsRebootForLogin)
+								{
+									$("#alert_modal_header").text("LOGGED IN BUT COULDN'T SAVE PROGRESS");
+									$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> There might already be a Template with the same Game Title and Controller Chosen in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       
+									location.reload();
+								}
 					       }
 					       else if(message.indexOf("TEMPLATE ALREADY EXISTS") > -1)
 					       {
 					       		$("#alert_modal_header").text("ERROR");
 								$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> There is a Template with the same Game Title and Controller Chosen in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       
+					       		if(needsRebootForLogin)
+								{
+									$("#alert_modal_header").text("LOGGED IN BUT COULDN'T SAVE PROGRESS");
+									$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> There is a Template with the same Game Title and Controller Chosen in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       
+									location.reload();
+								}
 					       }
 					       else
 					       {
+					       		
+					       		previousControllerChosen = gameTemplateObject.controllerChosen;
+					       		previousGameTitle = gameTemplateObject.gameTitle;
 					       	
 					       		var transformedSpacesTitle = gameTemplateObject.gameTitle.split(" ").join("%20");
 					       		//var transformedController = gameTemplateObject.controllerChosen.replace("_controller","");
 					       		var transformedController = gameTemplateObject.controllerChosen;
 					       	
-					       		var newUrl = originalUrl+"#action=request_template&gameTitle="+transformedSpacesTitle+"&controllerChosen="+transformedController;
+					       		var newHash = "#action=request_template&gameTitle="+transformedSpacesTitle+"&controllerChosen="+transformedController;
 					       		//var newUrl = originalUrl+"\n"+"#"+transformedSpacesTitle+"+"+transformedController;
 					       	
 					       		$("#alert_modal_header").text("SAVED!");
-								$("#alert_modal_text").html("The permanent link for this Template is: <br /><br />"+newUrl);
-								
-								window.location.href = newUrl;
+								$("#alert_modal_text").html("The permanent link for this Template is: <br /><br />"+originalUrl+newHash);
+																
+								window.location.hash = newHash;
 					       
 					       		//$("#alert_messages_modal").modal("hide");
 					       		
@@ -1950,6 +1993,207 @@ if (login_check($mysqli) == true) {
 									$("#author_name").removeClass("author_name_available");
 									$("#author_name").attr("author_name","");
 								}
+								
+								if(needsRebootForLogin)
+								{
+									location.reload();
+								}
+					       }
+					       
+					    },
+					    error: function() {
+				
+							$("#alert_modal_header").text("ERROR");
+							$("#alert_modal_text").html("Couldn't save Template for "+gameTemplateObject.gameTitle+".<br /> Templates must have at least a Game Title and Controller chosen to be Saved.");
+							console.log("FAIL SAVE INCOMPLETE DETAILS");
+					    }
+					});
+				}
+				else
+				{
+					$("#alert_modal_header").text("ERROR");
+					$("#alert_modal_text").text("Templates must have at least a Game Title and Controller chosen to be Saved.");
+					$("#alert_messages_modal").modal("show");
+					
+					console.log("FAIL SAVE");
+				}
+
+			}
+			
+			//Assigning click event to Update Button
+	    	
+	    	$("#update_button").click(function(){
+	    		
+	    		onUpdateTemplateToDatabase();
+	    		
+	    	});
+	    	
+	    	function onUpdateTemplateToDatabase()
+			{
+			
+				var completed_necessary_fields = true;
+				
+				var gameTemplateObject = new Object();
+				
+				gameTemplateObject.controllerChosen = controllerChosen;
+				
+				gameTemplateObject.gameTitle = $("#game_title_text").val();
+				gameTemplateObject.gameCreator = $("#creator_name_text").val();
+				
+
+				if(controllerChosen.length == 0 || controllerChosen == "none" ||
+				gameTemplateObject.gameTitle == "")
+				{					
+					completed_necessary_fields = false;
+				}
+				else
+				{
+					
+					gameTemplateObject.templateAuthorName = $("#template_author_text").val();
+					
+					
+					gameTemplateObject.minGamePlayers = $("#number_players_min_text").val();
+					gameTemplateObject.maxGamePlayers = $("#number_players_max_text").val();
+					
+					gameTemplateObject.gameDescriptionPrimary = $("#description_first_language_text").val();
+					gameTemplateObject.gameDescriptionSecondary = $("#description_second_language_text").val();
+					
+					
+					var gameLabelsTextPrimary = "";
+					var gameLabelsTextSecondary = "";
+					
+					var gameLabelLinks = "";
+					
+					for(var i=0; i<drawnLineArray.length;i++)
+					{
+						var label_pair_match = drawnLineArray[i].selectedAnchorCommonId;
+						
+						var $matched_label_primary_text = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]").val();
+						var $matched_label_secondary_text = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]").val();
+				
+						if($matched_label_primary_text != "")
+						{
+							if(gameLabelsTextPrimary != "") gameLabelsTextPrimary += "*";
+							
+							gameLabelsTextPrimary += label_pair_match+";"+$matched_label_primary_text;
+							
+							if($matched_label_secondary_text != "")
+							{
+								if(gameLabelsTextSecondary != "") gameLabelsTextSecondary += "*";
+								
+								gameLabelsTextSecondary += label_pair_match+";"+$matched_label_secondary_text;
+							}
+							
+							if(gameLabelLinks != "") gameLabelLinks += "*";
+							
+							gameLabelLinks += label_pair_match+";"+drawnLineArray[i].selectedAnchorPositionId+
+							";"+drawnLineArray[i].selectedButtonId;
+		    				
+						}
+						
+				
+					}
+					
+					gameTemplateObject.gameLabelsTextPrimary = gameLabelsTextPrimary;
+					gameTemplateObject.gameLabelsTextSecondary = gameLabelsTextSecondary;
+					gameTemplateObject.gameLabelLinks = gameLabelLinks;
+					
+					gameTemplateObject.gameColorScheme = gameColorScheme;
+					gameTemplateObject.gameColorLines = gameColorLines;
+					
+					gameTemplateObject.playstyleMode = playstyleMode;
+	        		
+				}
+				
+				if(completed_necessary_fields)
+				{
+					console.log(gameTemplateObject);
+					
+					$("#alert_modal_header").text("");
+					$("#alert_modal_text").text("Updating Template for "+previousGameTitle+"...");
+					$("#alert_messages_modal").modal("show");
+						
+					$.ajax({  
+					    type: "POST",  
+					    url: "src/php/update_template_information.php",  
+					    data: { 
+					    	
+					    	
+					    	'previousControllerChosen':addSlashesToString(previousControllerChosen),
+					    	'previousGameTitle':addSlashesToString(previousGameTitle),
+					    	'controllerChosen':addSlashesToString(gameTemplateObject.controllerChosen),
+					    	'gameTitle':addSlashesToString(gameTemplateObject.gameTitle),
+					    	'gameCreator':addSlashesToString(gameTemplateObject.gameCreator),
+					    	'templateAuthorName':addSlashesToString(gameTemplateObject.templateAuthorName),
+					    	'minGamePlayers':addSlashesToString(gameTemplateObject.minGamePlayers),
+					    	'maxGamePlayers':addSlashesToString(gameTemplateObject.maxGamePlayers),
+					    	'gameDescriptionPrimary':addSlashesToString(gameTemplateObject.gameDescriptionPrimary),
+					    	'gameDescriptionSecondary':addSlashesToString(gameTemplateObject.gameDescriptionSecondary),
+					    	'gameLabelsTextPrimary':addSlashesToString(gameTemplateObject.gameLabelsTextPrimary),
+					    	'gameLabelsTextSecondary':addSlashesToString(gameTemplateObject.gameLabelsTextSecondary),
+					    	'gameLabelLinks':addSlashesToString(gameTemplateObject.gameLabelLinks),
+					    	'gameColorScheme':addSlashesToString(gameTemplateObject.gameColorScheme),
+					    	'gameColorLines':addSlashesToString(gameTemplateObject.gameColorLines),
+					    	'playstyleMode':addSlashesToString(gameTemplateObject.playstyleMode)
+					    	},      
+					    success: function(message){ // <-- note the parameter here, not in your code
+
+
+					       if(message.indexOf("Error") > -1)
+					       {
+					       		console.log(message);
+					       	
+						       	$("#alert_modal_header").text("ERROR");
+								$("#alert_modal_text").html("Couldn't update Template for "+previousGameTitle+".<br /> There might not be a Template like that in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       }
+					       else if(message.indexOf("TEMPLATE NOT FOUND!") > -1)
+					       {
+					       		$("#alert_modal_header").text("ERROR");
+								$("#alert_modal_text").html("Couldn't find Template with "+previousGameTitle+".<br /> There might not be a Template like that in the database. <br /><br /> Please choose a different Game Title or Controller");
+					       }
+					       else if(message.indexOf("TEMPLATE OWNED BY A DIFFERENT USER") > -1)
+					       {
+					       		$("#alert_modal_header").text("ERROR");
+								$("#alert_modal_text").html("The Template with "+previousGameTitle+" belongs to a different User.<br /> Can't overwrite.");
+					       }
+					       else
+					       {
+					       	
+					       		previousControllerChosen = gameTemplateObject.controllerChosen;
+					       		previousGameTitle = gameTemplateObject.gameTitle;
+					       	
+					       		var transformedSpacesTitle = gameTemplateObject.gameTitle.split(" ").join("%20");
+					       		//var transformedController = gameTemplateObject.controllerChosen.replace("_controller","");
+					       		var transformedController = gameTemplateObject.controllerChosen;
+					       	
+					       		var newHash = "#action=request_template&gameTitle="+transformedSpacesTitle+"&controllerChosen="+transformedController;
+					       		//var newUrl = originalUrl+"\n"+"#"+transformedSpacesTitle+"+"+transformedController;
+					       	
+					       		$("#alert_modal_header").text("SAVED!");
+								$("#alert_modal_text").html("The permanent link for this Template is: <br /><br />"+originalUrl+newHash);
+								
+								window.location.hash = newHash;
+					       
+					       		//$("#alert_messages_modal").modal("hide");
+					       		
+					       		$("#author_name").val("Mapped by "+gameTemplateObject.templateAuthorName);
+					       		
+					       		if(gameTemplateObject.templateAuthorName!="") 
+								{
+									$("#author_name").addClass("author_name_available");
+									$("#author_name").attr("author_name",gameTemplateObject.templateAuthorName);
+									alert($("#author_name").attr());
+								}
+								else
+								{
+									$("#author_name").removeClass("author_name_available");
+									$("#author_name").attr("author_name","");
+								}
+								
+								/*if(needsReboot)
+								{
+									location.reload();
+								}*/
 					       }
 					       
 					    },

@@ -44,6 +44,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['password'])) {
     // breaking these rules.
     //
     
+    //Checking if email address already exists
     $prep_stmt = "SELECT id FROM members WHERE email = ? LIMIT 1";
     $stmt = $mysqli->prepare($prep_stmt);
     
@@ -55,6 +56,24 @@ if (isset($_POST['username'], $_POST['email'], $_POST['password'])) {
         if ($stmt->num_rows == 1) {
             // A user with this email address already exists
             $error_msg .= '<p class="error">A user with this email address already exists.</p>';
+        }
+    } else {
+        $error_msg .= '<p class="error">Database error</p>';
+    }
+	
+	//Checking if Username already exists
+	
+	$prep_stmt = "SELECT username FROM members WHERE username = ? LIMIT 1";
+    $stmt = $mysqli->prepare($prep_stmt);
+    
+    if ($stmt) {
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $stmt->store_result();
+        
+        if ($stmt->num_rows == 1) {
+            // A user with this email address already exists
+            $error_msg .= '<p class="error">A user with this username already exists.</p>';
         }
     } else {
         $error_msg .= '<p class="error">Database error</p>';

@@ -33,7 +33,7 @@
 				
 		if(empty($row))
 		{
-			echo json_encode("TEMPLATE NOT FOUND");
+			echo "TEMPLATE NOT FOUND";
 		}		
 		else 
 		{
