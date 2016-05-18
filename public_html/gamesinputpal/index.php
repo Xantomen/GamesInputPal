@@ -49,7 +49,7 @@ if (login_check($mysqli) == true) {
   				Make yours!:
 	  		</div>
 	  		<div id="webpage_name">
-	  			<a href="http://xantomen.com/gamesinputschemer">http://xantomen.com/gamesinputschemer</a>
+	  			<a href="http://xantomen.com/gamesinputschemer">http://xantomen.com/gamesinputpal</a>
 	  		</div>
 	  		<div id="author_name" author_name="">Mapped by</div>
 			
@@ -117,10 +117,13 @@ if (login_check($mysqli) == true) {
 			  <div id="print_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="print_row">
-			    	<input id="author_checkbox" class="template_author_text h6 text-center center-block" value="" type="checkbox" checked>
-			    	<label id="author_checkbox_label" for="author_checkbox"> Include Template Author Name? (If available, has to be a saved template) </label>
+			    	<?php
+			    	if($logged == 'in') {
+			    		echo '<input id="author_checkbox" class="template_author_text h6 text-center center-block" value="" type="checkbox" checked>';
+			    		echo '<label id="author_checkbox_label" for="author_checkbox"> Include Template Author Name? (If available, has to be a saved template) </label>';
+			    	}?>
 			    </li>
-			   	<li class="print_row"><div id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
+			   	<li class="print_row"><div title="Or press Enter" id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
 			  </ul>
 			</div>
 
@@ -137,7 +140,7 @@ if (login_check($mysqli) == true) {
 			  <div id="save_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="save_row"><input id="template_author_text" class="template_author_text h6 text-center center-block non_display" value="" placeholder="Your name/nickname (Optional)" type="text"></li>
-			   	<li class="save_row"><div id="save_button" class="btn btn-primary center-block">Save!</div></li>
+			   	<li class="save_row"><div id="save_button" class="btn btn-primary center-block">Save New Template!</div></li>
 			  	<?php
 					if ($logged == 'in') {
 			            echo '<li class="save_row"><div id="update_button" class="btn btn-primary center-block">Overwrite Template!</div></li>';
@@ -159,12 +162,14 @@ if (login_check($mysqli) == true) {
 			    <li id="about_row" class="h6 text-center">
 			    	@xantomen
 			    </li>
+			    <li class="divider"></li>
 			  	<li id="about_row" class="h6 text-center">
 			    	Using the Template Design by:
 			    </li>
 			    <li id="about_row" class="h6 text-center">
 			    	Lorenzo Pilia
 			    </li>
+			    <li class="divider"></li>
 			  	<li id="about_row" class="h6 text-center">
 			    	SVG Graphics Credits:
 			    </li>
@@ -184,34 +189,58 @@ if (login_check($mysqli) == true) {
 			    	Info Icon by Alex Auda Samora ; The Noun Project
 			    </li>
 			    <li id="about_row" class="h6 text-center">
+			    	Lock Icon by Edward Boatman ; The Noun Project
+			    </li>
+			    <li class="divider"></li>
+			    <li id="about_row" class="h6 text-center">
 			    	JS Graphics Library by:
 			    </li>
 			    <li id="about_row" class="h6 text-center">
 			    	Walter Zorn
 			    </li>
-			    			    
+			    <li class="divider"></li>
+			    <li id="about_row" class="h6 text-center">
+			    	Also utilizing PHPMailer and phpSecureLogin
+			    </li>
+			    <li class="divider"></li>
+			    <li id="about_row" class="h6 text-center">
+			    	Operating under GNU General Public License v3.0
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Visit the Public Repo <a style="color:blue" href="https://github.com/Xantomen/GamesInputPal">on Github</a>
+			    </li>
+			    <li class="divider"></li>
+			    <li id="about_row" class="h6 text-center">
+			    	I reserve the rights to use, alter and distribute  <br> the game/controller data, input maps, <br>
+			    	and any other content generated <br> by the use of this app. <br> (Not private personal data (emails)).
+			    </li>
+			    
 			  </ul>
 			</div>
 			<?php
 			
 				echo '<div id="account_dropdown" class="dropdown">';
-				echo '<button title="Account Options" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">';
+				
 				if ($logged == 'in') {
+					echo '<button title="Account Options" class="btn btn-primary dropdown-toggle logged_in" type="button" data-toggle="dropdown">';
 		            echo '<div id="account_button_image" class="closed"></div><span class="caret button_arrow"></span></button>';
 		        }
 				else {
+					echo '<button title="Account Options" class="btn btn-primary dropdown-toggle logged_out" type="button" data-toggle="dropdown">';
 					echo '<div id="account_button_image" class="opened"></div><span class="caret button_arrow"></span></button>';
 				}
 				
 				echo '<ul class="dropdown-menu">';
 				
-				if ($logged == 'in') {
-		            echo '<li class="account_row"><div id="logout_button" class="btn btn-primary center-block">Logout!</div></li>';
-		        }
-				
+	
 				echo '<li class="account_row"><input id="email" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Email here" type="text"/></li>';
-				echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password" type="password"/></li>';
-					
+				
+				if ($logged == 'in') {
+					echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your New Password" type="password"/></li>';
+				}
+				else {
+					echo '<li class="account_row"><input id="password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password" type="password"/></li>';
+				}	
 				
 				if($logged != 'in') {
 					
@@ -220,14 +249,29 @@ if (login_check($mysqli) == true) {
 					echo '<li class="account_row"><input id="username" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Username" type="text"/></li>';
 				}
 				
-				
-					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password Again (Confirmation)" type="password"/></li>';
+				if ($logged == 'in') {
+					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your New Password Again" type="password"/></li>';
+				}
+				else {
+					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password Again" type="password"/></li>';
+				}
+					
 				if ($logged == 'out') {
 		           	echo '<li class="account_row"><div id="register_button" class="btn btn-primary center-block">Register!</div></li>';
-					echo '<li class="account_row"><div id="resend_verification_button" class="btn btn-primary center-block">Resend Verification!</div></li>';
 				}
-								
+					
+				if ($logged == 'out') {
+					echo '<li class="divider"></li>';
+		           	echo '<li class="account_row"><div id="resend_verification_button" class="btn btn-primary center-block">Resend Verification!</div></li>';
+				}
+					
 				echo '<li class="account_row"><div id="reset_password_button" class="btn btn-primary center-block">Reset Password!</div></li>';
+				
+				
+				if ($logged == 'in') {
+					echo '<li class="divider"></li>';
+		            echo '<li class="account_row"><div id="logout_button" class="btn btn-primary center-block">Logout!</div></li>';
+		        }
 				echo '</ul>';
 				echo '</div>';	
 	        ?> 
