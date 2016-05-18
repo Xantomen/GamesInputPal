@@ -41,9 +41,6 @@ if (login_check($mysqli) == true) {
   	
   	<div id="container_all">
   		
-		<?php
-			echo '<div id="path_project_includes" style="display:none;" value="'.PATH_PROJECT_INCLUDES.'"></div>';
-		?>
 		<div id="headers">
 			<div id="tool_name">
   				Using Games Input Pal
@@ -58,8 +55,12 @@ if (login_check($mysqli) == true) {
 			
 		</div>
 		<div id="buttons_bar">
-						
 			
+			
+	  		<?php
+				echo '<div id="path_project_includes" style="display:none;" value="'.PATH_PROJECT_INCLUDES.'"></div>';
+			?>
+						
 			<div id="choose_controller_dropdown" class="dropdown">
 			  <button title="Choose Controller" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			  <div id="controller_button_image"></div><span class="caret button_arrow"></span></button>
@@ -146,6 +147,7 @@ if (login_check($mysqli) == true) {
 			   	<li class="save_row"><div id="save_button" class="btn btn-primary center-block">Save New Template!</div></li>
 			  	<?php
 					if ($logged == 'in') {
+						echo '<li class="divider"></li>';
 			            echo '<li class="save_row"><div id="update_button" class="btn btn-primary center-block">Overwrite Template!</div></li>';
 			        }
 		        ?> 
@@ -641,7 +643,7 @@ if (login_check($mysqli) == true) {
     	
     	var blueLineCoords = [856,368,359,339];
     	
-    	var needsReboot = false;
+    	var needsRebootForLogin = false;
     	
     	var PATH_PROJECT_INCLUDES = "";
     	    	
@@ -849,7 +851,7 @@ if (login_check($mysqli) == true) {
 	
 	        		$.ajax({  
 					    type: "POST",  
-					    url: PATH_PROJECT_INCLUDES+"includes/process_login.php",  
+					    url: PATH_PROJECT_INCLUDES+"process_login.php",  
 					    data: { 'email':email,
 					    'password':password},    
 					    success: function(data){
@@ -2410,11 +2412,7 @@ if (login_check($mysqli) == true) {
 			
 			function prepareContainerToPrint()
 			{
-				$("#container_all").css("height","190mm");
-			  	$("#container_all").css("width","285mm");
-			  	
-			  	updateDrawnLineObjects();
-			  				  		
+						  		
     			var desired_title_color = $("#game_title_text").css("color");
     			$('<style id="print-style-tag" media="print">#game_title_text {color: '+desired_title_color+' !important;}</style>').appendTo('head');
     			
@@ -2427,11 +2425,23 @@ if (login_check($mysqli) == true) {
 				{
 					$("#author_name").text(""); 
 				} 
+								
+				$("#container_all").css("height","190mm");
+			  	$("#container_all").css("width","285mm");
+			  	
+			  	$("#buttons_bar").css("display","none");
+			  
+			  	console.log($("#container_all"));
+			  	
+			  	updateDrawnLineObjects();
 				
 			}
 			
 			function returnContainerToScreenValues()
 			{
+
+			  	$("#buttons_bar").css("display","block");
+				
 				$("#container_all").css("height","100%");
 			  	$("#container_all").css("width","100%");
 			  	

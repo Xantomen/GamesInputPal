@@ -43,6 +43,10 @@
   {
   	display:block !important; 
   }
+  #path_project_includes
+  {
+  	display:none !important; 
+  }
    /*#game_title_text {
    	
    		color:red !important;	
@@ -697,7 +701,7 @@ input[type=number]::-webkit-outer-spin-button {
 			 }
 
 #headers {
-	position:relative;
+	position:absolute;
 	
 	display:none;
 	
