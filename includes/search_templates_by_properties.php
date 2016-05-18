@@ -1,8 +1,8 @@
 
 <?php 
 
-	include_once '../../../../gamesinputpal/includes/db_connect.php';
-	include_once '../../../../gamesinputpal/includes/functions.php';
+	include_once 'db_connect.php';
+	include_once 'functions.php';
 
 	if (isset($_POST['gameTitle']) || 
 	isset($_POST['gameCreator']) ||

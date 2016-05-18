@@ -1,7 +1,8 @@
 <?php
 
-include_once '../../gamesinputpal/includes/db_connect.php';
-include_once '../../gamesinputpal/includes/functions.php';
+include_once 'absolute_paths.php';
+include_once PATH_PROJECT_INCLUDES.'db_connect.php';
+include_once PATH_PROJECT_INCLUDES.'functions.php';
 
 sec_session_start();
 
@@ -37,10 +38,12 @@ if (login_check($mysqli) == true) {
     <script type="text/javascript" src="libs/jsgraphics/wz_jsgraphics.js"></script>
   </head>
   <body>
-  		
+  	
   	<div id="container_all">
   		
-		
+		<?php
+			echo '<div id="path_project_includes" style="display:none;" value="'.PATH_PROJECT_INCLUDES.'"></div>';
+		?>
 		<div id="headers">
 			<div id="tool_name">
   				Using Games Input Pal
@@ -639,8 +642,12 @@ if (login_check($mysqli) == true) {
     	var blueLineCoords = [856,368,359,339];
     	
     	var needsReboot = false;
+    	
+    	var PATH_PROJECT_INCLUDES = "";
     	    	
     	$(document).ready(function(){
+		
+			PATH_PROJECT_INCLUDES = $("#path_project_includes").attr("value");
 		
 			function restart_url() {
 				window.location.hash = window.location.hash.split("#")[0];
@@ -680,7 +687,7 @@ if (login_check($mysqli) == true) {
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: "../../gamesinputpal/includes/verify_user_email.php", 
+							    url: PATH_PROJECT_INCLUDES+"verify_user_email.php", 
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -705,9 +712,6 @@ if (login_check($mysqli) == true) {
 	    				var gameTitle = getURLParameter("gameTitle");
 	    				var controllerChosen = getURLParameter("controllerChosen");
 	    				
-	    				console.log(gameTitle);
-	    				console.log(controllerChosen);
-	    				    		
 	    				if(gameTitle && controllerChosen)
 	    				{
 	    					requestTemplateByTitleAndController(gameTitle,controllerChosen);	
@@ -730,7 +734,7 @@ if (login_check($mysqli) == true) {
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: "../../gamesinputpal/includes/reset_password.php",
+							    url: PATH_PROJECT_INCLUDES+"reset_password.php",
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -788,7 +792,7 @@ if (login_check($mysqli) == true) {
 				
 				  $.ajax({  
 				    type: "POST",  
-				    url: "src/php/request_template_information_urlreference.php",  
+				    url: PATH_PROJECT_INCLUDES+"request_template_information_urlreference.php",  
 				    data: { 'gameTitle':addSlashesToString(gameTitle),'controllerChosen':addSlashesToString(controllerChosen)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
@@ -845,7 +849,7 @@ if (login_check($mysqli) == true) {
 	
 	        		$.ajax({  
 					    type: "POST",  
-					    url: "../../gamesinputpal/includes/process_login.php",  
+					    url: PATH_PROJECT_INCLUDES+"includes/process_login.php",  
 					    data: { 'email':email,
 					    'password':password},    
 					    success: function(data){
@@ -897,7 +901,7 @@ if (login_check($mysqli) == true) {
 	        		
 	        		$.ajax({  
 					    type: "POST",  
-					    url: "../../gamesinputpal/includes/logout.php",  
+					    url: PATH_PROJECT_INCLUDES+"logout.php",  
 					        
 					    success: function(data){ 
 					       
@@ -933,7 +937,7 @@ if (login_check($mysqli) == true) {
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: "../../gamesinputpal/includes/register.inc.php",  
+						    url: PATH_PROJECT_INCLUDES+"register.inc.php",  
 						    data: { 'email':email,
 						    'username':username,
 						    'password':password},    
@@ -948,7 +952,7 @@ if (login_check($mysqli) == true) {
 									
 									$.ajax({  
 									    type: "POST",  
-									    url: "../../gamesinputpal/includes/send_confirmation_email.php", 
+									    url: PATH_PROJECT_INCLUDES+"send_confirmation_email.php", 
 									    data: { 'email':email,
 									    'username':username,
 									    'password':original_password,
@@ -1020,7 +1024,7 @@ if (login_check($mysqli) == true) {
 	        		
 					$.ajax({  
 					    type: "POST",  
-					    url: "../../gamesinputpal/includes/send_confirmation_email.php", 
+					    url: PATH_PROJECT_INCLUDES+"send_confirmation_email.php", 
 					    data: { 'email':email,
 					    'username':'',
 					    'password':'',
@@ -1065,7 +1069,7 @@ if (login_check($mysqli) == true) {
 	        		
 	        		var password = regformhashnousername(email,original_password,$("#conf_password").val());
 	        		
-	        		console.log(password);
+	        		
 	        		
 	        		if(password != false)
 	        		{
@@ -1075,7 +1079,7 @@ if (login_check($mysqli) == true) {
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: "../../gamesinputpal/includes/reset_password_confirmation_email.php",  
+						    url: PATH_PROJECT_INCLUDES+"reset_password_confirmation_email.php",  
 						    data: { 'email':email,
 						    'password':password},    
 						    success: function(data){ 
@@ -1479,7 +1483,7 @@ if (login_check($mysqli) == true) {
 
 					  $.ajax({  
 						    type: "POST",  
-						    url: "src/php/search_templates_by_properties.php",  
+						    url: PATH_PROJECT_INCLUDES+"search_templates_by_properties.php",  
 						    data: { 'gameTitle':addSlashesToString(gameTitleToSearch),
 						    'gameCreator':addSlashesToString(gameCreatorToSearch),
 						    'controllerChosen':addSlashesToString(controllerChosenToSearch),
@@ -1521,7 +1525,7 @@ if (login_check($mysqli) == true) {
 				}
 				else
 				{
-					console.log(json_data);
+				
 					var parsed_data = $.parseJSON(json_data);
 					
 					//Get the results into an array that we will use later for the visual element
@@ -1529,7 +1533,6 @@ if (login_check($mysqli) == true) {
 					
 					searchResultArray = parsed_data;
 
-					console.log(searchResultArray);
 					
 					$("#search_results_none").css("display","none");
 					
@@ -1586,14 +1589,13 @@ if (login_check($mysqli) == true) {
 				
 				  $.ajax({  
 				    type: "POST",  
-				    url: "src/php/return_template_information.php",  
+				    url: PATH_PROJECT_INCLUDES+"return_template_information.php",  
 				    data: { 'string_value':addSlashesToString(string_value),'property':addSlashesToString(property)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
 				       
 				       $("#alert_messages_modal").modal("hide");
 				       
-				       console.log(json_data);
 				       
 				       if(json_data.indexOf("TEMPLATE NOT FOUND") == -1)
 						{
@@ -1952,7 +1954,6 @@ if (login_check($mysqli) == true) {
 				
 				if(completed_necessary_fields)
 				{
-					console.log(gameTemplateObject);
 					
 					$("#alert_modal_header").text("");
 					$("#alert_modal_text").text("Saving Template for "+gameTemplateObject.gameTitle+"...");
@@ -1960,7 +1961,7 @@ if (login_check($mysqli) == true) {
 						
 					$.ajax({  
 					    type: "POST",  
-					    url: "src/php/save_template_information.php",  
+					    url: PATH_PROJECT_INCLUDES+"save_template_information.php",  
 					    data: { 
 					    	'controllerChosen':addSlashesToString(gameTemplateObject.controllerChosen),
 					    	'gameTitle':addSlashesToString(gameTemplateObject.gameTitle),
@@ -2031,7 +2032,7 @@ if (login_check($mysqli) == true) {
 								{
 									$("#author_name").addClass("author_name_available");
 									$("#author_name").attr("author_name",gameTemplateObject.templateAuthorName);
-									alert($("#author_name").attr());
+									//alert($("#author_name").attr());
 								}
 								else
 								{
@@ -2152,7 +2153,6 @@ if (login_check($mysqli) == true) {
 				
 				if(completed_necessary_fields)
 				{
-					console.log(gameTemplateObject);
 					
 					$("#alert_modal_header").text("");
 					$("#alert_modal_text").text("Updating Template for "+previousGameTitle+"...");
@@ -2160,7 +2160,7 @@ if (login_check($mysqli) == true) {
 						
 					$.ajax({  
 					    type: "POST",  
-					    url: "src/php/update_template_information.php",  
+					    url: PATH_PROJECT_INCLUDES+"update_template_information.php",  
 					    data: { 
 					    	
 					    	
@@ -2186,7 +2186,6 @@ if (login_check($mysqli) == true) {
 
 					       if(message.indexOf("Error") > -1)
 					       {
-					       		console.log(message);
 					       	
 						       	$("#alert_modal_header").text("ERROR");
 								$("#alert_modal_text").html("Couldn't update Template for "+previousGameTitle+".<br /> There might not be a Template like that in the database. <br /><br /> Please choose a different Game Title or Controller");
@@ -2227,7 +2226,7 @@ if (login_check($mysqli) == true) {
 								{
 									$("#author_name").addClass("author_name_available");
 									$("#author_name").attr("author_name",gameTemplateObject.templateAuthorName);
-									alert($("#author_name").attr());
+									//alert($("#author_name").attr());
 								}
 								else
 								{

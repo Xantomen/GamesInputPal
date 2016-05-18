@@ -640,6 +640,19 @@ input[type=number]::-webkit-outer-spin-button {
 		white-space:nowrap;
 		
 	}
+	
+	.logged_in {
+		
+		/*background-color:green;
+		border-color:red;*/
+		
+	}
+	
+	.logged_out {
+		
+		background-color:#ff4d4d;
+		border-color:red;
+	}
 		
 	
 	
