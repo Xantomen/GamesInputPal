@@ -1,8 +1,7 @@
 <?php
 
-include_once 'absolute_paths.php';
-include_once PATH_PROJECT_INCLUDES.'db_connect.php';
-include_once PATH_PROJECT_INCLUDES.'functions.php';
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
 
 sec_session_start();
 
@@ -11,6 +10,9 @@ if (login_check($mysqli) == true) {
 } else {
     $logged = 'out';
 }
+
+mysqli_close($mysqli);
+
 ?>
 
 <html lang="en">
@@ -23,11 +25,11 @@ if (login_check($mysqli) == true) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Games Input Pal</title>
-    <link rel="icon" href="res/img/playstation3_controller_pink.png">
+    <link rel="icon" href="res/img/playstation4_controller_pink.png">
 
     <!-- Bootstrap -->
     <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="src/css/style.css" rel="stylesheet">
+    <link href="src/css/gamesinput_style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,30 +45,26 @@ if (login_check($mysqli) == true) {
   		
 		<div id="headers">
 			<div id="tool_name">
-  				Using Games Input Pal
+  				Using @GamesInputPal
 	  		</div>
 	  		<div id="call_to_action">
   				Make yours!:
 	  		</div>
 	  		<div id="webpage_name">
-	  			<a href="http://xantomen.com/gamesinputschemer">http://xantomen.com/gamesinputpal</a>
+	  			<a href="http://xantomen.com/gamesinputpal">http://xantomen.com/gamesinputpal</a>
 	  		</div>
 	  		<div id="author_name" author_name="">Mapped by</div>
 			
 		</div>
 		<div id="buttons_bar">
-			
-			
-	  		<?php
-				echo '<div id="path_project_includes" style="display:none;" value="'.PATH_PROJECT_INCLUDES.'"></div>';
-			?>
-						
+									
 			<div id="choose_controller_dropdown" class="dropdown">
 			  <button title="Choose Controller" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			  <div id="controller_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="controller_item selected" controller_name="xbox360_controller"><img class="image-responsive controller_thumbnail" src="res/img/xbox360_controller.png" > XBOX360</li>
-			    <li class="controller_item" controller_name="playstation3_controller"><img class="image-responsive controller_thumbnail" src="res/img/playstation3_controller.png" > PLAYSTATION3</li>
+			    <li class="controller_item" controller_name="playstation4_controller"><img class="image-responsive controller_thumbnail" src="res/img/playstation4_controller.png" > PLAYSTATION4</li>
+			  	<li class="controller_item" controller_name="stickofjoy_controller" style="display:none;"><img class="image-responsive controller_thumbnail" src="res/img/stickofjoy_controller.png" > STICK OF JOY</li>
 			  </ul>
 			</div>
 			
@@ -611,7 +609,7 @@ if (login_check($mysqli) == true) {
     	 * Fields that would be parsed on Json as save state for the server
     	 * 
     	 * "renderedLineObject":jsGraphicsObject,
-    	 * "chosenControllerId":"playstation3_controller",
+    	 * "chosenControllerId":"playstation4_controller",
     	 * "selectedButtonId":"LeftAnalog",
     	 * "selectedAnchorCommonId":"1" Where 1 is the shared label_pair_mark 
     	 * "selectedAnchorPositionId":"2" Where 1 indicates right anchor, 2 indicates bottom anchor
@@ -644,12 +642,9 @@ if (login_check($mysqli) == true) {
     	var blueLineCoords = [856,368,359,339];
     	
     	var needsRebootForLogin = false;
-    	
-    	var PATH_PROJECT_INCLUDES = "";
-    	    	
+    	    	    	
     	$(document).ready(function(){
 		
-			PATH_PROJECT_INCLUDES = $("#path_project_includes").attr("value");
 		
 			function restart_url() {
 				window.location.hash = window.location.hash.split("#")[0];
@@ -689,7 +684,7 @@ if (login_check($mysqli) == true) {
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: PATH_PROJECT_INCLUDES+"verify_user_email.php", 
+							    url: "includes//verify_user_email.php", 
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -736,7 +731,7 @@ if (login_check($mysqli) == true) {
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: PATH_PROJECT_INCLUDES+"reset_password.php",
+							    url: "includes//reset_password.php",
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -794,7 +789,7 @@ if (login_check($mysqli) == true) {
 				
 				  $.ajax({  
 				    type: "POST",  
-				    url: PATH_PROJECT_INCLUDES+"request_template_information_urlreference.php",  
+				    url: "includes//request_template_information_urlreference.php",  
 				    data: { 'gameTitle':addSlashesToString(gameTitle),'controllerChosen':addSlashesToString(controllerChosen)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
@@ -851,7 +846,7 @@ if (login_check($mysqli) == true) {
 	
 	        		$.ajax({  
 					    type: "POST",  
-					    url: PATH_PROJECT_INCLUDES+"process_login.php",  
+					    url: "includes//process_login.php",  
 					    data: { 'email':email,
 					    'password':password},    
 					    success: function(data){
@@ -903,7 +898,7 @@ if (login_check($mysqli) == true) {
 	        		
 	        		$.ajax({  
 					    type: "POST",  
-					    url: PATH_PROJECT_INCLUDES+"logout.php",  
+					    url: "includes//logout.php",  
 					        
 					    success: function(data){ 
 					       
@@ -939,7 +934,7 @@ if (login_check($mysqli) == true) {
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: PATH_PROJECT_INCLUDES+"register.inc.php",  
+						    url: "includes//register.inc.php",  
 						    data: { 'email':email,
 						    'username':username,
 						    'password':password},    
@@ -954,7 +949,7 @@ if (login_check($mysqli) == true) {
 									
 									$.ajax({  
 									    type: "POST",  
-									    url: PATH_PROJECT_INCLUDES+"send_confirmation_email.php", 
+									    url: "includes//send_confirmation_email.php", 
 									    data: { 'email':email,
 									    'username':username,
 									    'password':original_password,
@@ -1026,7 +1021,7 @@ if (login_check($mysqli) == true) {
 	        		
 					$.ajax({  
 					    type: "POST",  
-					    url: PATH_PROJECT_INCLUDES+"send_confirmation_email.php", 
+					    url: "includes//send_confirmation_email.php", 
 					    data: { 'email':email,
 					    'username':'',
 					    'password':'',
@@ -1036,7 +1031,7 @@ if (login_check($mysqli) == true) {
 					       
 							//$("#alert_messages_modal").modal("hide");
 														
-							if(temp_data=="SENT CONFIRMATION EMAIL")
+							if(temp_data.indexOf("SENT CONFIRMATION EMAIL")>-1)
 							{
 								$("#alert_modal_header").text("DELIVERY SUCCESS!");
 								$("#alert_modal_text").html("Please verify your account by clicking the activation link that has been sent to your email.");
@@ -1045,7 +1040,7 @@ if (login_check($mysqli) == true) {
 							else
 							{
 								$("#alert_modal_header").text("DELIVERY ERROR!");
-								$("#alert_modal_text").html(temp_data);
+								$("#alert_modal_text").html("We couldn't send a Verify Account email. Please try again.");
 	
 								//alert("Couldn't send your email!");
 							}
@@ -1056,7 +1051,7 @@ if (login_check($mysqli) == true) {
 					    error: function(temp_data) {
 							
 							$("#alert_modal_header").text("DELIVERY ERROR!");
-							$("#alert_modal_text").html(temp_data);
+							$("#alert_modal_text").html("We couldn't send a Verify Account email. Please try again.");
 	
 					    }
 					});
@@ -1081,7 +1076,7 @@ if (login_check($mysqli) == true) {
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: PATH_PROJECT_INCLUDES+"reset_password_confirmation_email.php",  
+						    url: "includes//reset_password_confirmation_email.php",  
 						    data: { 'email':email,
 						    'password':password},    
 						    success: function(data){ 
@@ -1485,7 +1480,7 @@ if (login_check($mysqli) == true) {
 
 					  $.ajax({  
 						    type: "POST",  
-						    url: PATH_PROJECT_INCLUDES+"search_templates_by_properties.php",  
+						    url: "includes//search_templates_by_properties.php",  
 						    data: { 'gameTitle':addSlashesToString(gameTitleToSearch),
 						    'gameCreator':addSlashesToString(gameCreatorToSearch),
 						    'controllerChosen':addSlashesToString(controllerChosenToSearch),
@@ -1591,7 +1586,7 @@ if (login_check($mysqli) == true) {
 				
 				  $.ajax({  
 				    type: "POST",  
-				    url: PATH_PROJECT_INCLUDES+"return_template_information.php",  
+				    url: "includes//return_template_information.php",  
 				    data: { 'string_value':addSlashesToString(string_value),'property':addSlashesToString(property)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
@@ -1963,7 +1958,7 @@ if (login_check($mysqli) == true) {
 						
 					$.ajax({  
 					    type: "POST",  
-					    url: PATH_PROJECT_INCLUDES+"save_template_information.php",  
+					    url: "includes//save_template_information.php",  
 					    data: { 
 					    	'controllerChosen':addSlashesToString(gameTemplateObject.controllerChosen),
 					    	'gameTitle':addSlashesToString(gameTemplateObject.gameTitle),
@@ -2162,7 +2157,7 @@ if (login_check($mysqli) == true) {
 						
 					$.ajax({  
 					    type: "POST",  
-					    url: PATH_PROJECT_INCLUDES+"update_template_information.php",  
+					    url: "includes//update_template_information.php",  
 					    data: { 
 					    	
 					    	
@@ -2429,9 +2424,9 @@ if (login_check($mysqli) == true) {
 				$("#container_all").css("height","190mm");
 			  	$("#container_all").css("width","285mm");
 			  	
+			  	$("#headers").css("display","block");
 			  	$("#buttons_bar").css("display","none");
 			  
-			  	console.log($("#container_all"));
 			  	
 			  	updateDrawnLineObjects();
 				
@@ -2439,7 +2434,8 @@ if (login_check($mysqli) == true) {
 			
 			function returnContainerToScreenValues()
 			{
-
+				
+				$("#headers").css("display","none");
 			  	$("#buttons_bar").css("display","block");
 				
 				$("#container_all").css("height","100%");

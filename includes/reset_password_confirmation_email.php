@@ -5,7 +5,7 @@ include_once 'psl-config.php';
 
 date_default_timezone_set('Etc/UTC');
 
-require '../../public_html/gamesinputpal/libs/PHPMailer/PHPMailerAutoload.php';
+require '../libs/PHPMailer/PHPMailerAutoload.php';
 
 if (isset($_POST['email'], $_POST['password'])) {
     	$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -82,7 +82,7 @@ if (isset($_POST['email'], $_POST['password'])) {
 				<br />
 				If you have not requested a change of password, ignore this message.
 				If you have, your new password will be applied after clicking on this link:<br />
-				http://www.xantomen.com/gamesinputschemer/index.php#action=confirm_reset_password&email='.$email.'&hash='.$hash.'<br /><br />';
+				http://www.xantomen.com/gamesinputpal/index.php#action=confirm_reset_password&email='.$email.'&hash='.$hash.'<br /><br />';
 				
 				$mail->AltBody = 'Thanks for using Games Input Pal! 
 				Someone requested a change of password to this account, you can login with the following email:
@@ -104,10 +104,11 @@ if (isset($_POST['email'], $_POST['password'])) {
 	        // No match -> invalid url or account has already been activated.
 	        echo 'The email is either invalid or you did not activate your account.';
 	    }
-	
+	mysqli_close($mysqli);
     
 } else {
     // The correct POST variables were not sent to this page. 
     echo "INCORRECT INPUT!";
+	mysqli_close($mysqli);
     exit();
 }

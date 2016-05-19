@@ -100,7 +100,7 @@
 			
 			mysqli_free_result($result);
 			  
-			mysqli_close($mysqli);
+			
 		}
 		
 		  
@@ -108,5 +108,7 @@
 	else {
 		echo json_encode("No Values Given For Search");
 	}
+	
+	mysqli_close($mysqli);
 				
 ?>

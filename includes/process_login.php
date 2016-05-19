@@ -30,14 +30,17 @@ if (isset($_POST['email'], $_POST['password'])) {
         // Login success 
         
         echo "SUCCESFULLY LOGGED IN!";
+		mysqli_close($mysqli);
         exit();
     } else {
         // Login failed 
         echo "LOGIN FAILED!";
+		mysqli_close($mysqli);
         exit();
     }
 } else {
     // The correct POST variables were not sent to this page. 
     echo "INCORRECT INPUT!";
+	mysqli_close($mysqli);
     exit();
 }

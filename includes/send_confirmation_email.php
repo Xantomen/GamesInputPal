@@ -5,7 +5,7 @@ include_once 'psl-config.php';
 
 date_default_timezone_set('Etc/UTC');
 
-require '../../public_html/gamesinputpal/libs/PHPMailer/PHPMailerAutoload.php';
+require '../libs/PHPMailer/PHPMailerAutoload.php';
 
 if (isset($_POST['email'], $_POST['password'], $_POST['username'] , $_POST['hash'] , $_POST['resend'])) {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -51,7 +51,7 @@ if (isset($_POST['email'], $_POST['password'], $_POST['username'] , $_POST['hash
 			<br /><br /> 
 			
 			Please click this link to activate your account:<br />
-			http://www.xantomen.com/gamesinputschemer/index.php#action=verify&email='.$email.'&hash='.$hash.'<br /><br />';
+			http://www.xantomen.com/gamesinputpal/index.php#action=verify&email='.$email.'&hash='.$hash.'<br /><br />';
 			
 			
 			
@@ -92,7 +92,7 @@ if (isset($_POST['email'], $_POST['password'], $_POST['username'] , $_POST['hash
 		<br /><br /> 
 		
 		Please click this link to activate your account:<br />
-		http://www.xantomen.com/gamesinputschemer/index.php#action=verify&email='.$email.'&hash='.$hash.'<br /><br />';
+		http://www.xantomen.com/gamesinputpal/index.php#action=verify&email='.$email.'&hash='.$hash.'<br /><br />';
 		
 		
 		
@@ -107,10 +107,12 @@ if (isset($_POST['email'], $_POST['password'], $_POST['username'] , $_POST['hash
 		}
 	}
     
-    
+    mysqli_close($mysqli);
     
 } else {
     // The correct POST variables were not sent to this page. 
     echo "INCORRECT INPUT!";
+	mysqli_close($mysqli);
     exit();
 }
+

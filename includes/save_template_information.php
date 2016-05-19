@@ -114,10 +114,9 @@
 			echo json_encode("TEMPLATE ALREADY EXISTS");
 		}
 		
-		
-								  
-		mysqli_close($mysqli);
-		  
+  
 	} 
+
+	mysqli_close($mysqli);
 				
 ?>

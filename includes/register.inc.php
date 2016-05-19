@@ -109,5 +109,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['password'])) {
 	{
 		echo $error_msg;
 	}
+	
+	mysqli_close($mysqli);
 
 }

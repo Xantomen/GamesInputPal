@@ -31,5 +31,7 @@
 	    // Invalid approach
 	    echo 'Invalid approach, please use the link that has been send to your email and activate your account if it has not been activated.';
 	}
+	
+	mysqli_close($mysqli);
      
 ?>
