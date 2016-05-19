@@ -2643,6 +2643,8 @@ mysqli_close($mysqli);
 		        			$(this).addClass("non_display");
 		            	});
 		
+						$('.description_first_language_button_text[label_pair_match='+label_pair_match+']').focus();
+		
 		        		/*$(".label_pair_anchor_right").each(function(){
 		        		
 		        			$(this).addClass("non_display");
