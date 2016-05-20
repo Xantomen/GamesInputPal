@@ -80,7 +80,7 @@ mysqli_close($mysqli);
 			</div>
 			
 			<div id="choose_multiplayer_type_dropdown" class="dropdown">
-			  <button title="Choose Playstyle" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+			  <button id="choose_multiplayer_type_dropdown_button" title="Choose Playstyle" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			  <div id="multiplayer_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
 			    <li class="playstyle_item_row" playstyle="singleplayer" multiplayer_type=""><img class="image-responsive multiplayer_thumbnail" src="res/img/singleplayer.svg" > SINGLEPLAYER</li>
@@ -292,8 +292,9 @@ mysqli_close($mysqli);
   		<div id="container_middle" class="center-block">
   			
   			<div id="left_text_container">
-	    		<div id="label_pair" class="label_pair">
+	    		<div label_pair_match="1" class="label_pair">
 	    			<div label_pair_match="1" class="left_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="left_label_pair_handle"></div>
 	    				<input label_pair_match="1" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -309,8 +310,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div id="label_pair" class="label_pair">
+	    		<div label_pair_match="2" class="label_pair">
 	    			<div label_pair_match="2" class="left_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="left_label_pair_handle"></div>
 	    				<input label_pair_match="2" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -326,8 +328,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="3" class="label_pair">
 	    			<div label_pair_match="3" class="left_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="left_label_pair_handle"></div>
 	    				<input label_pair_match="3" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -343,8 +346,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="4" class="label_pair">
 	    			<div label_pair_match="4" class="left_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="left_label_pair_handle"></div>
 	    				<input label_pair_match="4" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -360,8 +364,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="5" class="label_pair">
 	    			<div label_pair_match="5" class="left_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="left_label_pair_handle"></div>
 	    				<input label_pair_match="5" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -377,8 +382,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="6" class="label_pair">
 	    			<div label_pair_match="6" class="left_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="left_label_pair_handle"></div>
 	    				<input label_pair_match="6" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text left_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -405,8 +411,9 @@ mysqli_close($mysqli);
 	    	</div>
   			
 	    	<div id="right_text_container">
-	    		<div id="label_pair" class="label_pair">
+	    		<div label_pair_match="11" class="label_pair">
 	    			<div label_pair_match="11" class="right_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="right_label_pair_handle"></div>
 	    				<input label_pair_match="11" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -422,8 +429,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div id="label_pair" class="label_pair">
+	    		<div label_pair_match="12" class="label_pair">
 	    			<div label_pair_match="12" class="right_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="right_label_pair_handle"></div>
 	    				<input label_pair_match="12" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -439,8 +447,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="13" class="label_pair">
 	    			<div label_pair_match="13" class="right_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="right_label_pair_handle"></div>
 	    				<input label_pair_match="13" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -456,8 +465,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="14" class="label_pair">
 	    			<div label_pair_match="14" class="right_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="right_label_pair_handle"></div>
 	    				<input label_pair_match="14" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -473,8 +483,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="15" class="label_pair">
 	    			<div label_pair_match="15" class="right_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="right_label_pair_handle"></div>
 	    				<input label_pair_match="15" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -490,8 +501,9 @@ mysqli_close($mysqli);
 	    				
 	    			</div>	-->
 	    		</div>
-	    		<div class="label_pair">
+	    		<div label_pair_match="16"class="label_pair">
 	    			<div label_pair_match="16" class="right_position_label label_pair_texts_container non_display half_visible">
+	    				<div class="right_label_pair_handle"></div>
 	    				<input label_pair_match="16" name="first_description" class="h5 text-center center-block 
 	    				description_first_language_button_text right_position_text" value="" 
 	    				placeholder="Description in native language" type="text">
@@ -564,6 +576,8 @@ mysqli_close($mysqli);
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    
+    <script src="libs/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/JavaScript" src="src/js/sha512.js"></script> 
     <script type="text/JavaScript" src="src/js/ajax_helpers.js"></script> 
@@ -642,7 +656,9 @@ mysqli_close($mysqli);
     	var blueLineCoords = [856,368,359,339];
     	
     	var needsRebootForLogin = false;
-    	    	    	
+    	
+    	var sortablePositionBeforeChange = 0;
+    	    	    	    	
     	$(document).ready(function(){
 		
 		
@@ -656,7 +672,8 @@ mysqli_close($mysqli);
 			  location.reload(true);
 			}
 			//setTimeout(reload_screen, 250);
-	    	
+			
+			
 	    	/*
 	    	 * URL Actions Block
 	    	 * 
@@ -780,7 +797,7 @@ mysqli_close($mysqli);
 				}
 			
 			}
-	    	
+			
 	    	function requestTemplateByTitleAndController(gameTitle,controllerChosen)
 			{
 					$("#alert_modal_header").text("");
@@ -1126,6 +1143,33 @@ mysqli_close($mysqli);
 	    	
 	    	implementChangesInColorScheme();
 	    	
+	    	//Making Label Rows Sortable
+	    	
+	    	$("#left_text_container").sortable({
+        
+		        placeholder: 'label_pair placeholder_label_pair',
+		        handle: '.left_label_pair_handle',
+		        start: function (event,ui){ 
+		        	
+		        },
+		        sort: function (event,ui){ updateDrawnLineObjects();  },
+		        stop: function (event,ui){ updateDrawnLineObjects();  }
+		        
+		    });
+		    
+		    //Making Label Rows Sortable
+	    	
+	    	$("#right_text_container").sortable({
+        
+		        placeholder: 'label_pair placeholder_label_pair',
+		        handle: '.right_label_pair_handle',
+		        start: function (event,ui){ 
+		        	
+		        },
+		        sort: function (event,ui){ updateDrawnLineObjects();  },
+		        stop: function (event,ui){ updateDrawnLineObjects();  }
+		        
+		    });
 	    	
 	    	//Focus on Game Title text input from the beginning
 	    	
@@ -1275,6 +1319,22 @@ mysqli_close($mysqli);
 				presentPlaystyleModeSelection(playstyle_state);
 				
 
+			});
+			
+			
+			//Showing the Player Choice Menu when clicking on the Players Icon
+			
+			$("#players_image").click(function(){
+				
+				function click_multiplayer_button(){
+
+				  $("#choose_multiplayer_type_dropdown_button").click();
+				}
+				//Delay in opening the dropdown because otherwise the same click that activates it
+				//closes it.
+				setTimeout(click_multiplayer_button, 20);
+				
+				
 			});
 						
 			function presentPlaystyleModeSelection(playstyle_state)
@@ -1960,20 +2020,20 @@ mysqli_close($mysqli);
 					    type: "POST",  
 					    url: "includes//save_template_information.php",  
 					    data: { 
-					    	'controllerChosen':addSlashesToString(gameTemplateObject.controllerChosen),
-					    	'gameTitle':addSlashesToString(gameTemplateObject.gameTitle),
-					    	'gameCreator':addSlashesToString(gameTemplateObject.gameCreator),
-					    	'templateAuthorName':addSlashesToString(gameTemplateObject.templateAuthorName),
-					    	'minGamePlayers':addSlashesToString(gameTemplateObject.minGamePlayers),
-					    	'maxGamePlayers':addSlashesToString(gameTemplateObject.maxGamePlayers),
-					    	'gameDescriptionPrimary':addSlashesToString(gameTemplateObject.gameDescriptionPrimary),
-					    	'gameDescriptionSecondary':addSlashesToString(gameTemplateObject.gameDescriptionSecondary),
-					    	'gameLabelsTextPrimary':addSlashesToString(gameTemplateObject.gameLabelsTextPrimary),
-					    	'gameLabelsTextSecondary':addSlashesToString(gameTemplateObject.gameLabelsTextSecondary),
-					    	'gameLabelLinks':addSlashesToString(gameTemplateObject.gameLabelLinks),
-					    	'gameColorScheme':addSlashesToString(gameTemplateObject.gameColorScheme),
-					    	'gameColorLines':addSlashesToString(gameTemplateObject.gameColorLines),
-					    	'playstyleMode':addSlashesToString(gameTemplateObject.playstyleMode)
+					    	'controllerChosen':gameTemplateObject.controllerChosen,
+					    	'gameTitle':gameTemplateObject.gameTitle,
+					    	'gameCreator':gameTemplateObject.gameCreator,
+					    	'templateAuthorName':gameTemplateObject.templateAuthorName,
+					    	'minGamePlayers':gameTemplateObject.minGamePlayers,
+					    	'maxGamePlayers':gameTemplateObject.maxGamePlayers,
+					    	'gameDescriptionPrimary':gameTemplateObject.gameDescriptionPrimary,
+					    	'gameDescriptionSecondary':gameTemplateObject.gameDescriptionSecondary,
+					    	'gameLabelsTextPrimary':gameTemplateObject.gameLabelsTextPrimary,
+					    	'gameLabelsTextSecondary':gameTemplateObject.gameLabelsTextSecondary,
+					    	'gameLabelLinks':gameTemplateObject.gameLabelLinks,
+					    	'gameColorScheme':gameTemplateObject.gameColorScheme,
+					    	'gameColorLines':gameTemplateObject.gameColorLines,
+					    	'playstyleMode':gameTemplateObject.playstyleMode
 					    	},      
 					    success: function(message){ // <-- note the parameter here, not in your code
 
@@ -2107,9 +2167,26 @@ mysqli_close($mysqli);
 					
 					var gameLabelLinks = "";
 					
+
 					for(var i=0; i<drawnLineArray.length;i++)
 					{
 						var label_pair_match = drawnLineArray[i].selectedAnchorCommonId;
+						
+						//As the element might have been sorted out to a different position than when it was joined
+						//and as changing the anchor numbers on stop Sorting wasn't reliable, 
+						//we create another label_pair_match (modified) with the index position, which will be the one
+						//that we Save. We do not change it in the local version, however, because that'd cause problems.
+						//Ex: You'd change all pair_match 2 to 4... if when you have a case for 4, 
+						//you don't know which one to change at all. 
+						
+						var $label_pair = $(".label_pair[label_pair_match='"+label_pair_match+"']");
+									
+						var label_pair_match_modified = $label_pair.index()+1;
+												
+						if($label_pair.closest(".ui-sortable").attr("id").indexOf("right")>-1)
+						{
+							label_pair_match_modified += 10;
+						}
 						
 						var $matched_label_primary_text = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]").val();
 						var $matched_label_secondary_text = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]").val();
@@ -2118,18 +2195,18 @@ mysqli_close($mysqli);
 						{
 							if(gameLabelsTextPrimary != "") gameLabelsTextPrimary += "*";
 							
-							gameLabelsTextPrimary += label_pair_match+";"+$matched_label_primary_text;
+							gameLabelsTextPrimary += label_pair_match_modified+";"+$matched_label_primary_text;
 							
 							if($matched_label_secondary_text != "")
 							{
 								if(gameLabelsTextSecondary != "") gameLabelsTextSecondary += "*";
 								
-								gameLabelsTextSecondary += label_pair_match+";"+$matched_label_secondary_text;
+								gameLabelsTextSecondary += label_pair_match_modified+";"+$matched_label_secondary_text;
 							}
 							
 							if(gameLabelLinks != "") gameLabelLinks += "*";
 							
-							gameLabelLinks += label_pair_match+";"+drawnLineArray[i].selectedAnchorPositionId+
+							gameLabelLinks += label_pair_match_modified+";"+drawnLineArray[i].selectedAnchorPositionId+
 							";"+drawnLineArray[i].selectedButtonId;
 		    				
 						}
@@ -2161,22 +2238,22 @@ mysqli_close($mysqli);
 					    data: { 
 					    	
 					    	
-					    	'previousControllerChosen':addSlashesToString(previousControllerChosen),
-					    	'previousGameTitle':addSlashesToString(previousGameTitle),
-					    	'controllerChosen':addSlashesToString(gameTemplateObject.controllerChosen),
-					    	'gameTitle':addSlashesToString(gameTemplateObject.gameTitle),
-					    	'gameCreator':addSlashesToString(gameTemplateObject.gameCreator),
-					    	'templateAuthorName':addSlashesToString(gameTemplateObject.templateAuthorName),
-					    	'minGamePlayers':addSlashesToString(gameTemplateObject.minGamePlayers),
-					    	'maxGamePlayers':addSlashesToString(gameTemplateObject.maxGamePlayers),
-					    	'gameDescriptionPrimary':addSlashesToString(gameTemplateObject.gameDescriptionPrimary),
-					    	'gameDescriptionSecondary':addSlashesToString(gameTemplateObject.gameDescriptionSecondary),
-					    	'gameLabelsTextPrimary':addSlashesToString(gameTemplateObject.gameLabelsTextPrimary),
-					    	'gameLabelsTextSecondary':addSlashesToString(gameTemplateObject.gameLabelsTextSecondary),
-					    	'gameLabelLinks':addSlashesToString(gameTemplateObject.gameLabelLinks),
-					    	'gameColorScheme':addSlashesToString(gameTemplateObject.gameColorScheme),
-					    	'gameColorLines':addSlashesToString(gameTemplateObject.gameColorLines),
-					    	'playstyleMode':addSlashesToString(gameTemplateObject.playstyleMode)
+					    	'previousControllerChosen':previousControllerChosen,
+					    	'previousGameTitle':previousGameTitle,
+					    	'controllerChosen':gameTemplateObject.controllerChosen,
+					    	'gameTitle':gameTemplateObject.gameTitle,
+					    	'gameCreator':gameTemplateObject.gameCreator,
+					    	'templateAuthorName':gameTemplateObject.templateAuthorName,
+					    	'minGamePlayers':gameTemplateObject.minGamePlayers,
+					    	'maxGamePlayers':gameTemplateObject.maxGamePlayers,
+					    	'gameDescriptionPrimary':gameTemplateObject.gameDescriptionPrimary,
+					    	'gameDescriptionSecondary':gameTemplateObject.gameDescriptionSecondary,
+					    	'gameLabelsTextPrimary':gameTemplateObject.gameLabelsTextPrimary,
+					    	'gameLabelsTextSecondary':gameTemplateObject.gameLabelsTextSecondary,
+					    	'gameLabelLinks':gameTemplateObject.gameLabelLinks,
+					    	'gameColorScheme':gameTemplateObject.gameColorScheme,
+					    	'gameColorLines':gameTemplateObject.gameColorLines,
+					    	'playstyleMode':gameTemplateObject.playstyleMode
 					    	},      
 					    success: function(message){ // <-- note the parameter here, not in your code
 
