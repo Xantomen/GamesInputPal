@@ -701,7 +701,7 @@ mysqli_close($mysqli);
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: "includes//verify_user_email.php", 
+							    url: "includes/verify_user_email.php", 
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -748,7 +748,7 @@ mysqli_close($mysqli);
 	    				{
 			    			$.ajax({  
 							    type: "POST",  
-							    url: "includes//reset_password.php",
+							    url: "includes/reset_password.php",
 							    data: { 'email':email,
 							    'hash':hash },
 							    success: function(data){ 
@@ -806,7 +806,7 @@ mysqli_close($mysqli);
 				
 				  $.ajax({  
 				    type: "POST",  
-				    url: "includes//request_template_information_urlreference.php",  
+				    url: "includes/request_template_information_urlreference.php",  
 				    data: { 'gameTitle':addSlashesToString(gameTitle),'controllerChosen':addSlashesToString(controllerChosen)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
@@ -863,7 +863,7 @@ mysqli_close($mysqli);
 	
 	        		$.ajax({  
 					    type: "POST",  
-					    url: "includes//process_login.php",  
+					    url: "includes/process_login.php",  
 					    data: { 'email':email,
 					    'password':password},    
 					    success: function(data){
@@ -915,7 +915,7 @@ mysqli_close($mysqli);
 	        		
 	        		$.ajax({  
 					    type: "POST",  
-					    url: "includes//logout.php",  
+					    url: "includes/logout.php",  
 					        
 					    success: function(data){ 
 					       
@@ -951,7 +951,7 @@ mysqli_close($mysqli);
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: "includes//register.inc.php",  
+						    url: "includes/register.inc.php",  
 						    data: { 'email':email,
 						    'username':username,
 						    'password':password},    
@@ -966,7 +966,7 @@ mysqli_close($mysqli);
 									
 									$.ajax({  
 									    type: "POST",  
-									    url: "includes//send_confirmation_email.php", 
+									    url: "includes/send_confirmation_email.php", 
 									    data: { 'email':email,
 									    'username':username,
 									    'password':original_password,
@@ -1038,7 +1038,7 @@ mysqli_close($mysqli);
 	        		
 					$.ajax({  
 					    type: "POST",  
-					    url: "includes//send_confirmation_email.php", 
+					    url: "includes/send_confirmation_email.php", 
 					    data: { 'email':email,
 					    'username':'',
 					    'password':'',
@@ -1093,7 +1093,7 @@ mysqli_close($mysqli);
 	        			
 	        			$.ajax({  
 						    type: "POST",  
-						    url: "includes//reset_password_confirmation_email.php",  
+						    url: "includes/reset_password_confirmation_email.php",  
 						    data: { 'email':email,
 						    'password':password},    
 						    success: function(data){ 
@@ -1540,7 +1540,7 @@ mysqli_close($mysqli);
 
 					  $.ajax({  
 						    type: "POST",  
-						    url: "includes//search_templates_by_properties.php",  
+						    url: "includes/search_templates_by_properties.php",  
 						    data: { 'gameTitle':addSlashesToString(gameTitleToSearch),
 						    'gameCreator':addSlashesToString(gameCreatorToSearch),
 						    'controllerChosen':addSlashesToString(controllerChosenToSearch),
@@ -1646,7 +1646,7 @@ mysqli_close($mysqli);
 				
 				  $.ajax({  
 				    type: "POST",  
-				    url: "includes//return_template_information.php",  
+				    url: "includes/return_template_information.php",  
 				    data: { 'string_value':addSlashesToString(string_value),'property':addSlashesToString(property)},      
 				    success: function(json_data){ // <-- note the parameter here, not in your code
 				       //$('#box2').html(data);
@@ -2018,7 +2018,7 @@ mysqli_close($mysqli);
 						
 					$.ajax({  
 					    type: "POST",  
-					    url: "includes//save_template_information.php",  
+					    url: "includes/save_template_information.php",  
 					    data: { 
 					    	'controllerChosen':gameTemplateObject.controllerChosen,
 					    	'gameTitle':gameTemplateObject.gameTitle,
@@ -2234,7 +2234,7 @@ mysqli_close($mysqli);
 						
 					$.ajax({  
 					    type: "POST",  
-					    url: "includes//update_template_information.php",  
+					    url: "includes/update_template_information.php",  
 					    data: { 
 					    	
 					    	
@@ -2571,6 +2571,28 @@ mysqli_close($mysqli);
         		newDrawnLineObject.selectedButton = selectedButton;
         		newDrawnLineObject.selectedAnchor = selectedAnchor;
         		
+        		var new_erase_line_button = '<div label_pair_match="'+selectedAnchorCommonId+'" class="erase_line_button">';
+        		new_erase_line_button += '</div>';
+        		
+        		$('#container_all').append(new_erase_line_button);
+        		
+        		var $new_erase_line_button = $('.erase_line_button[label_pair_match="'+selectedAnchorCommonId+'"]');
+        		
+        		$new_erase_line_button.click(function(){
+        			
+        			//Double Click because One Click would keep the Button selected to
+        			//immediately go and select something else
+        			
+        			var $selectedButton = $("#"+selectedButton.id+"");
+        			$selectedButton.click();
+        			$selectedButton.click();
+        			
+        			//Deletion of the object is made by the selectedButton Click itself :)
+					//destroyDrawnLineObject(selectedButton.id);
+        		})
+        		
+        		newDrawnLineObject.eraseLineButton = $new_erase_line_button;
+        		
         		drawnLineArray.push(newDrawnLineObject);
 			}
 			
@@ -2581,11 +2603,16 @@ mysqli_close($mysqli);
 				$('.label_pair_texts_container').addClass("non_display").addClass("half_visible");
 				$('.label_pair_anchor').attr("num_links","0");
 				$('.label_pair_anchor').removeClass("completed_link");
+				
+				$('.description_first_language_button_text').val("");
+				$('.description_second_language_button_text').val("");
 			}
 			
 			function destroyAllDrawnLineObjects()
 			{
 				var newArray = [];
+				
+				$new_erase_line_button = $('.erase_line_button').remove();
 				
 				for(var i = 0; i < drawnLineArray.length; i++) {
 				    
@@ -2624,10 +2651,22 @@ mysqli_close($mysqli);
 				    		+drawnLineArray[i].selectedAnchorCommonId+']');
 				    		
 				    		label_pair_texts_container.addClass("non_display").addClass("half_visible");
+				    		
+				    		var $first_language_text = $('.description_first_language_button_text[label_pair_match='
+				    		+drawnLineArray[i].selectedAnchorCommonId+']');
+				    		var $second_language_text = $('.description_second_language_button_text[label_pair_match='
+				    		+drawnLineArray[i].selectedAnchorCommonId+']');
+				    		
+				    		$first_language_text.val("");
+				    		$second_language_text.val("");
 				    	}
 				    	
+				    	var $new_erase_line_button = $('.erase_line_button[label_pair_match="'+
+				    	drawnLineArray[i].selectedAnchorCommonId+'"]');
+        		
+        				//Erasing this Cancel Button itself.
+				    	$new_erase_line_button.remove();	
 				    	
-				    					    	
 				    	/*if(!$('.label_pair_anchor.completed_link[label_pair_match='
 				    	+drawnLineArray[i].selectedAnchorCommonId+']').length)
 				    	{
@@ -2662,12 +2701,24 @@ mysqli_close($mysqli);
 					drawnLineArray[i].renderedLineObject.clear();
 								
 					var $label_pair_anchor = drawnLineArray[i].selectedAnchor;
+					
+					var x1 = x_value + (selected_button_bounding_box.width/2);
+					var y1 = y_value + (selected_button_bounding_box.height/2);
+					var x2 = $label_pair_anchor.offset().left + ($label_pair_anchor.width()/2);
+					var y2 = $label_pair_anchor.offset().top + ($label_pair_anchor.height()/2);
 																												
-					drawLineFunction(drawnLineArray[i].renderedLineObject,
-						x_value + (selected_button_bounding_box.width/2), 
-						y_value + (selected_button_bounding_box.height/2),
-						$label_pair_anchor.offset().left + ($label_pair_anchor.width()/2), 
-						$label_pair_anchor.offset().top + ($label_pair_anchor.height()/2));
+					drawLineFunction(drawnLineArray[i].renderedLineObject,x1,y1,x2,y2);
+						
+					//Updating position of the erase button object,done by calculating the middle position
+					//of the Blue Line and positioning it there
+					
+					var erase_x = Math.floor((x2-x1)/2+x1)-(drawnLineArray[i].eraseLineButton.width()/2);
+					var erase_y = Math.floor((y2-y1)/2+y1)-(drawnLineArray[i].eraseLineButton.height()/2);
+					-(drawnLineArray[i].eraseLineButton[0].getBoundingClientRect().top/2);
+						
+					xanto_explorer = drawnLineArray[i].eraseLineButton;
+						
+					drawnLineArray[i].eraseLineButton.offset({top:erase_y,left:erase_x});
 				}
 			}
 			

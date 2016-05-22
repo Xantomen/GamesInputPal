@@ -47,6 +47,11 @@
   {
   	display:none !important; 
   }
+  
+  .erase_line_button
+  {
+  	display:none !important!;
+  }
    /*#game_title_text {
    	
    		color:red !important;	
@@ -803,6 +808,24 @@ input[type=number]::-webkit-outer-spin-button {
 	width:100%;
 	height:70%;
 }
+
+	.erase_line_button
+	{
+	    position: absolute;
+	    width: 25px;
+	    height: 25px;
+	    background-image: url("../../res/img/erase_line_button.png");
+	    border-radius: 40%;
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    cursor:pointer;
+	    opacity:0.6;
+	}
+	
+	.erase_line_button:hover
+	{
+		opacity:1;
+	}
 
 	#left_text_container
 	{
