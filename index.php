@@ -67,6 +67,9 @@ mysqli_close($mysqli);
 			  <ul class="dropdown-menu">
 			    <li class="controller_item selected" controller_name="xbox360_controller"><img class="image-responsive controller_thumbnail" src="res/img/xbox360_controller.png" > XBOX360</li>
 			    <li class="controller_item" controller_name="playstation4_controller"><img class="image-responsive controller_thumbnail" src="res/img/playstation4_controller.png" > PLAYSTATION4</li>
+			  	<li class="controller_item" controller_name="keyboard_mouse_controller"><img class="image-responsive controller_thumbnail" src="res/img/keyboard_mouse_controller.png" > KEYBOARD & MOUSE</li>
+			  	<li class="controller_item" controller_name="keyboard_controller"><img class="image-responsive controller_thumbnail" src="res/img/keyboard_controller.png" > KEYBOARD ONLY</li>
+			  	<li class="controller_item" controller_name="mouse_controller"><img class="image-responsive controller_thumbnail" src="res/img/mouse_controller.png" > MOUSE ONLY</li>
 			  	<li class="controller_item" controller_name="stickofjoy_controller" style="display:none;"><img class="image-responsive controller_thumbnail" src="res/img/stickofjoy_controller.png" > STICK OF JOY</li>
 			  </ul>
 			</div>
@@ -184,6 +187,9 @@ mysqli_close($mysqli);
 			    </li>
 			    <li id="about_row" class="h6 text-center">
 			    	Playstation3 Icon by Regan Warner ; The Noun Project
+			    </li>
+			    <li id="about_row" class="h6 text-center">
+			    	Keyboard & Mouse Icon by Sherrinford ; The Noun Project
 			    </li>
 			    <li id="about_row" class="h6 text-center">
 			    	Save Icon by Matt Wilson ; The Noun Project
@@ -406,7 +412,9 @@ mysqli_close($mysqli);
 	    		</div>
 	    	</div>
   			<div id="controllers_images_container">
+  				
   				<div id="controllers_image_container">
+  					<div id="keyboard_language_toggle" keyboard_type="qwerty" class="h1 text-center center-block">QWERTY (Click to Change)</div>
   					<img id="controllers_image" src="res/img/xbox360_controller.svg" 
   					class="svg img-responsive center-block max_height" alt="Controller IMAGE">
   				</div>
@@ -666,7 +674,7 @@ mysqli_close($mysqli);
     	    	    	    	
     	$(document).ready(function(){
 
-			if($("#login_status") == "in")
+			if($("#login_status").attr("login_status") == "in")
 			{
 				isLoggedIn = true;
 			}
@@ -688,6 +696,8 @@ mysqli_close($mysqli);
 				s += '-Search for existing controls schemes in the database';
 				s += '<br>';
 				s += '-Print or Export any template to PDF';
+				s += '<br>';
+				s += '-Share templates by an unique URL';
 				s += '<br><br>';
 				
 				s += 'Registered Users can:'
@@ -1223,18 +1233,61 @@ mysqli_close($mysqli);
 	    	
 	    	$("#game_title_text").focus();
 	    	
+	    	//Associate event with Keyboard Layout Toggle (QWERTY,QWERTZ,etc)
+	    	
+	    	$("#keyboard_language_toggle").click(function(){
+	    		
+	    		var keyboard_type = $("#keyboard_language_toggle").attr("keyboard_type");
+	    		
+	    		if(keyboard_type == "qwerty")
+	    		{
+	    			$("#keyboard_language_toggle").attr("keyboard_type","qwertz");
+	    			$("#keyboard_language_toggle").text("QWERTZ");
+	    		}
+	    		else
+	    		{
+	    			$("#keyboard_language_toggle").attr("keyboard_type","qwerty");
+	    			$("#keyboard_language_toggle").text("QWERTY");
+	    		}
+	    		
+	    		keyboard_type = $("#keyboard_language_toggle").attr("keyboard_type");
+	    		
+	    		var controller_name = controllerChosen.replace("_controller","")+"_"+keyboard_type+"_controller";
+	    		
+	    		replaceSvgControllerImageForSource("res/img/"+controller_name+".svg");
+	    		
+	    		prepareSvgControllerImage();
+	    		
+	    		
+	    		
+	    	});
+	    	
 			//Change Controller Selection
 			
 			$(".controller_item").click(function(){
 				
 				var controller_name = $(this).attr("controller_name");
 				
+				controllerChosen = controller_name;
+				
+				if(controller_name.indexOf("keyboard")>-1)
+				{
+					$("#keyboard_language_toggle").css("display","block");
+					
+					var keyboard_type = $("#keyboard_language_toggle").attr("keyboard_type");
+					
+					controller_name = controller_name.replace("_controller","")+"_"+keyboard_type+"_controller";
+					
+				}
+				else
+				{
+					$("#keyboard_language_toggle").css("display","none");
+				}
+				
 				resetAllObjectValues();
 				
 				replaceSvgControllerImageForSource("res/img/"+controller_name+".svg");
-				
-				controllerChosen = controller_name;
-				
+								
 				prepareSvgControllerImage();
 				
 				$(".controller_item").each(function(){
@@ -1732,6 +1785,28 @@ mysqli_close($mysqli);
 				var controller_name = parsed_data.controllerChosen;
 				
 				controllerChosen = controller_name;
+				
+				if(controller_name.indexOf("keyboard")>-1)
+				{
+					$("#keyboard_language_toggle").css("display","block");
+					
+					var keyboard_type = $("#keyboard_language_toggle").attr("keyboard_type");
+					
+					controller_name = controller_name.replace("_controller","")+"_"+keyboard_type+"_controller";
+					
+					var keyboard_layout_text = $("#keyboard_language_toggle").text();
+					
+					if(keyboard_layout_text.indexOf("Click to Change")==-1)
+					{
+						$("#keyboard_language_toggle").text($("#keyboard_language_toggle").text()+" (Click to Change)");
+					}
+					
+					
+				}
+				else
+				{
+					$("#keyboard_language_toggle").css("display","none");
+				}
 				
 				$(".controller_item").each(function(){
 					
@@ -2552,6 +2627,8 @@ mysqli_close($mysqli);
 			  	$("#headers").css("display","block");
 			  	$("#buttons_bar").css("display","none");
 			  
+			  	$("#keyboard_language_toggle").css("display","none");
+			  
 			  	
 			  	updateDrawnLineObjects();
 				
@@ -2562,7 +2639,12 @@ mysqli_close($mysqli);
 				
 				$("#headers").css("display","none");
 			  	$("#buttons_bar").css("display","block");
-				
+			  	
+			  	if(controllerChosen.indexOf("keyboard")>-1)
+			  	{
+			  		$("#keyboard_language_toggle").css("display","block");
+			  	}
+	
 				$("#container_all").css("height","100%");
 			  	$("#container_all").css("width","100%");
 			  	
@@ -2736,6 +2818,14 @@ mysqli_close($mysqli);
 			{				
 				for(var i=0;i<drawnLineArray.length;i++)
 				{
+					//Check that allows the layout to update Buttons properly when one of the
+					//Keyboard Controllers is chosen
+					if(controllerChosen.indexOf("keyboard")>-1)
+					{
+						drawnLineArray[i].selectedButton = document.getElementById(drawnLineArray[i].selectedButtonId);
+						
+					}
+					
 					var selected_button_bounding_box = drawnLineArray[i].selectedButton.getBoundingClientRect();
 
 					var x_value = selected_button_bounding_box.x;
