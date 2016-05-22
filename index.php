@@ -40,7 +40,10 @@ mysqli_close($mysqli);
     <script type="text/javascript" src="libs/jsgraphics/wz_jsgraphics.js"></script>
   </head>
   <body>
-  	
+  	<div id="login_status" login_status="<?php
+			    	if($logged == 'in') echo 'in';
+					else echo 'out';
+			    	?>"></div>
   	<div id="container_all">
   		
 		<div id="headers">
@@ -658,9 +661,54 @@ mysqli_close($mysqli);
     	var needsRebootForLogin = false;
     	
     	var sortablePositionBeforeChange = 0;
+    	
+    	var isLoggedIn = false;
     	    	    	    	
     	$(document).ready(function(){
-		
+
+			if($("#login_status") == "in")
+			{
+				isLoggedIn = true;
+			}
+			
+			if(!isLoggedIn)
+			{
+				var s = 'Games Input Pal is a toolbelt that helps you share game controls schemes with others.';
+				s += '<br>';
+				s += 'Indie Festivals, local play events or at home with your friends, your scheme printout will avoid that you have to actively explain the controls to every single participant.';
+				s += '<br><br>';
+				
+				s += 'Non Registered Users can:'
+				s += '<br><br>';
+
+				s += "- Make a controls scheme for a game (theirs or someone else's)";
+				s += '<br>';
+				s += "-Save that template if it doesn't exist already (can't have the same Game Title and Controller combination twice, can't overwrite)";
+				s += '<br>';
+				s += '-Search for existing controls schemes in the database';
+				s += '<br>';
+				s += '-Print or Export any template to PDF';
+				s += '<br><br>';
+				
+				s += 'Registered Users can:'
+				s += '<br><br>';
+				s += "- Get credit for the templates you created";
+				s += '<br>';
+				s += "- Overwrite your saved templates";
+				s += '<br>';
+				s += "- Choose to show or not the name of the template creator when printing";
+				s += '<br><br>';
+				
+				s += 'Games Input Pal is open source. Please tell me about any problems or feature requests, ';
+				s += 'controllers you would like to have, etc. on Github or by email to xantomen@xantomen.com';
+				
+				s += '<br><br>';
+				s += 'Thank you and enjoy!';
+				
+				$("#alert_modal_header").text("Welcome to Games Input Pal");
+				$("#alert_modal_text").html(s);
+				$("#alert_messages_modal").modal("show");
+			}
 		
 			function restart_url() {
 				window.location.hash = window.location.hash.split("#")[0];
