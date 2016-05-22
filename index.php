@@ -37,7 +37,6 @@ mysqli_close($mysqli);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="libs/jsgraphics/wz_jsgraphics.js"></script>
   </head>
   <body>
   	<div id="login_status" login_status="<?php
@@ -202,13 +201,6 @@ mysqli_close($mysqli);
 			    </li>
 			    <li id="about_row" class="h6 text-center">
 			    	Lock Icon by Edward Boatman ; The Noun Project
-			    </li>
-			    <li class="divider"></li>
-			    <li id="about_row" class="h6 text-center">
-			    	JS Graphics Library by:
-			    </li>
-			    <li id="about_row" class="h6 text-center">
-			    	Walter Zorn
 			    </li>
 			    <li class="divider"></li>
 			    <li id="about_row" class="h6 text-center">
@@ -660,6 +652,10 @@ mysqli_close($mysqli);
     	    	
     	var drawnLineArray = [];
     	
+		//Counts the number of lines drawn since the beginning of the execution
+		//not the length of drawnLineArray, to get individual id to each of them
+    	var drawnLineCounter = 0;
+    	
     	var searchResultArray = [];
     	
     	var playstyleMode = "multiplayer";
@@ -671,6 +667,7 @@ mysqli_close($mysqli);
     	var sortablePositionBeforeChange = 0;
     	
     	var isLoggedIn = false;
+    	
     	    	    	    	
     	$(document).ready(function(){
 
@@ -1014,9 +1011,7 @@ mysqli_close($mysqli);
 						    'username':username,
 						    'password':password},    
 						    success: function(data){ 
-						   
-						       //console.log(data);
-						       						       
+						   						       						       
 						       if(data.indexOf("REGISTRATION SUCCESS!")>-1)
 						       {
 						       		var hash = data.split("#")[1];
@@ -2579,7 +2574,7 @@ mysqli_close($mysqli);
 		        });
 			}
 					
-			function drawLineFunction(canvas,x1,y1,x2,y2)
+			function drawLineFunction(drawLine,x1,y1,x2,y2)
 			{
 				
 			  var adapted_x1 = Math.floor(x1);
@@ -2587,15 +2582,33 @@ mysqli_close($mysqli);
 			  var adapted_y1 = Math.floor(y1);
 			  var adapted_y2 = Math.floor(y2);
 			  
-			  //console.log("x1: "+adapted_x1+" y1: "+adapted_y1+" x2: "+adapted_x2+" y2: "+adapted_y2);
+			  var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+			  var angle  = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
 			  
-			  //jg_doc.drawPolyline(new Array(50, 10, 120), new Array(10, 50, 70));
-			  canvas.setPrintable(true);
-			  canvas.setColor(gameColorLines);
-			  canvas.setStroke(6);
-			  canvas.drawLine(adapted_x1, adapted_y1, adapted_x2, adapted_y2);
-			  canvas.paint(); // draws, in this case, directly into the document
-			
+			  var transform = 'rotate('+angle+'deg)';
+
+			  var left = "";
+			  var top = "";
+			  
+			  if(y1 > y2)
+			  {
+			  	top = y2;
+			  	
+			  } else top = y1;
+			  
+			  if(x1 > x2)
+			  {
+			  	left = x2;
+			  	
+			  } else left = x1;
+			  			  
+			  drawLine.css({
+				          'position': 'relative',
+				          'transform': transform,
+				          'background-color': gameColorLines
+				        }).width(length)
+				        .offset({left: left, top: top});
+
 			}
 
 			
@@ -2609,7 +2622,15 @@ mysqli_close($mysqli);
 			{
 						  		
     			var desired_title_color = $("#game_title_text").css("color");
-    			$('<style id="print-style-tag" media="print">#game_title_text {color: '+desired_title_color+' !important;}</style>').appendTo('head');
+    			
+    			var s = '';
+    			s += '<style id="print-style-tag" media="print">#game_title_text {color: ';
+    			s += desired_title_color+' !important;}';
+    			//s += '.drawLine { background-color: '+gameColorLines+'; }';
+    			s += '.drawLine {background-color: '+gameColorLines+' !important; }';
+    			s += '</style>';
+    			
+    			$(s).appendTo('head');
     			
     			if($("#author_checkbox").is(':checked') && !($("#author_name").attr("author_name") == ""))
     			{
@@ -2689,11 +2710,18 @@ mysqli_close($mysqli);
 			function createNewDrawnLineObject(selectedButtonId,selectedAnchorCommonId,selectedAnchorPositionId,
 				selectedButton,selectedAnchor)
 			{
-				var jsGraphCanvas = new jsGraphics("container_all");
+				//var jsGraphCanvas = new jsGraphics("container_all");
+				var newDrawLine = $('<div>')
+					        .appendTo('#container_middle')
+					        .addClass('drawLine');
+				
+				newDrawLine.attr("id","drawLine"+selectedButtonId);
+					        
+				drawnLineCounter++;
 								
 				var newDrawnLineObject = new Object();
 			            		
-			    newDrawnLineObject.renderedLineObject = jsGraphCanvas;
+			    newDrawnLineObject.renderedLineObject = newDrawLine;
         		newDrawnLineObject.selectedButtonId = selectedButtonId;
         		newDrawnLineObject.selectedAnchorCommonId = selectedAnchorCommonId;
         		newDrawnLineObject.selectedAnchorPositionId = selectedAnchorPositionId;
@@ -2742,11 +2770,11 @@ mysqli_close($mysqli);
 			{
 				var newArray = [];
 				
-				$new_erase_line_button = $('.erase_line_button').remove();
+				$('.erase_line_button').remove();
 				
 				for(var i = 0; i < drawnLineArray.length; i++) {
 				    
-				    drawnLineArray[i].renderedLineObject.clear();
+				    drawnLineArray[i].renderedLineObject.remove();
 				    	
 				}
 				
@@ -2768,7 +2796,7 @@ mysqli_close($mysqli);
 				    }
 				    else
 				    {
-				    	drawnLineArray[i].renderedLineObject.clear();
+				    	drawnLineArray[i].renderedLineObject.remove();
 				    	
 				    	var num_links = parseInt(drawnLineArray[i].selectedAnchor.attr("num_links"));
 							drawnLineArray[i].selectedAnchor.attr("num_links",""+(num_links-1));
@@ -2836,7 +2864,6 @@ mysqli_close($mysqli);
 					
 					if(y_value == null) y_value = selected_button_bounding_box.top;
 							
-					drawnLineArray[i].renderedLineObject.clear();
 								
 					var $label_pair_anchor = drawnLineArray[i].selectedAnchor;
 					
@@ -2850,13 +2877,24 @@ mysqli_close($mysqli);
 					//Updating position of the erase button object,done by calculating the middle position
 					//of the Blue Line and positioning it there
 					
-					var erase_x = Math.floor((x2-x1)/2+x1)-(drawnLineArray[i].eraseLineButton.width()/2);
-					var erase_y = Math.floor((y2-y1)/2+y1)-(drawnLineArray[i].eraseLineButton.height()/2);
-					-(drawnLineArray[i].eraseLineButton[0].getBoundingClientRect().top/2);
+					var erase_x = Math.floor(x2-(x2-x1)/9)-(drawnLineArray[i].eraseLineButton.width()/2);
+					var erase_y = Math.floor(y2-(y2-y1)/9)-(drawnLineArray[i].eraseLineButton.height()/2);
 						
-					xanto_explorer = drawnLineArray[i].eraseLineButton;
 						
 					drawnLineArray[i].eraseLineButton.offset({top:erase_y,left:erase_x});
+					
+					//Add or Remove Class to the Draw Line depending on if any Text for the connected Label
+					//has been written or not
+					
+					var label_pair_match = drawnLineArray[i].selectedAnchorCommonId;
+					
+					var $matched_label_primary_text = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]").val();
+					var $matched_label_secondary_text = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]").val();
+			
+					if($matched_label_primary_text == "" && $matched_label_secondary_text == "")
+					{
+						drawnLineArray[i].renderedLineObject.addClass("no_print");
+					} else drawnLineArray[i].renderedLineObject.removeClass("no_print");
 				}
 			}
 			

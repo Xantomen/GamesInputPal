@@ -57,10 +57,17 @@
   	
   	display:none !important;
   }
+  
+  .no_print {
+  	
+  	display:none !important;
+  	
+  }
    /*#game_title_text {
    	
    		color:red !important;	
    }*/
+  
 
 }
 
@@ -136,6 +143,13 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.drawLine {
+	
+	  transform-origin: 0 100%;
+	  height: 6px; /* Line width of 6 */
+	 
 }
 
 
