@@ -136,6 +136,10 @@ mysqli_close($mysqli);
 			    	}?>
 			    </li>
 			   	<li class="print_row"><div id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
+			  	<?php
+		    	if($logged == 'in') {
+		    		echo '<li class="export_png_row"><div id="export_png_button" class="btn btn-primary center-block">Export as .PNG Image</div></li>';
+		    	}?>
 			  </ul>
 			</div>
 
@@ -589,6 +593,9 @@ mysqli_close($mysqli);
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/JavaScript" src="src/js/sha512.js"></script> 
     <script type="text/JavaScript" src="src/js/ajax_helpers.js"></script> 
+    <script src="libs/html2canvas-0.5.0-alpha1/html2canvas.js"></script>
+    <script src="libs/html2canvas-0.5.0-alpha1/html2canvas.svg.js"></script>
+    
     
     <script type="text/javascript">
     	    	 
@@ -672,7 +679,7 @@ mysqli_close($mysqli);
     	var sortablePositionBeforeChange = 0;
     	
     	var isLoggedIn = false;
-    	
+    	    	
     	    	    	    	
     	$(document).ready(function(){
 
@@ -2656,10 +2663,34 @@ mysqli_close($mysqli);
 				{
 					$("#author_name").text(""); 
 				} 
-								
+					
 				$("#container_all").css("height","190mm");
 			  	$("#container_all").css("width","285mm");
 			  	
+				//Make sure things that should be invisible are invisible
+							
+				$(".erase_line_button").addClass("no_print");
+				$(".ui-sortable-handle").addClass("no_print");
+				
+					
+				//Add or Remove Class to the Draw Line depending on if any Text for the connected Label
+				//has been written or not
+				
+				for(var i=0;i<drawnLineArray[i].length;i++)
+				{
+					var label_pair_match = drawnLineArray[i].selectedAnchorCommonId;
+				
+					var $matched_label_primary_text = $(".description_first_language_button_text[label_pair_match="+label_pair_match+"]").val();
+					var $matched_label_secondary_text = $(".description_second_language_button_text[label_pair_match="+label_pair_match+"]").val();
+			
+					if($matched_label_primary_text == "" && $matched_label_secondary_text == "")
+					{
+						drawnLineArray[i].renderedLineObject.addClass("no_print");
+						
+						$(".label_pair[label_pair_match="+label_pair_match+"]").addClass("no_print");
+					}
+				}
+
 			  	$("#headers").css("display","block");
 			  	$("#buttons_bar").css("display","none");
 			  
@@ -2672,6 +2703,13 @@ mysqli_close($mysqli);
 			
 			function returnContainerToScreenValues()
 			{
+
+				$("#container_all").css("height","100%");
+			  	$("#container_all").css("width","100%");
+			  	
+			  	//Make sure things that should be visible are visible
+				
+				$(".no_print").removeClass("no_print");
 				
 				$("#headers").css("display","none");
 			  	$("#buttons_bar").css("display","block");
@@ -2680,9 +2718,6 @@ mysqli_close($mysqli);
 			  	{
 			  		$("#keyboard_language_toggle").css("display","block");
 			  	}
-	
-				$("#container_all").css("height","100%");
-			  	$("#container_all").css("width","100%");
 			  	
 			  	updateDrawnLineObjects();
 			  	
@@ -2711,13 +2746,39 @@ mysqli_close($mysqli);
 		  		setTimeout(returnContainerToScreenValues, 10);
 			});
 			
+			$("#export_png_button").click(function(){
+				
+				prepareContainerToPrint();
+				
+		  		html2canvas($("#container_all"),{
+				   onrendered: function (canvas) {
+				   	
+				   	//document.body.appendChild(canvas);
+				   //$('#img_val').val(canvas.toDataURL("image/png"));
+				    var img = canvas.toDataURL("image/png");
+				    window.open(img);
+				    
+				    //Fixing a dissapearing lines issue, caused by a CSS change when using html2canvas
+				    //Best fix I thought of so far
+				    for(var i=0;i<drawnLineArray.length;i++)
+				    {
+				    	drawnLineArray[i].renderedLineObject.removeClass("drawLine");
+				    	drawnLineArray[i].renderedLineObject.addClass("drawLine");
+				    }
+				    
+				  }
+				 });
+		  		
+		  		//$('#print-style-tag').remove();
+		  		
+		  		setTimeout(returnContainerToScreenValues, 3000);
+			});
+			
 			$( window ).keypress(function( e) {
 			  			  
 			  	if(e.which == 13)
 			  	{
-			  		//$("#print_button").click();
-			  		
-
+			  		//$("#export_png_button").click();
 			  	}
 
 			});
