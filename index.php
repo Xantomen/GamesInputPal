@@ -2678,7 +2678,8 @@ mysqli_close($mysqli);
 				//Add or Remove Class to the Draw Line depending on if any Text for the connected Label
 				//has been written or not
 				
-				for(var i=0;i<drawnLineArray[i].length;i++)
+				
+				for(var i=0;i<drawnLineArray.length;i++)
 				{
 					var label_pair_match = drawnLineArray[i].selectedAnchorCommonId;
 				
@@ -2697,8 +2698,7 @@ mysqli_close($mysqli);
 			  	$("#buttons_bar").css("display","none");
 			  
 			  	$("#keyboard_language_toggle").css("display","none");
-			  
-			  	
+
 			  	updateDrawnLineObjects();
 				
 			}
