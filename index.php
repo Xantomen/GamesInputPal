@@ -185,7 +185,7 @@ mysqli_close($mysqli);
 			    	Xbox360 Icon by Mark Davis ; The Noun Project
 			    </li>
 			    <li id="about_row" class="h6 text-center">
-			    	Playstation3 Icon by Regan Warner ; The Noun Project
+			    	Playstation4 Icon by Regan Warner ; The Noun Project
 			    </li>
 			    <li id="about_row" class="h6 text-center">
 			    	Keyboard & Mouse Icon by Sherrinford ; The Noun Project
@@ -250,14 +250,14 @@ mysqli_close($mysqli);
 					
 					echo '<li class="account_row"><div id="login_button" class="btn btn-primary center-block">Login!</div></li>';
 					
-					echo '<li class="account_row"><input id="username" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Username" type="text"/></li>';
+					echo '<li class="account_row"><input id="username" class="account_row_text h6 text-center center-block non_display" value="" placeholder="Write your Username" type="text"/></li>';
 				}
 				
 				if ($logged == 'in') {
 					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your New Password Again" type="password"/></li>';
 				}
 				else {
-					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block" value="" placeholder="Write your Password Again" type="password"/></li>';
+					echo '<li class="account_row"><input id="conf_password" class="account_row_text h6 text-center center-block non_display" value="" placeholder="Write your Password Again" type="password"/></li>';
 				}
 					
 				if ($logged == 'out') {
@@ -988,96 +988,107 @@ mysqli_close($mysqli);
 					});
 	        	});
 	        	
-	        	$("#register_button").click(function(){
+	        	$("#register_button").click(function(e){
 	        		  		
-	        				
-					var username = $("#username").val();
-	        		var email = $("#email").val();
-	        		
-	        		var original_password = $("#password").val();
-	        		
-	        		var password = regformhash(username,email,original_password,$("#conf_password").val());
-	        		
-	        		if(password != false)
+	        		if($("#username").hasClass("non_display"))
 	        		{
-	        			$("#alert_modal_header").text("");
-						$("#alert_modal_text").text("Attempting to Register...");
-						$("#alert_messages_modal").modal("show");
+	        			$("#username").removeClass("non_display");
+	        			$("#conf_password").removeClass("non_display");
 	        			
-	        			$.ajax({  
-						    type: "POST",  
-						    url: "includes/register.inc.php",  
-						    data: { 'email':email,
-						    'username':username,
-						    'password':password},    
-						    success: function(data){ 
-						   						       						       
-						       if(data.indexOf("REGISTRATION SUCCESS!")>-1)
-						       {
-						       		var hash = data.split("#")[1];
-						       						       	
-									
-									$.ajax({  
-									    type: "POST",  
-									    url: "includes/send_confirmation_email.php", 
-									    data: { 'email':email,
-									    'username':username,
-									    'password':original_password,
-									    'hash':hash,
-									    'resend':'false'},
-									    success: function(temp_data){ 
-									       
-											//$("#alert_messages_modal").modal("hide");
-											
-											if(temp_data.indexOf("SENT CONFIRMATION EMAIL")>-1)
-											{
-								
-												$("#alert_modal_header").text("SUCCESFULLY REGISTERED!");
-												$("#alert_modal_text").html("Your account has been made, please verify it by clicking the activation link that has been sent to your email.");
-	
-											}
-											else
-											{
-												$("#alert_modal_header").text("ERROR!");
-												$("#alert_modal_text").html("Your account has been made, however we couldn't send an email to verify your account. Please make sure your email is written in the proper field and press Resend Confirmation Email.");
-	
-												//alert("Couldn't send your email!");
-											}
-											
-											
-											
-									    },
-									    error: function(temp_data) {
-											
-											$("#alert_modal_header").text("DELIVERY ERROR!");
-											$("#alert_modal_text").html("Your account has been made, however we couldn't send an email to verify your account. Please make sure your email is written in the proper field and press Resend Confirmation Email.");
-	
-									    }
-									});
-		
-						       		//location.reload();
-						       }
-						       else if(data == "REGISTRATION FAILED: INSERT!")
-						       {
-						       		$("#alert_modal_header").text("REGISTRATION FAILED!");
-									$("#alert_modal_text").html("Seems like this Email already exists in our database. Try a different one or make sure your email is written in the proper field and press Resend Password");
-						       }
-						       else
-						       {
-						       		$("#alert_modal_header").text("REGISTRATION FAILED!");
-									$("#alert_modal_text").html(data);
-						       }
-								//$("#alert_messages_modal").modal("hide");
-								//location.reload();
-								
-						    },
-						    error: function() {
-								$("#alert_modal_header").text("REGISTRATION FAILED!");
-								$("#alert_modal_text").html(data);
-						    }
-						});
+	        			e.stopPropagation();
 	        		}
+	        		else
+	        		{
 	        		
+	        				
+						var username = $("#username").val();
+		        		var email = $("#email").val();
+		        		
+		        		var original_password = $("#password").val();
+		        		
+		        		var password = regformhash(username,email,original_password,$("#conf_password").val());
+		        		
+		        		if(password != false)
+		        		{
+		        			$("#alert_modal_header").text("");
+							$("#alert_modal_text").text("Attempting to Register...");
+							$("#alert_messages_modal").modal("show");
+		        			
+		        			$.ajax({  
+							    type: "POST",  
+							    url: "includes/register.inc.php",  
+							    data: { 'email':email,
+							    'username':username,
+							    'password':password},    
+							    success: function(data){ 
+							   						       						       
+							       if(data.indexOf("REGISTRATION SUCCESS!")>-1)
+							       {
+							       		var hash = data.split("#")[1];
+							       						       	
+										
+										$.ajax({  
+										    type: "POST",  
+										    url: "includes/send_confirmation_email.php", 
+										    data: { 'email':email,
+										    'username':username,
+										    'password':original_password,
+										    'hash':hash,
+										    'resend':'false'},
+										    success: function(temp_data){ 
+										       
+												//$("#alert_messages_modal").modal("hide");
+												
+												if(temp_data.indexOf("SENT CONFIRMATION EMAIL")>-1)
+												{
+									
+													$("#alert_modal_header").text("SUCCESFULLY REGISTERED!");
+													$("#alert_modal_text").html("Your account has been made, please verify it by clicking the activation link that has been sent to your email.");
+		
+												}
+												else
+												{
+													$("#alert_modal_header").text("ERROR!");
+													$("#alert_modal_text").html("Your account has been made, however we couldn't send an email to verify your account. Please make sure your email is written in the proper field and press Resend Confirmation Email.");
+		
+													//alert("Couldn't send your email!");
+												}
+												
+												
+												
+										    },
+										    error: function(temp_data) {
+												
+												$("#alert_modal_header").text("DELIVERY ERROR!");
+												$("#alert_modal_text").html("Your account has been made, however we couldn't send an email to verify your account. Please make sure your email is written in the proper field and press Resend Confirmation Email.");
+		
+										    }
+										});
+			
+							       		//location.reload();
+							       }
+							       else if(data == "REGISTRATION FAILED: INSERT!")
+							       {
+							       		$("#alert_modal_header").text("REGISTRATION FAILED!");
+										$("#alert_modal_text").html("Seems like this Email already exists in our database. Try a different one or make sure your email is written in the proper field and press Resend Password");
+							       }
+							       else
+							       {
+							       		$("#alert_modal_header").text("REGISTRATION FAILED!");
+										$("#alert_modal_text").html(data);
+							       }
+									//$("#alert_messages_modal").modal("hide");
+									//location.reload();
+									
+							    },
+							    error: function() {
+									$("#alert_modal_header").text("REGISTRATION FAILED!");
+									$("#alert_modal_text").html(data);
+							    }
+							});
+		        		}
+	        			
+	        		}
 	        		
 	        	});
 	        	
@@ -2626,7 +2637,6 @@ mysqli_close($mysqli);
     			var s = '';
     			s += '<style id="print-style-tag" media="print">#game_title_text {color: ';
     			s += desired_title_color+' !important;}';
-    			//s += '.drawLine { background-color: '+gameColorLines+'; }';
     			s += '.drawLine {background-color: '+gameColorLines+' !important; }';
     			s += '</style>';
     			
