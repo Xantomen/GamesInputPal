@@ -711,6 +711,8 @@ mysqli_close($mysqli);
 				
 				s += 'Registered Users can:'
 				s += '<br><br>';
+				s += "- Export to PNG for use inside games and websites";
+				s += '<br>';
 				s += "- Get credit for the templates you created";
 				s += '<br>';
 				s += "- Overwrite your saved templates";
