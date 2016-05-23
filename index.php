@@ -123,6 +123,11 @@ mysqli_close($mysqli);
 			  <button title="Print Options" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			  <div id="print_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul class="dropdown-menu">
+			  	<li class="print_row h6 text-center">
+			    	Please note, when Printing, <br> activate the Background graphics check <br> 
+			    	in Advanced Options, and uncheck <br>  Headers and footers for optimal results.
+			    </li>
+			    <li class="divider"></li>
 			    <li class="print_row">
 			    	<?php
 			    	if($logged == 'in') {
@@ -130,7 +135,7 @@ mysqli_close($mysqli);
 			    		echo '<label id="author_checkbox_label" for="author_checkbox"> Include Template Author Name? (If available, has to be a saved template) </label>';
 			    	}?>
 			    </li>
-			   	<li class="print_row"><div title="Or press Enter" id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
+			   	<li class="print_row"><div id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
 			  </ul>
 			</div>
 
@@ -161,60 +166,60 @@ mysqli_close($mysqli);
 			  <button title="About" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			  <div id="about_button_image"></div><span class="caret button_arrow"></span></button>
 			  <ul id="about_list" class="dropdown-menu">
-			  	<li id="about_row" class="h6 text-center">
+			  	<li class="about_row h6 text-center">
 			    	Built by:
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Xantomen Nemot
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	@xantomen
 			    </li>
 			    <li class="divider"></li>
-			  	<li id="about_row" class="h6 text-center">
+			  	<li class="about_row h6 text-center">
 			    	Using the Template Design by:
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Lorenzo Pilia
 			    </li>
 			    <li class="divider"></li>
-			  	<li id="about_row" class="h6 text-center">
+			  	<li class="about_row h6 text-center">
 			    	SVG Graphics Credits:
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Xbox360 Icon by Mark Davis ; The Noun Project
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Playstation4 Icon by Regan Warner ; The Noun Project
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Keyboard & Mouse Icon by Sherrinford ; The Noun Project
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Save Icon by Matt Wilson ; The Noun Project
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Print Icon by Musaplated ; The Noun Project
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Info Icon by Alex Auda Samora ; The Noun Project
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Lock Icon by Edward Boatman ; The Noun Project
 			    </li>
 			    <li class="divider"></li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Also utilizing PHPMailer and phpSecureLogin
 			    </li>
 			    <li class="divider"></li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Operating under GNU General Public License v3.0
 			    </li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	Visit the Public Repo <a style="color:blue" href="https://github.com/Xantomen/GamesInputPal">on Github</a>
 			    </li>
 			    <li class="divider"></li>
-			    <li id="about_row" class="h6 text-center">
+			    <li class="about_row h6 text-center">
 			    	I reserve the rights to use, alter and distribute  <br> the game/controller data, input maps, <br>
 			    	and any other content generated <br> by the use of this app. <br> (Not private personal data (emails)).
 			    </li>
@@ -2710,7 +2715,7 @@ mysqli_close($mysqli);
 			  			  
 			  	if(e.which == 13)
 			  	{
-			  		$("#print_button").click();
+			  		//$("#print_button").click();
 			  		
 
 			  	}
