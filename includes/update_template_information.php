@@ -113,6 +113,9 @@
 				
 				
 			}	
+			else {
+				echo "TEMPLATE OWNED BY A DIFFERENT USER";
+			}
 			
 			$result = mysqli_query($mysqli,$sql);
 			
@@ -129,7 +132,7 @@
 		}
 		else {
 				
-			echo "TEMPLATE OWNED BY A DIFFERENT USER";
+			echo "USER NOT LOGGED IN";
 		}
 		
 		

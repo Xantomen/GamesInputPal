@@ -729,6 +729,39 @@ input[type=number]::-webkit-outer-spin-button {
 			 	
 			 		background-image: url("../../res/img/closed_lock.svg");
 			 }
+			 
+	#random_game_button {
+		
+		position:relative;
+				
+		display:inline-block;
+				
+		float:left;
+		
+		margin-left:1px;
+		
+		white-space:nowrap;
+		
+	}
+	
+		#random_game_icon {
+			
+		    background-image: url("../../res/img/random_game_icon.svg");
+		    background-position: center center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+		    position: relative;
+		    top: 1px;
+		    display: inline-block;
+		    font-style: normal;
+		    font-weight: 400;
+		    line-height: 1;
+		    -webkit-font-smoothing: antialiased;
+		    width: 32px;
+		    height: 20px;
+		}
+	
+		
 
 #headers {
 	position:relative;

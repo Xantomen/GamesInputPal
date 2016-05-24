@@ -138,6 +138,11 @@ mysqli_close($mysqli);
 			   	<li class="print_row"><div id="print_button" class="btn btn-primary center-block">Print/Export Now!</div></li>
 			  	<?php
 		    	if($logged == 'in') {
+		    		echo '<li class="divider"></li>';
+		    		echo '<li class="print_row h6 text-center">
+			    	You must allow the pop-ups for this page when prompted <br> 
+			    	in order to receive your .PNG file.</li>';
+			    
 		    		echo '<li class="export_png_row"><div id="export_png_button" class="btn btn-primary center-block">Export as .PNG Image</div></li>';
 		    	}?>
 			  </ul>
@@ -165,7 +170,7 @@ mysqli_close($mysqli);
 		        ?> 
 			  </ul>
 			</div>
-  				  		
+  			  		
 	  		<div id="about_dropdown" class="dropdown">
 			  <button title="About" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 			  <div id="about_button_image"></div><span class="caret button_arrow"></span></button>
@@ -211,9 +216,12 @@ mysqli_close($mysqli);
 			    <li class="about_row h6 text-center">
 			    	Lock Icon by Edward Boatman ; The Noun Project
 			    </li>
+			    <li class="about_row h6 text-center">
+			    	Die Icon by Mister Pixel ; The Noun Project
+			    </li>
 			    <li class="divider"></li>
 			    <li class="about_row h6 text-center">
-			    	Also utilizing PHPMailer and phpSecureLogin
+			    	Also utilizing PHPMailer, phpSecureLogin, html2canvas
 			    </li>
 			    <li class="divider"></li>
 			    <li class="about_row h6 text-center">
@@ -288,6 +296,11 @@ mysqli_close($mysqli);
 				echo '</ul>';
 				echo '</div>';	
 	        ?> 
+	        <button id="random_game_button" title="Show a Random Game" class="btn btn-primary" type="button">
+			  <div id="random_game_icon"></div></button>
+			  
+			  
+			
 
 		</div>
   		<div id="container_top" class="center-block">
@@ -690,7 +703,7 @@ mysqli_close($mysqli);
 			
 			if(!isLoggedIn)
 			{
-				var s = 'Games Input Pal is a toolbelt that helps you share game controls schemes with others.';
+				var s = 'Games Input Pal is a tool that helps you share game controls schemes with others.';
 				s += '<br>';
 				s += 'Indie Festivals, local play events or at home with your friends, your scheme printout will avoid that you have to actively explain the controls to every single participant.';
 				s += '<br><br>';
@@ -707,6 +720,8 @@ mysqli_close($mysqli);
 				s += '-Print or Export any template to PDF';
 				s += '<br>';
 				s += '-Share templates by an unique URL';
+				s += '-Discover new games with the Random Template button';
+				s += '<br>';
 				s += '<br><br>';
 				
 				s += 'Registered Users can:'
@@ -2599,6 +2614,7 @@ mysqli_close($mysqli);
 		        });
 			}
 					
+				
 			function drawLineFunction(drawLine,x1,y1,x2,y2)
 			{
 				
@@ -2752,7 +2768,7 @@ mysqli_close($mysqli);
 				
 				prepareContainerToPrint();
 				
-		  		html2canvas($("#container_all"),{
+		  		/*html2canvas($("#container_all"),{
 				   onrendered: function (canvas) {
 				   	
 				   	//document.body.appendChild(canvas);
@@ -2769,11 +2785,11 @@ mysqli_close($mysqli);
 				    }
 				    
 				  }
-				 });
+				 });*/
 		  		
 		  		//$('#print-style-tag').remove();
 		  		
-		  		setTimeout(returnContainerToScreenValues, 3000);
+		  		setTimeout(returnContainerToScreenValues, 6000);
 			});
 			
 			$( window ).keypress(function( e) {
@@ -3040,6 +3056,48 @@ mysqli_close($mysqli);
 					}
 								
 				});
+				
+				$("#random_game_button").click(function(){
+					
+						$("#alert_modal_header").text("");
+						$("#alert_modal_text").text("Loading Random Template...");
+						$("#alert_messages_modal").modal("show");
+					
+					  $.ajax({  
+					    type: "POST",  
+					    url: "includes/return_random_template.php",       
+					    success: function(json_data){ // <-- note the parameter here, not in your code
+					       //$('#box2').html(data);
+					       
+					       $("#alert_messages_modal").modal("hide");
+					       
+					       
+					       if(json_data.indexOf("TEMPLATE NOT FOUND") == -1)
+							{
+					       
+								onLoadInitiateNewController(json_data);
+								
+								
+							}
+							else
+							{
+																
+								$("#alert_modal_header").text("ERROR");
+								$("#alert_modal_text").html("Couldn't find or load any Template! Sorry!");
+							
+							}
+					    
+					       //onLoadEmbedValuesAndLines(json_data);
+					       
+					    },
+					    error: function() {
+					    	
+							
+					       $("#alert_messages_modal").modal("hide");
+					    }
+					});
+					
+				});	
 			}
 			
 			////General utility functions
